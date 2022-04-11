@@ -1,8 +1,12 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
+import SearchBar from "./components/SearchBar";
+import Category from "./components/Category";
+import Gps from "./components/Gps";
+import NavBar from "./components/NavBar";
 
 function App() {
+
   const [home ,setHome] = useState();
 
   const myClick = async () => {
@@ -15,7 +19,11 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={myClick}>botton</button>
+    <NavBar />
+    <SearchBar />
+    <Category />
+    <Gps />
+      <button onClick={myClick}>button</button>
     <p>{home}</p>
     </div>
   );
