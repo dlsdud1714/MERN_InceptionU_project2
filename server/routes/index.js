@@ -30,4 +30,6 @@ router.get("/categories/:name/:business", function (req, res, next) {
   res.send("business");
 });
 
+
 module.exports = router;
+``
