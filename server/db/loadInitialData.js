@@ -14,6 +14,7 @@ const {
   addAllCategory,
   findAllLocalBusiness,
 } = require("./models/localBusinessModel.js");
+const { model } = require("./mongoose");
 
 
 const collectionName = [
@@ -45,7 +46,7 @@ const saveToMongoDB = () => {
     createLocalBusiness(name, dataArray[i]);
   }
 };
-saveToMongoDB();
+//saveToMongoDB();
 
 const addCategoriesToMongoDB = () => {
   collectionName.map((collection) => {

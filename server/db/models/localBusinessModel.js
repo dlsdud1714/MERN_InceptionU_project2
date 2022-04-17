@@ -3,7 +3,7 @@ const mongoose = require("../mongoose");
 const { Schema, model } = mongoose;
 
 const localBusinessSchema = new Schema({
-  //headCategory: String,
+  headCategory: String,
   placeUrl: { type: String, unique: true },
   title: String,
   rating: Number,
