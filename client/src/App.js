@@ -1,31 +1,36 @@
 import "./App.css";
-import { useState } from "react";
-import SearchBar from "./components/SearchBar";
-import Category from "./components/Category";
-import Gps from "./components/Gps";
-import NavBar from "./components/NavBar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Main from "./components/Pages/Main";
+import List from "./components/Pages/List";
+import BusinessDetails from "./components/Pages/BusinessDetails";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [businesses, setBusinesses] = useState([]);
 
-  const [home ,setHome] = useState();
-
-  const myClick = async () => {
-    let response = await fetch("/home");
-    let res = await response.json();
-    console.log(response);
-    console.log(res);
-    setHome(res.Home);
+  const getBusinesses = async () => {
+    try{
+    const response = await fetch("/data");
+    const data = await response.json();
+    return setBusinesses(data);
+    }catch (ex){
+      console.log(ex)
+    }
   };
 
+  useEffect( ()=>{getBusinesses()}, []);
+
   return (
-    <div className="App">
-    <NavBar />
-    <SearchBar />
-    <Category />
-    <Gps />
-      <button onClick={myClick}>button</button>
-    <p>{home}</p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/home" element={<Main allData={businesses}/>} />
+        <Route path="/categories/:name" element={<List />} />
+        <Route
+          path="/categories/:name/:business"
+          element={<BusinessDetails />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
