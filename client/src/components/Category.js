@@ -2,8 +2,7 @@ import React from "react";
 import categories from "../data/categoryNames.json";
 
 const Category = () => {
-  console.log(categories);
-
+  // console.log(categories);
   return (
     <div>
       <h1>Category:</h1>
