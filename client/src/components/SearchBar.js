@@ -29,7 +29,9 @@ const SearchBar = () => {
       />
       {auto
         .filter((value) => {
-          if (value.title.toLowerCase().includes(searchTerm.toLowerCase()))
+          if (searchTerm == "")
+            return 
+          else if (value.title.toLowerCase().includes(searchTerm.toLowerCase()))
             return value;
         })
         .map((val) => {
