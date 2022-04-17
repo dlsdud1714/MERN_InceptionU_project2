@@ -1,12 +1,13 @@
 var express = require("express");
 var router = express.Router();
-const {data, findAllLocalBusiness, findCafe } = require('../db/models/localBusinessModel')
+const { findAllLocalBusiness } = require('../db/models/localBusinessModel')
+const findAllBusinessTofetch =require('../db/loadInitialData')
 
 router.get("/", async (req,res)=>{
     try{
-        const businessCategories = await findCafe();
-        console.log("data", data);
-        res.send(businessCategories)
+        const response = await findAllBusinessTofetch();
+        
+        res.send(response)
         
     }catch(err){
         

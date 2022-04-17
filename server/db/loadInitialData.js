@@ -55,3 +55,12 @@ const addCategoriesToMongoDB = () => {
   });
 };
 //addCategoriesToMongoDB();
+
+const findAllBusinessTofetch = async() =>{
+  const colletion = modelingBusinesses("localbusiness");
+  const response= await findAllLocalBusiness(colletion);
+  return response
+
+}
+
+module.exports= findAllBusinessTofetch
