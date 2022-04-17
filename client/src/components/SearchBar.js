@@ -15,11 +15,6 @@ let auto = [
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
-
-  // auto.filter((val) => {
-  //   if (val.title.toLowerCase().includes(searchTerm.toLowerCase)) return val;
-  // });
-
   return (
     <div className="SearchBar">
       <input
@@ -40,5 +35,9 @@ const SearchBar = () => {
     </div>
   );
 };
+
+// use .filter() to filter data 
+// then .map() to render the renaming entries in the array
+// used useState to set and rerender the page when the searchTerm is updated
 
 export default SearchBar;
