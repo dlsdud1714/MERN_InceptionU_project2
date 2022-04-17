@@ -11,36 +11,46 @@ const initialDataRestaurant = require("./data/Restaurant.json");
 const {
   createLocalBusiness,
   modelingBusinesses,
+  addAllCategory,
+  findAllLocalBusiness,
 } = require("./models/localBusinessModel.js");
 
-function SaveToMongoDB() {
-  const collectionName = [
-    "auto",
-    "coffeeshop",
-    "beauty",
-    "clothing",
-    "fastfood",
-    "groceries",
-    "pets",
-    "recreation",
-    "restaurant",
-  ];
-  const dataArray = [
-    initialDataAuto,
-    initialDataCafe,
-    initialDataBeauty,
-    initialDataClothing,
-    initialDataFastFood,
-    initialDataGroceries,
-    initialDataPets,
-    initialDataPets,
-    initialDataRecreation,
-    initialDataRestaurant,
-  ];
 
+const collectionName = [
+  "auto",
+  "coffeeshop",
+  "beauty",
+  "clothing",
+  "fastfood",
+  "groceries",
+  "pets",
+  "recreation",
+  "restaurant",
+];
+const dataArray = [
+  initialDataAuto,
+  initialDataCafe,
+  initialDataBeauty,
+  initialDataClothing,
+  initialDataFastFood,
+  initialDataGroceries,
+  initialDataPets,
+  initialDataRecreation,
+  initialDataRestaurant,
+];
+
+const saveToMongoDB = () => {
   for (let i = 0; i < collectionName.length; i++) {
     const name = modelingBusinesses(collectionName[i]);
     createLocalBusiness(name, dataArray[i]);
   }
-}
-SaveToMongoDB();
+};
+saveToMongoDB();
+
+const addCategoriesToMongoDB = () => {
+  collectionName.map((collection) => {
+    const name = modelingBusinesses(collection);
+    addAllCategory(name, collection);
+  });
+};
+//addCategoriesToMongoDB();
