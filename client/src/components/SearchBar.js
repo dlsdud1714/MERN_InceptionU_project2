@@ -1,5 +1,6 @@
 import React from "react";
-import { useState } from "react";
+import { useState } from "react"
+import autoData from "../data/auto.json"
 
 let auto = [
   {
@@ -22,7 +23,7 @@ const SearchBar = () => {
         placeholder="Search"
         onChange={(event) => setSearchTerm(event.target.value)}
       />
-      {auto
+      {autoData
         .filter((value) => {
           if (searchTerm == "")
             return 

@@ -22,7 +22,7 @@ function App() {
     <div className="App">
       <Main/>
     {/* <NavBar />
-    <SearchBar /> */}
+    <SearchBar /> }
     {/* <Category /> */}
     {/* <Gps /> */}
       {/* <button onClick={myClick}>button</button>
