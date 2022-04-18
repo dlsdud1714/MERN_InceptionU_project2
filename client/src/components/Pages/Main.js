@@ -4,13 +4,16 @@ import Category from "../Category";
 import SearchBar from "../SearchBar";
 import '../../test.css'
 import NavBar from "../NavBar";
+import Header from "../Header";
+
 
 const Main = () => {
   const [categoryString, setCategoryString] = useState(categoryNames);
 
   return (
     <div>
-      <NavBar/>
+      <Header />
+      {/* <NavBar/> */}
       <SearchBar/>
       <Category categories={categoryString}/>
   </div>
