@@ -1,11 +1,38 @@
 [
-    {"name":"Auto"},
-    {"name":"Beauty"},
-    {"name":"Cafe"},
-    {"name":"Clothing"},
-    {"name":"Fastfood"},
-    {"name":"Groceries"},
-    {"name":"Pets"},
-    {"name":"Recreation"},
-    {"name":"Restaurant"}
+    {
+        "name":"Auto Service",
+         "icon": "fa-solid fa-car"
+    },
+    {
+        "name":"Beauty",
+        "icon": "fa-solid fa-scissors"
+    },
+    {
+        "name":"Cafe",
+        "icon":"fa-solid fa-mug-hot"
+    },
+    {
+        "name":"Clothing",
+        "icon": "fa-solid fa-shirt"
+    },
+    {
+        "name":"Fastfood",
+        "icon": "fa-solid fa-burger"
+    },
+    {
+        "name":"Groceries",
+        "icon": "fa-solid fa-basket-shopping"
+    },
+    {
+        "name":"Pets",
+        "icon": "fa-solid fa-dog"
+    },
+    {
+        "name":"Recreation",
+        "icon": "fa-solid fa-person-snowboarding"
+    },
+    {
+        "name":"Restaurant",
+        "icon": "fa-solid fa-utensils"
+    }
 ]
