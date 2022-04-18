@@ -4,6 +4,7 @@ import SearchBar from "./components/SearchBar";
 import Category from "./components/Category";
 import Gps from "./components/Gps";
 import NavBar from "./components/NavBar";
+import Main from "./components/Pages/Main";
 
 function App() {
 
@@ -19,12 +20,13 @@ function App() {
 
   return (
     <div className="App">
-    <NavBar />
-    <SearchBar />
-    <Category />
-    <Gps />
-      <button onClick={myClick}>button</button>
-    <p>{home}</p>
+      <Main/>
+    {/* <NavBar />
+    <SearchBar /> */}
+    {/* <Category /> */}
+    {/* <Gps /> */}
+      {/* <button onClick={myClick}>button</button>
+    <p>{home}</p> */}
     </div>
   );
 }
