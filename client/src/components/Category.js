@@ -1,14 +1,28 @@
 import React from "react";
-import categories from "../data/categoryNames.json";
 
-const Category = () => {
-  console.log(categories);
+const Category = (props) => {
+  const { categories } = props;
+
+
+
+
+  const listGenerator = () => {
+    return categories.map((category, index) => {
+      return (
+        <button className="category" key={`category ${index}`}>
+          <i className={category.icon}></i>
+          <span>{category.name}</span>
+        </button>
+      );
+    });
+  };
 
   return (
-    <div>
-      <h1>Category:</h1>
-      {categories.map((item)=>{return <h1>{item.name}</h1>})}
-      
+    <div className="categories">
+      <div>Category</div>
+      <div className="categoryContainer">
+      {listGenerator()}
+      </div>
     </div>
   );
 };
