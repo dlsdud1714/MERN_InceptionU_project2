@@ -12,7 +12,7 @@
     {
         "name":"Cafe",
         "icon":"fa-solid fa-mug-hot",
-        "headCategory": "caffeeshop"
+        "headCategory": "coffeeshop"
     },
     {
         "name":"Clothing",
@@ -37,7 +37,7 @@
     {
         "name":"Recreation",
         "icon": "fa-solid fa-person-snowboarding",
-        "headcategory": "recreation"
+        "headCategory": "recreation"
     },
     {
         "name":"Restaurant",

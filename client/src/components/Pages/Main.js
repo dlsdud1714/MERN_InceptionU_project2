@@ -8,7 +8,6 @@ import '../../test.css'
 
 const Main = (props) => {
   const {allData} = props;
-  console.log(allData);
   const [categoryString, setCategoryString] = useState(categoryNames);
   //  const [home ,setHome] = useState();
 
