@@ -22,21 +22,24 @@ const SearchBar = () => {
         placeholder="Search"
         onChange={(event) => setSearchTerm(event.target.value)}
       />
-      {auto
-        .filter((value) => {
-          if (searchTerm == "")
-            return 
-          else if (value.title.toLowerCase().includes(searchTerm.toLowerCase()))
-            return value;
-        })
-        .map((val) => {
-          return <div> {val.title} </div>;
-        })}
+      <div className="searchDropBox">
+        {auto
+          .filter((value) => {
+            if (searchTerm == "") return;
+            else if (
+              value.title.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+              return value;
+          })
+          .map((val) => {
+            return <div> {val.title} </div>;
+          })}
+      </div>
     </div>
   );
 };
 
-// use .filter() to filter data 
+// use .filter() to filter data
 // then .map() to render the renaming entries in the array
 // used useState to set and rerender the page when the searchTerm is updated
 

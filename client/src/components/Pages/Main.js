@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
+import categoryNames from "../../data/categoryNames.json"
 import Category from '../Category';
 import Gps from '../Gps';
 import NavBar from '../NavBar';
 import SearchBar from '../SearchBar';
+import '../../test.css'
 
 const Main = (props) => {
-  const {allData} = props
-  console.log(allData)
-   const [home ,setHome] = useState();
+  const {allData} = props;
+  console.log(allData);
+  const [categoryString, setCategoryString] = useState(categoryNames);
+  //  const [home ,setHome] = useState();
 
   // const myClick = async () => {
   //   let response = await fetch("/home");
@@ -21,7 +24,7 @@ const Main = (props) => {
     <div className="main">
     <NavBar />
     <SearchBar />
-    <Category />
+    <Category categories={categoryString}/>
     <Gps />
       {/* <button onClick={myClick}>button</button>
     <p>{home}</p> */}
