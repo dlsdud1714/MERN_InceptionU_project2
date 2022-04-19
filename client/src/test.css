@@ -2,12 +2,20 @@
 *{
     margin: 0;
     padding: 0;
+    
+}
+body #root .App .main{
+    height: 100vh;
 }
 
+.main{
+    width: 100%;
+}
 .categories{
     margin: 5rem 5rem;
     display: flex;
     flex-direction: column;
+    height: 160px;
 }
 .categories .categoryContainer{
     display: flex;
@@ -31,4 +39,41 @@
 .categories .categoryContainer span{
     display: block;
     width: 6rem;
+}
+
+/*footer*/
+.footer{
+    position: relative;
+    width: 100%;
+    height: 240px;
+    bottom: 0;
+   
+}
+
+.footer--container{
+    position: absolute;
+    bottom:0;
+    display: flex;
+}
+/* footer backgroud */
+.custom-shape-divider-bottom-1650331665 {
+    
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1650331665 svg {
+    
+    display: block;
+    width: calc(300% + 1.3px);
+    height: 240px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1650331665 .shape-fill {
+    fill: #DC3545D9;
 }
