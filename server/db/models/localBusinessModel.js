@@ -53,3 +53,12 @@ module.exports = {
   findAllLocalBusiness,
   addAllCategory,
 };
+  // autoBusinesses,
+  // cafeBusinesses,
+  // beautyBusinesses,
+  // clothingBusinesses,
+  // fastFoodBusinesses,
+  // groceriesBusinesses,
+  // petsBusinesses,
+  // recreationBusinesses,
+  // restaurantBusinesses,
