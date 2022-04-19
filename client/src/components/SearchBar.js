@@ -1,5 +1,6 @@
 import React from "react";
-import { useState } from "react";
+import { useState } from "react"
+import autoData from "../data/auto.json"
 
 let auto = [
   {
@@ -22,19 +23,16 @@ const SearchBar = () => {
         placeholder="Search"
         onChange={(event) => setSearchTerm(event.target.value)}
       />
-      <div className="searchDropBox">
-        {auto
-          .filter((value) => {
-            if (searchTerm == "") return;
-            else if (
-              value.title.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-              return value;
-          })
-          .map((val) => {
-            return <div> {val.title} </div>;
-          })}
-      </div>
+      {autoData
+        .filter((value) => {
+          if (searchTerm == "")
+            return 
+          else if (value.title.toLowerCase().includes(searchTerm.toLowerCase()))
+            return value;
+        })
+        .map((val) => {
+          return <div> {val.title} </div>;
+        })}
     </div>
   );
 };
