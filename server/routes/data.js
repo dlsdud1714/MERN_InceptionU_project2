@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 const {data, findAllLocalBusiness, localBusinesses } = require('../db/models/localBusinessModel')
 
-
 router.get("/", async (req,res)=>{
     try{
         
