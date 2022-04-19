@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Header } from "../Header";
+import Header from "../Header";
 import { useParams } from "react-router-dom";
 
 const List = (props) => {
@@ -18,9 +18,9 @@ const List = (props) => {
 
   return (
     <div>
+      <Header />
       <p>List</p>
       {dataInCategory && dataInCategory.map((data)=><p key={data.title}>{data.title + data.address}</p>)}
-      <Header />
     </div>
   );
 };

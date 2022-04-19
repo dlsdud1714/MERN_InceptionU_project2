@@ -1,10 +1,10 @@
 import React from 'react'
-import { Header } from '../Header'
+import Header  from '../Header'
 
 const BusinessDetails = () => {
   return (
     <div>
-        <Header/>
+        <Header />
         </div>
   )
 }
