@@ -34,7 +34,7 @@ const localBusinessSchema = new Schema({
 // const petsBusinesses = mongoose.model("pets", localBusinessSchema);
 // const recreationBusinesses = mongoose.model("recreation", localBusinessSchema);
 // const restaurantBusinesses = mongoose.model("restaurant", localBusinessSchema);
-const localBusinesses = mongoose.model("businesses", localBusinessSchema);
+const localBusinesses = mongoose.model("business", localBusinessSchema);
 
 const createLocalBusiness = async (data, name) => {
   const newLocalBusiness = await name.create(data);
