@@ -25,9 +25,6 @@ const localBusinessSchema = new Schema({
   headCategory: String
 });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 // const autoBusinesses = mongoose.model("auto", localBusinessSchema);
 // const cafeBusinesses = mongoose.model("coffeshop", localBusinessSchema);
 // const beautyBusinesses = mongoose.model("beauty", localBusinessSchema);
@@ -37,12 +34,7 @@ const localBusinessSchema = new Schema({
 // const petsBusinesses = mongoose.model("pets", localBusinessSchema);
 // const recreationBusinesses = mongoose.model("recreation", localBusinessSchema);
 // const restaurantBusinesses = mongoose.model("restaurant", localBusinessSchema);
-=======
->>>>>>> parent of f89e7d4 (Co-authored-by: InyoungPark <dlsdud1714@users.noreply.github.com>)
-=======
->>>>>>> parent of f89e7d4 (Co-authored-by: InyoungPark <dlsdud1714@users.noreply.github.com>)
-=======
->>>>>>> parent of f89e7d4 (Co-authored-by: InyoungPark <dlsdud1714@users.noreply.github.com>)
+
 const localBusinesses = mongoose.model("businesses", localBusinessSchema);
 
 const createLocalBusiness = async (data, name) => {
@@ -55,19 +47,6 @@ const findAllLocalBusiness = async (name) => {
   const findCategory = await name.find();
   return findCategory;
 };
-
-// const categoryArray = [
-//   autoBusinesses,
-//   cafeBusinesses,
-//   beautyBusinesses,
-//   clothingBusinesses,
-//   fastFoodBusinesses,
-//   restaurantBusinesses,
-//   groceriesBusinesses,
-//   petsBusinesses,
-//   recreationBusinesses,
-// ];
-
 
 
 module.exports = {
