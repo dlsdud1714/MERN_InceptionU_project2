@@ -27,7 +27,7 @@ function App() {
         <Route path="/categories/:name" element={<List allData={businesses} />} />
         <Route
           path="/categories/:name/:business"
-          element={<BusinessDetails />}
+          element={<BusinessDetails allData={businesses}/>}
         />
       </Routes>
     </BrowserRouter>

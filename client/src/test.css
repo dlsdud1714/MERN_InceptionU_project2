@@ -78,3 +78,32 @@ body #root .App .main{
 .custom-shape-divider-bottom-1650331665 .shape-fill {
     fill: #DC3545D9;
 }
+
+/*ad note*/
+
+.businessAdNote{
+    width: 90%;
+    height: 60vh;
+    min-height: 500px;
+    margin: 10px auto;
+    border: 0.5px solid lightgrey;
+}
+.split{
+    display:flex;
+    height: 100%;
+  }
+  .sideBar{
+    height: 100%;
+  }
+  .gutter {
+    background-color: #eee;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    width: 3px;
+  }
+  .gutter.gutter-horizontal{
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+  }
+  .gutter.gutter-horizontal:hover{
+    cursor: col-resize;
+  }
