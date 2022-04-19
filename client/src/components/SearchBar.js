@@ -1,20 +1,13 @@
+
 import React from "react";
 import { useState } from "react"
 import autoData from "../data/auto.json"
 
-let auto = [
-  {
-    title: "Parkdale Auto Service",
-  },
-  {
-    title: "Compu-Care Auto Service",
-  },
-  {
-    title: "Northeast Automotive Service & Repair",
-  },
-];
 
-const SearchBar = () => {
+
+const SearchBar = (props) => {
+  
+  console.log(props.businessData)
   const [searchTerm, setSearchTerm] = useState("");
   return (
     <div className="SearchBar">
@@ -23,12 +16,12 @@ const SearchBar = () => {
         placeholder="Search"
         onChange={(event) => setSearchTerm(event.target.value)}
       />
-      {autoData
-        .filter((value) => {
+      {props.businessData&&props.businessData
+        .filter((value, index) => {
           if (searchTerm == "")
-            return 
-          else if (value.title.toLowerCase().includes(searchTerm.toLowerCase()))
-            return value;
+            return false
+          else if (value?.title?.toLowerCase().includes(searchTerm.toLowerCase()))
+            return true
         })
         .map((val) => {
           return <div> {val.title} </div>;

@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar";
 import Category from "./components/Category";
 import Gps from "./components/Gps";
@@ -8,25 +8,25 @@ import Main from "./components/Pages/Main";
 
 function App() {
 
-  const [home ,setHome] = useState();
+  const [businessData, setBusinessData]= useState();
 
-  const myClick = async () => {
-    let response = await fetch("/home");
-    let res = await response.json();
-    console.log(response);
-    console.log(res);
-    setHome(res.Home);
-  };
+  const getBusinessData= async () =>{
+    try{
+      const response = await fetch('/data');
+      const businesses = await response.json()
+      return setBusinessData(businesses);
+    }catch(ex){
+      console.log(ex);
+    }
+  }
 
+  useEffect(()=>{getBusinessData()},[]);
+  console.log(businessData)
   return (
     <div className="App">
-      <Main/>
-    {/* <NavBar />
-    <SearchBar /> }
-    {/* <Category /> */}
-    {/* <Gps /> */}
-      {/* <button onClick={myClick}>button</button>
-    <p>{home}</p> */}
+      <Main businessData={businessData}/>
+    
+   
     </div>
   );
 }
