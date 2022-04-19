@@ -1,6 +1,5 @@
 var express = require("express");
 var router = express.Router();
-const { findAllLocalBusiness } = require('../db/models/localBusinessModel')
 const findAllBusinessTofetch =require('../db/loadInitialData')
 
 router.get("/", async (req,res)=>{

@@ -3,11 +3,11 @@
 // const initialDataCafe = require("./data/cafe.json");
 // const initialDataClothing = require("./data/clothing.json");
 // const initialDataFastFood = require("./data/fastfood.json");
-const initialData = require("./data/localbusinesses.json");
+// const initialData = require("./data/localbusinesses.json");
 // petsBusinesses,
 // recreationBusinesses,
 // restaurantBusinesses} 
-const {createLocalBusiness, localBusinesses} = require("./models/localBusinessModel.js")
+
 
 const {
   createLocalBusiness,
@@ -18,28 +18,28 @@ const {
 const { model } = require("./mongoose");
 
 
-const collectionName = [
-  "auto",
-  "coffeeshop",
-  "beauty",
-  "clothing",
-  "fastfood",
-  "groceries",
-  "pets",
-  "recreation",
-  "restaurant",
-];
-const dataArray = [
-  initialDataAuto,
-  initialDataCafe,
-  initialDataBeauty,
-  initialDataClothing,
-  initialDataFastFood,
-  initialDataGroceries,
-  initialDataPets,
-  initialDataRecreation,
-  initialDataRestaurant,
-];
+// const collectionName = [
+//   "auto",
+//   "coffeeshop",
+//   "beauty",
+//   "clothing",
+//   "fastfood",
+//   "groceries",
+//   "pets",
+//   "recreation",
+//   "restaurant",
+// ];
+// const dataArray = [
+//   initialDataAuto,
+//   initialDataCafe,
+//   initialDataBeauty,
+//   initialDataClothing,
+//   initialDataFastFood,
+//   initialDataGroceries,
+//   initialDataPets,
+//   initialDataRecreation,
+//   initialDataRestaurant,
+// ];
 
 const saveToMongoDB = () => {
   for (let i = 0; i < collectionName.length; i++) {
