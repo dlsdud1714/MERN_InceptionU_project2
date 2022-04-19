@@ -42,15 +42,11 @@ const createLocalBusiness = async (data, name) => {
   return newLocalBusiness;
 };
 
-const findAllLocalBusiness = async (name) => {
-  const findCategory = await name.find();
+const findAllLocalBusiness = async () => {
+  const findCategory = await localBusinesses.find();
   return findCategory;
 };
 
-
-const filterData = async (data) => {
-  data.filter(data.id
-}
 module.exports = {
   createLocalBusiness,
   findAllLocalBusiness,
