@@ -1753,7 +1753,7 @@
   "placeUrl": "https://www.google.ca/maps/place/Garden+Cafe/data=!4m5!3m4!1s0x53716ffbf7c2a55b:0xf8698f09bb6adee6!8m2!3d51.0846473!4d-114.220903",
   "title": "Garden Cafe",
   "rating": null,
-  "reviewCount": null,
+  "reviewCount": 0,
   "category": "Cafe",
   "attributes": "·  Dine-in  ·  Takeout",
   "address": "\"151 Canada Olympic Dr SW #500, Calgary, AB T3H 4E5\"",
@@ -2669,54 +2669,6 @@
   "neighbourhood": "ALTADORE",
   "jobStatus": "Renewal Licensed",
   "jobCreated": "2009/11/06",
-  "__v": 0,
-  "headCategory": "groceries"
-},{
-  "_id": {
-    "$oid": "625ba8647e9a8e151d7e04d9"
-  },
-  "placeUrl": null,
-  "title": null,
-  "rating": null,
-  "reviewCount": null,
-  "category": null,
-  "attributes": null,
-  "address": null,
-  "plusCode": null,
-  "website": null,
-  "phoneNumber": null,
-  "imgUrl": null,
-  "longitude": null,
-  "latitude": null,
-  "quadrant": null,
-  "licenseTypes": null,
-  "neighbourhood": null,
-  "jobStatus": null,
-  "jobCreated": null,
-  "__v": 0,
-  "headCategory": "groceries"
-},{
-  "_id": {
-    "$oid": "625ba8647e9a8e151d7e04da"
-  },
-  "placeUrl": null,
-  "title": null,
-  "rating": null,
-  "reviewCount": null,
-  "category": null,
-  "attributes": null,
-  "address": null,
-  "plusCode": null,
-  "website": null,
-  "phoneNumber": null,
-  "imgUrl": null,
-  "longitude": null,
-  "latitude": null,
-  "quadrant": null,
-  "licenseTypes": null,
-  "neighbourhood": null,
-  "jobStatus": null,
-  "jobCreated": null,
   "__v": 0,
   "headCategory": "groceries"
 },{

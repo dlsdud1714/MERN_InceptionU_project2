@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 require('dotenv').config({path: '../.env'})
 
-const connectionString = 'mongodb://localhost:27017/'
-//"mongodb+srv://dlsdud1714:in2005125mb@localbusiness.ponup.mongodb.net/localBusiness?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://dlsdud1714:in2005125mb@localbusiness.ponup.mongodb.net/localBusiness?retryWrites=true&w=majority"
+
+//'mongodb://localhost:27017/'
 //process.env.MONGODB_URI;
   console.log(process.env)
 mongoose.connect(connectionString, () => {
