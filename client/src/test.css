@@ -78,3 +78,18 @@ body #root .App .main{
     fill: #DC3545D9;
 }
 
+.SearchBar{
+    width: 60%;
+    margin: 5rem auto;
+}
+
+.SearchBar input{
+    width: 100%;
+    height: 2.5rem;
+}
+.searchBar--dropbox{
+    position:absolute;
+    border: 0.5px solid lightgray;
+    width: 60%;
+    background-color: whitesmoke
+}

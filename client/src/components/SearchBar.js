@@ -1,7 +1,7 @@
 
 import React from "react";
-import { useState } from "react"
-import autoData from "../data/auto.json"
+import { useState } from "react";
+import autoData from "../data/auto.json";
 
 
 
@@ -30,7 +30,7 @@ const SearchBar = (props) => {
   );
 };
 
-// use .filter() to filter data 
+// use .filter() to filter data
 // then .map() to render the renaming entries in the array
 // used useState to set and rerender the page when the searchTerm is updated
 

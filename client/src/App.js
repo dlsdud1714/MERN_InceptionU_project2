@@ -5,6 +5,7 @@ import Category from "./components/Category";
 import Gps from "./components/Gps";
 import NavBar from "./components/NavBar";
 import Main from "./components/Pages/Main";
+import {BrowserRouter} from 'react-router-dom';
 
 function App() {
 
