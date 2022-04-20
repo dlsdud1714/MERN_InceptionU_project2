@@ -83,10 +83,11 @@ body #root .App .main{
 
 .businessAdNote{
     width: 90%;
-    height: 60vh;
+    height: 90vh;
     min-height: 500px;
     margin: 10px auto;
     border: 0.5px solid lightgrey;
+    border-radius: 10px;
 }
 .split{
     display:flex;
@@ -94,6 +95,8 @@ body #root .App .main{
   }
   .sideBar{
     height: 100%;
+    display: flex;
+    flex-direction: column;
   }
   .gutter {
     background-color: #eee;
@@ -116,3 +119,31 @@ body #root .App .main{
       flex-direction: column;
   }
   
+  /*editor*/
+  .businessAdNote .sideBar--header{
+      background-color: #DC3545D9;
+      height: 15%;
+      border-radius: 10px 0 0 0 ;
+      display: flex;
+      justify-content: center;
+     align-items: center;
+  }
+
+ .businessAdNote .sideBar--category{
+     display: flex;
+     flex-direction: column;
+     padding-top: 10px;
+ }
+
+ .businessAdNote .sideBar--category p{
+    height: 40px;
+    margin:0;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+ }
+
+ .businessAdNote .sideBar--category .category--list.selected{
+     font-weight: bold;
+ }
+ 

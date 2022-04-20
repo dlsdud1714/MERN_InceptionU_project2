@@ -1,7 +1,7 @@
 import React from 'react'
 
 const BusinessSidebar = (props) => {
-    const {business, setSelectedCategory, categoryList} = props;
+    const {business, setSelectedCategory, categoryList, selectedCategory} = props;
    
 
   return (
@@ -9,7 +9,10 @@ const BusinessSidebar = (props) => {
         
         <div className='sideBar--header'>
             {business && business.title}
-            {categoryList.map((content)=>{return <p key={content} onClick={()=>setSelectedCategory(content)}>{content}</p>})}
+        </div>
+        <div className='sideBar--category'>
+          <p className='category--title'>Categories </p>
+            {categoryList.map((content)=>{return <p className={`category--list ${content===selectedCategory&&"selected"}`} key={content} onClick={()=>setSelectedCategory(content)}>{content}</p>})}
         </div>
     </div>
   )

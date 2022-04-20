@@ -29,9 +29,9 @@ const BusinessAdNote = (props) => {
     setCurrentPostId(()=>newInputs.postId);
   };
 
-  const findCurrentPost = () => {
-    return userinputs.find((userinput)=>userinput.postId===currentPostId)
-  };
+  // const findCurrentPost = () => {
+  //   return userinputs.find((userinput)=>userinput.postId===currentPostId)
+  // };
 
 //setCategory - no duplicated values
   useEffect(()=> {setCategoryList((pre)=>{
@@ -49,6 +49,7 @@ const BusinessAdNote = (props) => {
         <BusinessSidebar
           business={business}
           categoryList={categoryList}
+          selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
         {contentMark ? (

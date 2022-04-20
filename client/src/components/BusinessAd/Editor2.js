@@ -16,9 +16,12 @@ export const Editor = (props) => {
   return (
     <div className="editor">
       <form onSubmit={post}>
-        <input type="text" value={cateNBody.category} onChange={(event)=>setCateNBody((pre)=>{
+        <div className="editor--title">
+        <label htmlFor="title--input">Title: </label>
+        <input className="title--input" type="text" value={cateNBody.category} onChange={(event)=>setCateNBody((pre)=>{
           return {...pre, category:event.target.value}
         })}/>
+        </div>
         <ReactQuill
           theme="snow"
           placeholder="Write something amazing.."
