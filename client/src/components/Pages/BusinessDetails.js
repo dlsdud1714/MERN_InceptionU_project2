@@ -1,10 +1,11 @@
 import React from 'react'
+import BusinessCard from '../BusinessCard'
 import { Header } from '../Header'
 
 const BusinessDetails = () => {
   return (
     <div>
-        <Header/>
+        <BusinessCard/>
         </div>
   )
 }
