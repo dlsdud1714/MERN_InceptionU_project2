@@ -15,7 +15,7 @@ const BusinessAdNote = (props) => {
   const [categoryList, setCategoryList] = useState([]);
   const [currentPostId, setCurrentPostId] = useState('');
 
-   
+   useEffect(()=>console.log("posts", userinputs),[userinputs])
 
   const createPost = (category, body) => {
     const newInputs = {
@@ -36,10 +36,8 @@ const BusinessAdNote = (props) => {
 //setCategory - no duplicated values
   useEffect(()=> {setCategoryList((pre)=>{
     let list =[]
-    console.log("list",list)
      userinputs.map((userinput)=>list.push(userinput.category));
      const deduped = Array.from(new Set(list))
-     console.log(deduped)
      return deduped
   })},[userinputs])
 

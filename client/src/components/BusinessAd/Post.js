@@ -5,9 +5,9 @@ const Post = (props) => {
   const dataInCategory = contents.filter((content)=>content.category===selectedCategory);
 
   return (
-    <div>
+    <div className='posts'>
+      {dataInCategory.map((data)=><div id={data.postId} dangerouslySetInnerHTML={{__html: data.body}} ></div>)}
       <button onClick={()=>{setContentMark(false)}}>POST</button>
-      {dataInCategory.map((data)=><div id={data.postId} >{data.body}</div>)}
     </div>
   )
 }

@@ -17,7 +17,7 @@ export const Editor = (props) => {
     <div className="editor">
       <form onSubmit={post}>
         <div className="editor--title">
-        <label htmlFor="title--input">Title: </label>
+        <label htmlFor="title--input">Category</label>
         <input className="title--input" type="text" value={cateNBody.category} onChange={(event)=>setCateNBody((pre)=>{
           return {...pre, category:event.target.value}
         })}/>

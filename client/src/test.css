@@ -146,4 +146,8 @@ body #root .App .main{
  .businessAdNote .sideBar--category .category--list.selected{
      font-weight: bold;
  }
+
+ .businessAdNote .posts{
+     overflow: scroll;
+ }
  
