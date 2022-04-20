@@ -5,12 +5,12 @@ import Category from "./components/Category";
 import Gps from "./components/Gps";
 import NavBar from "./components/NavBar";
 import Main from "./components/Pages/Main";
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import List from "./components/Pages/List";
+
 
 function App() {
-
   const [businessData, setBusinessData]= useState();
-
   const getBusinessData= async () =>{
     try{
       const response = await fetch('/data');
@@ -24,11 +24,19 @@ function App() {
   useEffect(()=>{getBusinessData()},[]);
   console.log(businessData)
   return (
-    <div className="App">
-      <Main businessData={businessData}/>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/home" element={<Main/>}/>
+      <Route path="/categories/:category" element={<List Data={businessData}/>}/>
+    </Routes>
+
+    </BrowserRouter>
+    // <div className="App">
+      
+    //   <Main businessData={businessData}/>
     
    
-    </div>
+    // </div>
   );
 }
 

@@ -1,12 +1,32 @@
-import React from 'react'
-import { Header } from '../Header'
+import React, { useEffect, useState } from "react";
+import Header from "../Header";
+import {useParams} from 'react-router-dom';
+import BusinessCard from "../BusinessCard";
 
-const List = () => {
+
+
+const List = (props) => {
+  const businessData = props.Data
+  const {category} = useParams()
+  const [filteredData, setFilteredData] = useState()
+  const filterData = () => {
+  if (businessData == null)
+    return 
+  const categoryData = businessData.filter((Data)=>Data.headCategory === category)
+  setFilteredData(categoryData)
+}
+useEffect(()=>{filterData()}, [businessData]) // eslint-disable-line react-hooks/exhaustive-deps
+  console.log(filteredData)
   return (
     <div>
-        <Header/>
+      <Header />
+      <BusinessCard Data={filteredData} />
     </div>
-  )
-}
+  );
+};
 
-export default List
+
+
+
+
+export default List;
