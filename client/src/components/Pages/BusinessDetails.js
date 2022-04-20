@@ -6,7 +6,7 @@ import Details from '../Details'
 
 const BusinessDetails = (props) => {
   const {allData} = props
-  console.log(allData)
+  //console.log(allData)
   const businessId = useParams().business;
   const [selectedBusiness, setSelectedBusiness] = useState();
 
