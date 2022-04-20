@@ -8,14 +8,14 @@ import { nanoid } from "nanoid";
 
 const BusinessAdNote = (props) => {
   const { business } = props;
-  //console.log(business)
+
   const [contentMark, setContentMark] = useState(false);
   const [userinputs, setUserInputs] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categoryList, setCategoryList] = useState([]);
-  //const [currentPostId, setCurrentPostId] = useState('');
-  useEffect(() => console.log("useinputs",userinputs, [userinputs]));
-  // useEffect(() => console.log("categoryList",categoryList, [userinputs]));
+  const [currentPostId, setCurrentPostId] = useState('');
+
+   
 
   const createPost = (category, body) => {
     const newInputs = {
@@ -26,17 +26,29 @@ const BusinessAdNote = (props) => {
       body: body,
     };
     setUserInputs((pre) => [...pre, newInputs]);
-    //setCurrentPostId(()=>newInputs.id);
+    setCurrentPostId(()=>newInputs.postId);
   };
 
-  const findCategory = () => {};
+  const findCurrentPost = () => {
+    return userinputs.find((userinput)=>userinput.postId===currentPostId)
+  };
+
+//setCategory - no duplicated values
+  useEffect(()=> {setCategoryList((pre)=>{
+    let list =[]
+    console.log("list",list)
+     userinputs.map((userinput)=>list.push(userinput.category));
+     const deduped = Array.from(new Set(list))
+     console.log(deduped)
+     return deduped
+  })},[userinputs])
 
   return (
     <div className="businessAdNote">
       <Split sizes={[30, 70]} direction="horizontal" className="split">
         <BusinessSidebar
           business={business}
-          contents={userinputs}
+          categoryList={categoryList}
           setSelectedCategory={setSelectedCategory}
         />
         {contentMark ? (
@@ -47,10 +59,8 @@ const BusinessAdNote = (props) => {
           />
         ) : (
           <Editor
-            contents={userinputs}
             createPost={createPost}
             setContentMark={setContentMark}
-            setCategoryList={setCategoryList}
           />
         )}
       </Split>

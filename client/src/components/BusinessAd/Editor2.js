@@ -3,20 +3,9 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 export const Editor = (props) => {
-  const { createPost, setContentMark, setCategoryList, contents } = props;
+  const { createPost, setContentMark } = props;
   const [cateNBody, setCateNBody] = useState({category:"", body:""});
- 
-  // useEffect(()=> {setCategoryList((pre)=>{
-  //   for(let content of contents){
-  //     if(cateNBody.category!==content.category){
-  //       console.log("1",cateNBody);
-  //       console.log("2",content.category)
-  //       return [...pre,cateNBody.category]
-  //     }
-
-  //   }
-  // }
-  // )},[contents])
+  
 
   function post(event){
     event.preventDefault();
