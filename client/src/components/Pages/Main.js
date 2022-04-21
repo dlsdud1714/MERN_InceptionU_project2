@@ -15,9 +15,9 @@ const Main = (props) => {
   console.log("Main business data is:", businessData)
   return (
     <div className="main">
-      <Header />
+      <Header businessData={businessData}/>
       {/* <NavBar/> */}
-      <SearchBar businessData={businessData}/>
+      {/* <SearchBar businessData={businessData}/> */}
       <Category categories={categoryString}/>
       <Footer/>
   </div>

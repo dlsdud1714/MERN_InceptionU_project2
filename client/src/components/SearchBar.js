@@ -1,7 +1,10 @@
 
+import { Button } from "bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
 import { useState } from "react";
 import {Link} from 'react-router-dom';
+
 
 const SearchBar = (props) => {
   // console.log("props is:", props)
@@ -11,7 +14,7 @@ const SearchBar = (props) => {
     <div className="SearchBar">
       <input
         type="text"
-        placeholder="Search123"
+        placeholder="Search"
         onChange={(event) => setSearchTerm(event.target.value)}
       />
       {props.businessData&&props.businessData
@@ -22,7 +25,11 @@ const SearchBar = (props) => {
             return true
         })
         .map((val) => {
-          return <Link to="/business/:businessId" > {val.title} </Link>;
+          return <Link to= {`/business/${val._id}`}> 
+                    <ul class = "list-group">
+                      <a href={`/business/${val._id}`}> {val.title}</a>
+                    </ul> 
+                 </Link>;
         })}
     </div>
   );
