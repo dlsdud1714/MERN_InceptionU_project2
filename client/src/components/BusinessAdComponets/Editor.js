@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import axios from "axios";
+import React, { useMemo, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -7,6 +8,64 @@ export const Editor = (props) => {
   const [cateNBody, setCateNBody] = useState({category:"", body:""});
   const [newCategoryControl, setNewCategoryControl] = useState(false);
 
+//---quill-----
+const quillRef =  useRef();
+
+const imageHandler = () => {
+  //const quillEditor = this.quillRef.getEditor()
+  const input = document.createElement('input');
+  const formData = new FormData();
+
+
+  input.setAttribute('type', 'file')
+  input.setAttribute('accept', 'image/*')
+  input.click()
+
+  input.onchange = async () => {
+    const file = input.files;
+    if(file!==null){
+      formData.append("img", file[0]);
+    }
+    
+    // for (var key of formData.entries()) {
+		// 	console.log(key[0] + ', ' + key[1])
+		// }
+    try{
+      const result = await axios.post('/data/img',formData);
+      const url = result.data.url;
+      console.log("result",result)
+      console.log("ref",quillRef)
+      const editor = quillRef.current.getEditor();
+      const range = editor.getSelection();
+      editor.insertEmbed(range.index, 'image', url)
+      
+      return {...result, success: true}
+    }catch(err){console.log(err)}
+     
+  }
+}
+
+const modules=useMemo(
+  ()=>({
+  toolbar: {
+    container: [
+      [{ header: [1, 2, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image"],
+      [{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
+      ["clean"],
+    ],
+    handlers: { image: imageHandler },
+  },
+}),[]);
+
+//------end quill=------
   function post(event){
     if(!cateNBody.category){
       alert("type category")
@@ -38,15 +97,16 @@ const checkCategory=(event) =>{
           <option name="category">+ new category</option>
           </select>
 
-        {newCategoryControl&&<input className="title--input" type="text" placeholder="Enter new category..." value={cateNBody.category} maxlength="25" onChange={(event)=>setCateNBody((pre)=>{
+        {newCategoryControl&&<input className="title--input" type="text" placeholder="Enter new category..." value={cateNBody.category} maxLength="25" onChange={(event)=>setCateNBody((pre)=>{
           return {...pre, category:event.target.value}
         })}/>}
         </div>
 
         <ReactQuill
           theme="snow"
+          ref={quillRef}
           placeholder="Write something amazing.."
-          modules={Editor.modules}
+          modules={modules}
           formats={Editor.formats}
           value={cateNBody.body}
           onChange={(content, delta, source, editor) =>
@@ -59,44 +119,7 @@ const checkCategory=(event) =>{
     </div>
   );
 };
-// const imageHandler = () => {
-//   this.quillEditor = this.quillRef.getEditor()
-//   const input = document.createElement('input')
-//   input.setAttribute('type', 'file')
-//   input.setAttribute('accept', 'image/*')
-//   input.click()
-//   input.onchange = async () => {
-//       const file = input.files[0]
-//       const formData = new FormData()
-//       formData.append('quill-image', file)
-//       const res = await uploadFile(formData)
-//       const range = this.quillEditor.getSelection()
-//       const link = res.data[0].url
 
-//       // this part the image is inserted
-//       // by 'image' option below, you just have to put src(link) of img here.
-//       this.quillEditor.insertEmbed(range.index, 'image', link)
-//   }
-// }
-Editor.modules = {
-  toolbar: {
-    container: [
-      [{ header: [1, 2, false] }],
-      ["bold", "italic", "underline", "strike", "blockquote"],
-      [
-        { list: "ordered" },
-        { list: "bullet" },
-        { indent: "-1" },
-        { indent: "+1" },
-      ],
-      ["link", "image"],
-      [{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
-      ["clean"],
-    ],
-    // handlers: { image: imageHandler },
-  },
-  clipboard: { matchVisual: false },
-};
 
 Editor.formats = [
   //'font',
