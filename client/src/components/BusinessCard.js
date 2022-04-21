@@ -6,12 +6,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const BusinessCard = (props) => {
   const filterData = props.Data 
   console.log(filterData)
+  
   return (
     <div>
+      <CardGroup>
    {filterData&&filterData.map((data) =>
     {
-      return
-      (<CardGroup>
+      return(
       <Card>
       <Card.Img variant="top" src={data.imgUrl} referrerpolicy="no-referrer" />
       <Card.Body>
@@ -25,11 +26,10 @@ const BusinessCard = (props) => {
         <small className="text-muted">Last updated 3 mins ago</small>
       </Card.Footer>
     </Card>
-    </CardGroup>)
+    )
     })
      }
-    
-  
+     </CardGroup>
   {/* <img src={filterData&&filterData[0].imgUrl} referrerpolicy="no-referrer" /> */}
   </div>
   
