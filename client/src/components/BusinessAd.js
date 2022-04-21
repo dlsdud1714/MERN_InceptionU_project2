@@ -60,6 +60,7 @@ const BusinessAd = (props) => {
           <Editor
             createPost={createPost}
             setContentMark={setContentMark}
+            categoryList={categoryList}
           />
         )}
       </Split>

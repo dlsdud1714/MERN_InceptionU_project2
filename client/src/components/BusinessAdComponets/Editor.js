@@ -3,25 +3,46 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 export const Editor = (props) => {
-  const { createPost, setContentMark } = props;
+  const { createPost, setContentMark, categoryList } = props;
   const [cateNBody, setCateNBody] = useState({category:"", body:""});
-  
+  const [newCategoryControl, setNewCategoryControl] = useState(false);
 
   function post(event){
+    if(!cateNBody.category){
+      alert("type category")
+      return 
+    } 
+    
     event.preventDefault();
     createPost(cateNBody.category, cateNBody.body);
     setContentMark(true);
   }
+
+const checkCategory=(event) =>{
+  if(event.target.value==="+ new category"){
+    setNewCategoryControl(true);
+  }else{
+    setNewCategoryControl(false)
+  }
+}
+
 
   return (
     <div className="editor">
       <form onSubmit={post}>
         <div className="editor--title">
         <label htmlFor="title--input">Category</label>
-        <input className="title--input" type="text" value={cateNBody.category} onChange={(event)=>setCateNBody((pre)=>{
+        <select name="category" onChange={checkCategory}>
+          <option name="category">---choose one---</option>
+          {categoryList.map((category)=><option name="category">{category}</option>)}
+          <option name="category">+ new category</option>
+          </select>
+
+        {newCategoryControl&&<input className="title--input" type="text" placeholder="Enter new category..." value={cateNBody.category} maxlength="25" onChange={(event)=>setCateNBody((pre)=>{
           return {...pre, category:event.target.value}
-        })}/>
+        })}/>}
         </div>
+
         <ReactQuill
           theme="snow"
           placeholder="Write something amazing.."

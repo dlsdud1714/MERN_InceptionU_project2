@@ -2,7 +2,7 @@ import React from 'react'
 
 const BusinessSidebar = (props) => {
     const {business, setSelectedCategory, categoryList, selectedCategory} = props;
-   
+   console.log(business)
 
   return (
     <div className='sideBar'>
