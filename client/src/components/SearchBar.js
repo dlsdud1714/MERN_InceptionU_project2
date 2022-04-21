@@ -1,30 +1,28 @@
 
 import React from "react";
 import { useState } from "react";
-import autoData from "../data/auto.json";
-
-
+import {Link} from 'react-router-dom';
 
 const SearchBar = (props) => {
-  
-  console.log(props.businessData)
+  // console.log("props is:", props)
+  // console.log("businessData is:", businessData)
   const [searchTerm, setSearchTerm] = useState("");
   return (
     <div className="SearchBar">
       <input
         type="text"
-        placeholder="Search"
+        placeholder="Search123"
         onChange={(event) => setSearchTerm(event.target.value)}
       />
       {props.businessData&&props.businessData
-        .filter((value, index) => {
+        .filter((value) => {
           if (searchTerm == "")
             return false
           else if (value?.title?.toLowerCase().includes(searchTerm.toLowerCase()))
             return true
         })
         .map((val) => {
-          return <div> {val.title} </div>;
+          return <Link to="/business/:businessId" > {val.title} </Link>;
         })}
     </div>
   );

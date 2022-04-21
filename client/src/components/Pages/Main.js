@@ -10,9 +10,9 @@ import BusinessCard from "../BusinessCard";
 import { Route, Routes } from "react-router-dom";
 
 const Main = (props) => {
-  const{businessData}=props;
+  const {businessData} = props;
   const [categoryString, setCategoryString] = useState(categoryNames);
-
+  console.log("Main business data is:", businessData)
   return (
     <div className="main">
       <Header />

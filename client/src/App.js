@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import Main from "./components/Pages/Main";
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import List from "./components/Pages/List";
 import BusinessDetails from "./components/Pages/BusinessDetails";
 
@@ -23,18 +23,11 @@ function App() {
   return (
     <BrowserRouter>
     <Routes>
-      <Route path="/home" element={<Main/>}/>
+      <Route path="/home" element={<Main businessData={businessData}/>}/>
       <Route path="/categories/:category" element={<List Data={businessData}/>}/>
       <Route path="/business/:businessId" element={<BusinessDetails Data={businessData}/>}/>
     </Routes>
-
     </BrowserRouter>
-    // <div className="App">
-      
-    //   <Main businessData={businessData}/>
-    
-   
-    // </div>
   );
 }
 

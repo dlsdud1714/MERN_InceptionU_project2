@@ -2,7 +2,7 @@ import React from 'react'
 
 const Gps = () => {
   return (
-    <div>Gps</div>
+    <div>GPS</div>
   )
 }
 
