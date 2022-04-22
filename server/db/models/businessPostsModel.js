@@ -6,7 +6,6 @@ const businessPostSchema = new Schema({
     data: {type: Array, default: []}
 })
 
-
 const businessPosts = model("BusinessPost", businessPostSchema )
 
 const createPosts = async(data) =>{
@@ -17,5 +16,8 @@ const findBusinessPosts=async(id)=>{
     const posts = businessPosts.find({businessId:id})
     return posts
 }
-
-module.exports={createPosts, findBusinessPosts}
+const updataBusinessPosts = async(id, data)=>{
+    const posts = businessPosts.updateOne({businessId: id},{$push:{data: data}});
+    return posts
+}
+module.exports={createPosts, findBusinessPosts, updataBusinessPosts};

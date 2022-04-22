@@ -24,7 +24,7 @@ const BusinessAd = (props) => {
       const response = await axios.post("/data/businessPosts", data);
       return console.log("response", response);
     };
-    sendToServer({ businessId: businessData._id, data: userinputs });
+    sendToServer({ businessId: businessData._id, data: userinputs[userinputs.length-1] });
   }, [userinputs]);
 
   useEffect(() => {
@@ -33,15 +33,17 @@ const BusinessAd = (props) => {
         return;
       }
       const res = await axios.get(`/data/businessPosts/${businessData._id}`);
-      console.log("res", res);
+      
+      if(res.data.data[0]){
       const savedBusinessData = await res.data.data[0].data;
-      console.log("savedBusinessData", savedBusinessData);
-      return setUserInputs(savedBusinessData||[]);
+        return setUserInputs(savedBusinessData||[]);
+      }
     }
     getFromServer();
   }, [businessData]);
 
   const createPost = (category, body) => {
+
     const newInputs = {
       title: businessData.title,
       business_id: businessData._id,
@@ -57,6 +59,16 @@ const BusinessAd = (props) => {
     return userinputs.find((userinput) => userinput.postId === currentPostId);
   };
 
+  const updatePost=(postid, newCategory, newBody)=>{
+    setUserInputs((pre)=>{
+      return pre.map((post)=>{
+        if(post.postId=== postid){
+          return {...post,body:newBody,category:newCategory}
+        }else{
+          return post
+        }
+        })})};
+console.log("inputs",userinputs)
   //setCategory - no duplicated values
   useEffect(() => {
     setCategoryList((pre) => {
@@ -91,6 +103,9 @@ const BusinessAd = (props) => {
             createPost={createPost}
             setContentMark={setContentMark}
             categoryList={categoryList}
+            currentPostId={currentPostId}
+            findCurrentPost={findCurrentPost}
+            updatePost={updatePost}
           />
         )}
       </Split>

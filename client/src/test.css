@@ -200,7 +200,13 @@ body #root .App .main{
     overflow: scroll;
     align-self: center; 
     border-radius: 15px;
+    
+}
+.businessAdNote .post--lists div>div{
+    height:100%;
+    width: 100%;
     padding:15px 20px;
+    border: none;
 }
 .businessAdNote div>h1{
     border-bottom: 0.5px solid lightgray;
@@ -210,7 +216,7 @@ body #root .App .main{
     display: none;
 }
 
-.posts button{
+.posts .newPost{
     width: 5rem;
     height: 2rem;
     position:absolute;

@@ -5,8 +5,8 @@ import "react-quill/dist/quill.snow.css";
 
 
 export const Editor = (props) => {
-  const { createPost, setContentMark, categoryList } = props;
-  const [cateNBody, setCateNBody] = useState({ category: "", body: "" });
+  const { createPost, setContentMark, categoryList, currentPostId, findCurrentPost, updatePost } = props;
+  const [cateNBody, setCateNBody] = useState(currentPostId?filterToCurrentCategoryNbody():{ category: "", body: "" });
   const [newCategoryControl, setNewCategoryControl] = useState(false);
 
   //---quill-----
@@ -68,6 +68,14 @@ export const Editor = (props) => {
   );
 
   //------end quill=------
+
+  function filterToCurrentCategoryNbody(){
+    const currentpost= findCurrentPost();
+    console.log("currentpost is",currentpost)
+    return {postId:currentpost.postId, category: currentpost.category, body: currentpost.body}
+  }
+  console.log("current post in editor is", cateNBody);
+
   function post(event) {
     if (!cateNBody.category) {
       alert("type category");
@@ -75,8 +83,13 @@ export const Editor = (props) => {
     }
 
     event.preventDefault();
-    createPost(cateNBody.category, cateNBody.body);
-    setContentMark(true);
+    if(cateNBody.postId){
+      updatePost(cateNBody.postId, cateNBody.category, cateNBody.body)
+      // updatePost=(postid, newCategory, newBody
+    }else{
+      createPost(cateNBody.category, cateNBody.body);
+    }
+      setContentMark(true);
   }
 
   const checkCategory = (event) => {

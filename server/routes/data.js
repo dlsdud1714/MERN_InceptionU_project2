@@ -1,5 +1,5 @@
 var express = require("express");
-const {createPosts, findBusinessPosts} = require('../db/models/businessPostsModel')
+const {createPosts, findBusinessPosts, updataBusinessPosts} = require('../db/models/businessPostsModel')
 const uploadImg = require("../controller/dataController")
 
 var router = express.Router();
@@ -30,7 +30,11 @@ router.post("/img",uploadImg.single('img') ,(req, res) => {
 router.post("/businessPosts", async(req,res)=>{
     try{
         console.log("response", req.body)
-        await createPosts(req.body)
+          const update = await updataBusinessPosts(req.body.businessId,req.body.data)
+      //  console.log("update", update)
+       if(update.matchedCount===0){
+         await createPosts(req.body);
+       } 
         res.json({status:"success", data: req.body})
     }catch(err){
         console.log(err);
