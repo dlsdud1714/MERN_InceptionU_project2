@@ -68,3 +68,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+TO-DO
+------
+Styling (Searchbar, Navbar, footer) -> having trouble styling (its not changing when I style it ) also need to figure out how to limit the number of matches so it doesnt show too many
+Link dropdown categories to category pages -> also having trouble with linking inside bootstrap -> (returns undefined when clicking in the link)
+Link specific business that show after click on categories to the business details [x]
+Search Page 
+
