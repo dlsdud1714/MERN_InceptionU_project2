@@ -20,7 +20,7 @@ const BusinessDetails = (props) => {
 
   return (
     <div>
-        <Header/>
+        {/* <Header/> */}
         <BusinessAd businessData={selectedBusiness}/>
         <Footer/>
     </div>
