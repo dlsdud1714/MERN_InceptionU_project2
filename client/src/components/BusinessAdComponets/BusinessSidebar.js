@@ -1,8 +1,13 @@
 import React from 'react'
 
 const BusinessSidebar = (props) => {
-    const {business, setSelectedCategory, categoryList, selectedCategory} = props;
-   console.log(business)
+    const {business, setSelectedCategory, categoryList, selectedCategory, setContentMark} = props;
+  // console.log(business)
+
+  const categoryClickHandler=(content)=>{
+    setSelectedCategory(content)
+    setContentMark(true)
+  }
 
   return (
     <div className='sideBar'>
@@ -11,8 +16,8 @@ const BusinessSidebar = (props) => {
             {business && business.title}
         </div>
         <div className='sideBar--category'>
-          <p className='category--title'>Categories </p>
-            {categoryList.map((content)=>{return <p className={`category--list ${content===selectedCategory&&"selected"}`} key={content} onClick={()=>setSelectedCategory(content)}>{content}</p>})}
+          <p className='category--title'>Categories</p>
+            {categoryList.map((content)=>{return <p className={`category--list ${content===selectedCategory&&"selected"}`} key={content} onClick={()=>categoryClickHandler(content)}>{content}</p>})}
         </div>
     </div>
   )

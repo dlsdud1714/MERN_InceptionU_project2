@@ -10,12 +10,23 @@ const BusinessAd = (props) => {
   const { businessData } = props;
 
   const [contentMark, setContentMark] = useState(false);
-  const [userinputs, setUserInputs] = useState([]);
+  const [userinputs, setUserInputs] = useState(getFromlocalDB()||[]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categoryList, setCategoryList] = useState([]);
   const [currentPostId, setCurrentPostId] = useState('');
 
-   useEffect(()=>console.log("posts", userinputs),[userinputs])
+  useEffect(()=>saveTolocalDB(userinputs),[userinputs])
+  
+  function saveTolocalDB(data){
+    const res = JSON.stringify(data);
+    localStorage.setItem("posts",res);
+  }
+
+  function getFromlocalDB(){
+     const res= localStorage.getItem("posts");
+     const data = JSON.parse(res);
+     return data
+  }
 
   const createPost = (category, body) => {
     const newInputs = {
@@ -29,9 +40,12 @@ const BusinessAd = (props) => {
     setCurrentPostId(()=>newInputs.postId);
   };
 
-  // const findCurrentPost = () => {
-  //   return userinputs.find((userinput)=>userinput.postId===currentPostId)
-  // };
+  const findCurrentPost = () => {
+    console.log(currentPostId)
+    return userinputs.find((userinput)=>userinput.postId===currentPostId)
+
+  };
+
 
 //setCategory - no duplicated values
   useEffect(()=> {setCategoryList((pre)=>{
@@ -49,12 +63,15 @@ const BusinessAd = (props) => {
           categoryList={categoryList}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
+          setContentMark={setContentMark}
         />
         {contentMark ? (
           <Post
             contents={userinputs}
             selectedCategory={selectedCategory}
             setContentMark={setContentMark}
+            setCurrentPostId={setCurrentPostId}
+            findCurrentPost={findCurrentPost}
           />
         ) : (
           <Editor

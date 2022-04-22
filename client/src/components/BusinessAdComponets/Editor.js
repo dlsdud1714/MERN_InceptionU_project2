@@ -82,6 +82,7 @@ const checkCategory=(event) =>{
     setNewCategoryControl(true);
   }else{
     setNewCategoryControl(false)
+    setCateNBody((pre)=>{return {...pre, category: event.target.value}});
   }
 }
 
