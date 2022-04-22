@@ -11,7 +11,7 @@ const BusinessAd = (props) => {
   const { businessData } = props;
 
   const [contentMark, setContentMark] = useState(false);
-  const [userinputs, setUserInputs] = useState(getFromlocalDB() || []);
+  const [userinputs, setUserInputs] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categoryList, setCategoryList] = useState([]);
   const [currentPostId, setCurrentPostId] = useState("");

@@ -1,5 +1,5 @@
 var express = require("express");
-const { response } = require("../app");
+const createPosts = require('../db/models/businessPostsModel')
 
 const uploadImg = require("../controller/dataController")
 
@@ -32,6 +32,7 @@ router.post("/img",uploadImg.single('img') ,(req, res) => {
 router.post("/businessPosts", (req,res)=>{
     try{
         console.log("response", req.body)
+        createPosts(req.body)
         res.json({status:"success", data: req.body})
     }catch(err){
         console.log(err);
