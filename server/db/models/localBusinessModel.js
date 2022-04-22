@@ -1,4 +1,3 @@
-const { Collection } = require("../mongoose");
 const mongoose = require("../mongoose");
 
 const { Schema, model } = mongoose;
@@ -25,7 +24,7 @@ const localBusinessSchema = new Schema({
   headCategory: String
 });
 
-const localBusinesses = mongoose.model("businesses", localBusinessSchema);
+const localBusinesses = model("businesses", localBusinessSchema);
 
 const createLocalBusiness = async (data, name) => {
   const newLocalBusiness = await name.create(data);

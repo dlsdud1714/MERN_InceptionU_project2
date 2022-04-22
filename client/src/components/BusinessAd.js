@@ -41,20 +41,6 @@ const BusinessAd = (props) => {
     getFromServer();
   }, [businessData]);
 
-  //---------need to replace
-  // function saveTolocalDB(data) {
-  //   const res = JSON.stringify(data);
-  //   localStorage.setItem("posts", res);
-  // }
-
-  // function getFromlocalDB() {
-  //   const res = localStorage.getItem("posts");
-  //   const data = JSON.parse(res);
-  //   return data;
-  // }
-  ///--------
-  //console.log("userinputs", userinputs);
-
   const createPost = (category, body) => {
     const newInputs = {
       title: businessData.title,

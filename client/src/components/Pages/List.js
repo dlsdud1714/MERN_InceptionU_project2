@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Header from "../Header";
 import {useParams} from 'react-router-dom';
 import BusinessCard from "../BusinessCard";
-import Footer from "../Footer"
 
 
 
