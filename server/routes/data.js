@@ -1,11 +1,9 @@
 var express = require("express");
-const createPosts = require('../db/models/businessPostsModel')
-
+const {createPosts, findBusinessPosts} = require('../db/models/businessPostsModel')
 const uploadImg = require("../controller/dataController")
 
 var router = express.Router();
 const {
-  data,
   findAllLocalBusiness,
   localBusinesses,
 } = require("../db/models/localBusinessModel");
@@ -29,14 +27,25 @@ router.post("/img",uploadImg.single('img') ,(req, res) => {
   }
 });
 
-router.post("/businessPosts", (req,res)=>{
+router.post("/businessPosts", async(req,res)=>{
     try{
         console.log("response", req.body)
-        createPosts(req.body)
+        await createPosts(req.body)
         res.json({status:"success", data: req.body})
     }catch(err){
         console.log(err);
     }
+});
+
+router.get("/businessPosts/:id", async(req,res)=>{
+    try{
+        const id= req.params.id;
+        const businessData = await findBusinessPosts(id);
+        res.json({status:"success", data: businessData})
+    }catch(err){
+        console.log(err)
+    }
 })
+
 
 module.exports = router;

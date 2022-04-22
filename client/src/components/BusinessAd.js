@@ -15,33 +15,43 @@ const BusinessAd = (props) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categoryList, setCategoryList] = useState([]);
   const [currentPostId, setCurrentPostId] = useState("");
-  useEffect(
-    () => {
-      console.log("businessdata",businessData)
-      if(!businessData){
-        return}
-        console.log("inside of userEffect")
-      sendToServer({ businessId: businessData._id, data: userinputs })
-    },
-    [userinputs]
-  );
+  
+  useEffect(() => {
+    if (!businessData) {
+      return;
+    }
+    const sendToServer = async (data) => {
+      const response = await axios.post("/data/businessPosts", data);
+      return console.log("response", response);
+    };
+    sendToServer({ businessId: businessData._id, data: userinputs });
+  }, [userinputs]);
 
-  const sendToServer = async (data) => {
-    const response = await axios.post("/data/businessPosts", data);
-    return console.log("response",response);
-  };
+  useEffect(() => {
+    async function getFromServer() {
+      if (!businessData) {
+        return;
+      }
+      const res = await axios.get(`/data/businessPosts/${businessData._id}`);
+      console.log("res", res);
+      const savedBusinessData = await res.data.data[0].data;
+      console.log("savedBusinessData", savedBusinessData);
+      return setUserInputs(savedBusinessData||[]);
+    }
+    getFromServer();
+  }, [businessData]);
 
   //---------need to replace
-  function saveTolocalDB(data) {
-    const res = JSON.stringify(data);
-    localStorage.setItem("posts", res);
-  }
+  // function saveTolocalDB(data) {
+  //   const res = JSON.stringify(data);
+  //   localStorage.setItem("posts", res);
+  // }
 
-  function getFromlocalDB() {
-    const res = localStorage.getItem("posts");
-    const data = JSON.parse(res);
-    return data;
-  }
+  // function getFromlocalDB() {
+  //   const res = localStorage.getItem("posts");
+  //   const data = JSON.parse(res);
+  //   return data;
+  // }
   ///--------
   //console.log("userinputs", userinputs);
 
@@ -65,7 +75,8 @@ const BusinessAd = (props) => {
   useEffect(() => {
     setCategoryList((pre) => {
       let list = [];
-      userinputs.map((userinput) => list.push(userinput.category));
+      userinputs &&
+        userinputs.map((userinput) => list.push(userinput.category));
       const deduped = Array.from(new Set(list));
       return deduped;
     });

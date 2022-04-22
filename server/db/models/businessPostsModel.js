@@ -13,5 +13,9 @@ const createPosts = async(data) =>{
     const posts= businessPosts.create(data);
     return posts;
 }
+const findBusinessPosts=async(id)=>{
+    const posts = businessPosts.find({businessId:id})
+    return posts
+}
 
-module.exports=createPosts
+module.exports={createPosts, findBusinessPosts}
