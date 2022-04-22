@@ -3,9 +3,6 @@ import React from "react";
 const Category = (props) => {
   const { categories } = props;
 
-
-
-
   const listGenerator = () => {
     return categories.map((category, index) => {
       return (

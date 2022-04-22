@@ -228,7 +228,7 @@ body #root .App .main{
     top: 0;
     left:0;
     margin:5rem 5rem;
-    animation: modal-bg-show 0.3s;
+    
 }
 .postModal .post--modal{
     padding:4rem;

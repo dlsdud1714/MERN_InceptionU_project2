@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header  from '../Header'
 import BusinessAd from '../BusinessAd'
 import { useParams } from 'react-router-dom';
+import Footer from '../Footer';
 
 const BusinessDetails = (props) => {
   const businessData = props.Data;
@@ -21,6 +22,7 @@ const BusinessDetails = (props) => {
     <div>
         <Header/>
         <BusinessAd businessData={selectedBusiness}/>
+        <Footer/>
     </div>
   )
 }
