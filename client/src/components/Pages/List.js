@@ -19,10 +19,8 @@ const List = (props) => {
 useEffect(()=>{filterData()}, [businessData]) // eslint-disable-line react-hooks/exhaustive-deps
   console.log(filteredData)
   return (
-    <div>
-      <Header />
+    <div> 
       <BusinessCard Data={filteredData} />
-      <Footer/>
     </div>
   );
 };
