@@ -4,7 +4,6 @@ const path = require('path')
 
 var indexRouter = require('./routes/index');
 const dataRouter = require('./routes/data');
-const req = require('express/lib/request');
 var app = express();
 
 app.use(logger('dev'));

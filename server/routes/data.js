@@ -1,4 +1,5 @@
 var express = require("express");
+const { response } = require("../app");
 
 const uploadImg = require("../controller/dataController")
 
@@ -22,11 +23,19 @@ router.get("/", async (req, res) => {
 router.post("/img",uploadImg.single('img') ,(req, res) => {
   try {
       const IMG_URL = `/img/${req.file.filename}`;
-      console.log(IMG_URL);
     res.json({url:IMG_URL})
   } catch (err) {
     console.log(err);
   }
 });
+
+router.post("/businessPosts", (req,res)=>{
+    try{
+        console.log("response", req.body)
+        res.json({status:"success", data: req.body})
+    }catch(err){
+        console.log(err);
+    }
+})
 
 module.exports = router;
