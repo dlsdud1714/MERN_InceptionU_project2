@@ -4,10 +4,12 @@ import Main from "./components/Pages/Main";
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import List from "./components/Pages/List";
 import BusinessDetails from "./components/Pages/BusinessDetails";
+import Header from "./components/Header";
 
 
 function App() {
   const [businessData, setBusinessData]= useState();
+
   const getBusinessData= async () =>{
     try{
       const response = await fetch('/data');
@@ -22,6 +24,7 @@ function App() {
   //console.log(businessData)
   return (
     <BrowserRouter>
+      <Header businessData={businessData}/>
     <Routes>
       <Route path="/home" element={<Main businessData={businessData}/>}/>
       <Route path="/categories/:category" element={<List Data={businessData}/>}/>

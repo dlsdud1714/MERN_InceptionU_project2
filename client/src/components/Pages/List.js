@@ -20,7 +20,7 @@ useEffect(()=>{filterData()}, [businessData]) // eslint-disable-line react-hooks
   console.log(filteredData)
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <BusinessCard Data={filteredData} />
       <Footer/>
     </div>
