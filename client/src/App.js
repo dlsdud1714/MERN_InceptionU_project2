@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 
 function App() {
   const [businessData, setBusinessData]= useState();
+
   const getBusinessData= async () =>{
     try{
       const response = await fetch('/data');
