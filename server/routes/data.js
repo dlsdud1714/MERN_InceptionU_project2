@@ -30,8 +30,7 @@ router.post("/img",uploadImg.single('img') ,(req, res) => {
 router.post("/businessPosts", async(req,res)=>{
     try{
         console.log("response", req.body)
-          const update = await updataBusinessPosts(req.body.businessId,req.body.data)
-      //  console.log("update", update)
+          const update = await updataBusinessPosts(req.body.businessId,req.body.data.postId,req.body.data)
        if(update.matchedCount===0){
          await createPosts(req.body);
        } 

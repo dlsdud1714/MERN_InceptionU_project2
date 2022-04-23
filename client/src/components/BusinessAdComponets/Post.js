@@ -33,7 +33,7 @@ const editHandler=(data)=>{
         <div className='post--lists'>
       {dataInCategory.map((data)=><div><div id={data.postId} key={data.postId} onClick={()=>postClickHandler(data)} dangerouslySetInnerHTML={{__html: data.body}} ></div><button className='postButton' onClick={()=>{editHandler(data)}}>Edit</button></div>)}
         </div>
-      <button className="newPost" onClick={()=>{setContentMark(false)}}>New</button>
+      <button className="newPost" onClick={()=>{setContentMark(false);setCurrentPostId(undefined)}}>New</button>
         {modalOpen&&<PostModal content={findCurrentDataHTML} closeModal={closeModal}/>}
     </div>
   )

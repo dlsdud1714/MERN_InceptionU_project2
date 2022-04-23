@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Split from "react-split";
 import BusinessSidebar from "./BusinessAdComponets/BusinessSidebar";
 import Editor from "./BusinessAdComponets/Editor";
@@ -17,6 +17,7 @@ const BusinessAd = (props) => {
   const [currentPostId, setCurrentPostId] = useState("");
   
   useEffect(() => {
+    console.log("inside")
     if (!businessData) {
       return;
     }
@@ -24,7 +25,9 @@ const BusinessAd = (props) => {
       const response = await axios.post("/data/businessPosts", data);
       return console.log("response", response);
     };
-    sendToServer({ businessId: businessData._id, data: userinputs[userinputs.length-1] });
+    console.log("input", findCurrentPost())
+    currentPostId?sendToServer({ businessId: businessData._id, data: userinputs[userinputs.findIndex((input)=>input.postId===currentPostId)] }):sendToServer({ businessId: businessData._id, data: userinputs[0] });
+    //console.log("current index", userinputs.findIndex(findCurrentPost()))
   }, [userinputs]);
 
   useEffect(() => {
@@ -55,7 +58,7 @@ const BusinessAd = (props) => {
     setCurrentPostId(() => newInputs.postId);
   };
 
-  const findCurrentPost = () => {
+  function findCurrentPost() {
     return userinputs.find((userinput) => userinput.postId === currentPostId);
   };
 
@@ -106,6 +109,7 @@ console.log("inputs",userinputs)
             currentPostId={currentPostId}
             findCurrentPost={findCurrentPost}
             updatePost={updatePost}
+            
           />
         )}
       </Split>
