@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Split from "react-split";
 import BusinessSidebar from "./BusinessAdComponets/BusinessSidebar";
 import Editor from "./BusinessAdComponets/Editor";
@@ -27,8 +27,8 @@ const BusinessAd = (props) => {
     };
     console.log("input", findCurrentPost())
     currentPostId?sendToServer({ businessId: businessData._id, data: userinputs[userinputs.findIndex((input)=>input.postId===currentPostId)] }):sendToServer({ businessId: businessData._id, data: userinputs[0] });
-    //console.log("current index", userinputs.findIndex(findCurrentPost()))
-  }, [userinputs]);
+  //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userinputs])
 
   useEffect(() => {
     async function getFromServer() {

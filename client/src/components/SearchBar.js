@@ -24,7 +24,7 @@ const SearchBar = (props) => {
   const businessData = props.businessData;
   return (
     <div className="search-bar-dropdown">
-      <input type="text" class="form-control" placeholder="Search" onChange={(event) => setSearchTerm(event.target.value)} />
+      <input type="text" className="form-control" placeholder="Search" onChange={(event) => setSearchTerm(event.target.value)} />
       {businessData &&
         businessData
         .filter((value) => {

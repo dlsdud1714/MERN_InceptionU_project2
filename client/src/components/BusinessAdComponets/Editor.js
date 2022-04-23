@@ -111,7 +111,7 @@ export const Editor = (props) => {
           <select name="category" onChange={checkCategory}>
             <option name="category">---choose one---</option>
             {categoryList.map((category) => (
-              <option name="category">{category}</option>
+              <option name="category" key={`${category}`}>{category}</option>
             ))}
             <option name="category">+ new category</option>
           </select>
