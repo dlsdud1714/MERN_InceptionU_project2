@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PostModal from './PostModal';
 
 const Post = (props) => {
-  const{selectedCategory, contents, setContentMark, setCurrentPostId, findCurrentPost} = props
+  const{selectedCategory, contents, setContentMark, setCurrentPostId, findCurrentPost,setDeleteAction, setCreateAction, setEditAction} = props
 
   const [modalOpen, setModalOpen]= useState(false);
   const dataInCategory = contents.filter((content)=>content.category===selectedCategory);
@@ -27,11 +27,24 @@ const editHandler=(data)=>{
   console.log("CurrentPost id is set to ",data.postId )
   setContentMark(false);
 }
+const deleteHandler=(data)=>{
+  setCurrentPostId(data.postId);
+  setDeleteAction(true);
+  setCreateAction(true);
+  setEditAction(false);
+}
 
   return (
     <div className='posts'>
         <div className='post--lists'>
-      {dataInCategory.map((data)=><div><div id={data.postId} key={data.postId} onClick={()=>postClickHandler(data)} dangerouslySetInnerHTML={{__html: data.body}} ></div><button className='postButton' onClick={()=>{editHandler(data)}}>Edit</button></div>)}
+      {dataInCategory.map((data)=>{
+      return(
+      <div key={`${data.postId}Div`}>
+        <div id={data.postId} key={data.postId} onClick={()=>postClickHandler(data)} dangerouslySetInnerHTML={{__html: data.body}} ></div>
+        <button key={`${data.postId}Edit`} className='editButton' onClick={()=>{editHandler(data)}}>Edit</button>
+        <button className='deleteButton' onClick={()=>{deleteHandler(data)}} key={`${data.postId}Delete`}>Delete</button>
+        </div>)
+      })}
         </div>
       <button className="newPost" onClick={()=>{setContentMark(false);setCurrentPostId(undefined)}}>New</button>
         {modalOpen&&<PostModal content={findCurrentDataHTML} closeModal={closeModal}/>}

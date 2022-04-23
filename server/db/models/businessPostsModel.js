@@ -7,7 +7,7 @@ const businessPostSchema = new Schema({
     {
       title: String,
       business_id: String,
-      postId: { type: String, unique: true },
+      postId: String,
       category: String,
       body: String,
     },
@@ -24,24 +24,36 @@ const findBusinessPosts = async (id) => {
   const posts = await businessPosts.find({ businessId: id });
   return posts;
 };
-const updataBusinessPosts = async (id, postId, data) => {
-  const dataMongo = await businessPosts.find({ businessId: id });
-  const dataArray = await dataMongo[0].data;
-  const updatePartial = dataArray.map(async (ele) => {
-    if (ele.postId === postId) {
-      console.log("inside of condition");
-      const updated = await businessPosts.findOneAndUpdate(
-        { businessId: id, "data.postId": postId },
-        { $set: { "data.$": data } },
-        { new: true }
-      );
-      return updated;
-    }
-  });
-  const IsThereData = dataArray.find((ele) => ele.postId === postId);
-  const posts =async()=> await businessPosts.updateOne({businessId: id},{$push:{data: data}});
-  return IsThereData === undefined?posts():updatePartial
 
+const addBusinessPost = async (id, data) => {
+  const added = await businessPosts.findOneAndUpdate(
+    { businessId: id },
+    { $push: { data: data } }
+  );
+  return added;
+};
+const updateBusinessPosts = async (id, postId, data) => {
+  const updated = await businessPosts.findOneAndUpdate(
+    { businessId: id, "data.postId": postId },
+    { $set: { "data.$": data } },
+    { new: true }
+  );
+  return updated
+  };
+
+
+const deleteBusinessPost = async (id, postId, data) => {
+  const deleted = await businessPosts.findOneAndUpdate(
+    { businessId: id },
+    { $pull: { "data": data } }
+  );
+  return deleted;
 };
 
-module.exports = { createPosts, findBusinessPosts, updataBusinessPosts };
+module.exports = {
+  createPosts,
+  findBusinessPosts,
+  addBusinessPost,
+  updateBusinessPosts,
+  deleteBusinessPost,
+};

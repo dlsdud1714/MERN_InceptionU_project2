@@ -5,7 +5,6 @@ import Editor from "./BusinessAdComponets/Editor";
 import Post from "./BusinessAdComponets/Post";
 import { nanoid } from "nanoid";
 import axios from "axios";
-// import EditorSide from './EditorSide';
 
 const BusinessAd = (props) => {
   const { businessData } = props;
@@ -15,65 +14,27 @@ const BusinessAd = (props) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categoryList, setCategoryList] = useState([]);
   const [currentPostId, setCurrentPostId] = useState("");
-  
-  useEffect(() => {
-    console.log("inside")
-    if (!businessData) {
-      return;
-    }
-    const sendToServer = async (data) => {
-      const response = await axios.post("/data/businessPosts", data);
-      return console.log("response", response);
-    };
-    console.log("input", findCurrentPost())
-    currentPostId?sendToServer({ businessId: businessData._id, data: userinputs[userinputs.findIndex((input)=>input.postId===currentPostId)] }):sendToServer({ businessId: businessData._id, data: userinputs[0] });
-  //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userinputs])
+  const [createAction, setCreateAction] = useState(false);
+  const [editAction, setEditAction] = useState(false);
+  const [deleteAction, setDeleteAction] = useState(false);
+  const [currentPost, setCurrentPost] =useState();
 
-  useEffect(() => {
-    async function getFromServer() {
-      if (!businessData) {
-        return;
-      }
-      const res = await axios.get(`/data/businessPosts/${businessData._id}`);
-      
-      if(res.data.data[0]){
-      const savedBusinessData = await res.data.data[0].data;
-        return setUserInputs(savedBusinessData||[]);
-      }
-    }
-    getFromServer();
-  }, [businessData]);
-
-  const createPost = (category, body) => {
-
+  const createPost = (category, body, postId) => {
     const newInputs = {
       title: businessData.title,
       business_id: businessData._id,
-      postId: nanoid(),
+      postId: postId||nanoid(),
       category: category,
       body: body,
     };
-    setUserInputs((pre) => [...pre, newInputs]);
-    setCurrentPostId(() => newInputs.postId);
+    setCurrentPost(newInputs);
   };
-
+  
   function findCurrentPost() {
     return userinputs.find((userinput) => userinput.postId === currentPostId);
-  };
-
-  const updatePost=(postid, newCategory, newBody)=>{
-    setUserInputs((pre)=>{
-      return pre.map((post)=>{
-        if(post.postId=== postid){
-          return {...post,body:newBody,category:newCategory}
-        }else{
-          return post
-        }
-        })})};
-console.log("inputs",userinputs)
-  //setCategory - no duplicated values
-  useEffect(() => {
+  }
+   //setCategory - no duplicated values
+   useEffect(() => {
     setCategoryList((pre) => {
       let list = [];
       userinputs &&
@@ -82,6 +43,57 @@ console.log("inputs",userinputs)
       return deduped;
     });
   }, [userinputs]);
+
+  useEffect(() => {
+    async function getFromServer() {
+      if (!businessData) {
+        return;
+      }
+      const res = await axios.get(`/data/businessPosts/${businessData._id}`);
+
+      if (res.data.data[0]) {
+        const savedBusinessData = await res.data.data[0].data;
+        return setUserInputs(savedBusinessData || []);
+      }
+    }
+    getFromServer();
+  }, [businessData]);
+
+  //CRUD
+//-----create N delete-------
+  useEffect(() => {
+    const createdPostToServer = () => {
+       const presentPost = findCurrentPost();
+       console.log("create and delete", createAction, deleteAction);
+      const sendToServer = async () => {
+        await axios.post(
+          `/data/businessPosts/${businessData._id}`,
+          {create: createAction, delete: deleteAction, data: deleteAction?presentPost:currentPost}
+        );
+      
+      };
+      sendToServer();
+    };
+    createAction === true && createdPostToServer();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [createAction, deleteAction]);
+//----------update----------
+  useEffect(() => {
+    const editedPostToServer = () => {
+      console.log("currentpost to send(edit)",currentPost)
+      const sendToServer = async () => {
+        await axios.patch(
+          `/data/businessPosts/${businessData._id}`,
+          currentPost
+        );
+      };
+      sendToServer()
+    };
+    editAction === true && editedPostToServer();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editAction]);
+
+  console.log(`editAction is${editAction}, createAction is${createAction}, deleteAtion is${deleteAction}`);
 
   return (
     <div className="businessAdNote">
@@ -100,6 +112,9 @@ console.log("inputs",userinputs)
             setContentMark={setContentMark}
             setCurrentPostId={setCurrentPostId}
             findCurrentPost={findCurrentPost}
+            setCreateAction={setCreateAction}
+            setEditAction={setEditAction}
+            setDeleteAction={setDeleteAction}
           />
         ) : (
           <Editor
@@ -107,9 +122,10 @@ console.log("inputs",userinputs)
             setContentMark={setContentMark}
             categoryList={categoryList}
             currentPostId={currentPostId}
+            setCreateAction={setCreateAction}
+            setEditAction={setEditAction}
             findCurrentPost={findCurrentPost}
-            updatePost={updatePost}
-            
+            setDeleteAction={setDeleteAction}
           />
         )}
       </Split>

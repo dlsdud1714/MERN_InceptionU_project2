@@ -3,10 +3,20 @@ import React, { useMemo, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-
 export const Editor = (props) => {
-  const { createPost, setContentMark, categoryList, currentPostId, findCurrentPost, updatePost } = props;
-  const [cateNBody, setCateNBody] = useState(currentPostId?filterToCurrentCategoryNbody():{ category: "", body: "" });
+  const {
+    createPost,
+    setContentMark,
+    categoryList,
+    currentPostId,
+    findCurrentPost,
+    setCreateAction,
+    setEditAction,
+    setDeleteAction,
+  } = props;
+  const [cateNBody, setCateNBody] = useState(
+    currentPostId ? filterToCurrentCategoryNbody() : { category: "", body: "" }
+  );
   const [newCategoryControl, setNewCategoryControl] = useState(false);
 
   //---quill-----
@@ -26,10 +36,6 @@ export const Editor = (props) => {
       if (file !== null) {
         formData.append("img", file[0]);
       }
-
-      // for (var key of formData.entries()) {
-      // 	console.log(key[0] + ', ' + key[1])
-      // }
       try {
         const result = await axios.post("/data/img", formData);
         const url = result.data.url;
@@ -61,7 +67,6 @@ export const Editor = (props) => {
           ["clean"],
         ],
         handlers: { image: imageHandler },
-        
       },
     }),
     []
@@ -69,10 +74,14 @@ export const Editor = (props) => {
 
   //------end quill=------
 
-  function filterToCurrentCategoryNbody(){
-    const currentpost= findCurrentPost();
-    console.log("currentpost is",currentpost)
-    return {postId:currentpost.postId, category: currentpost.category, body: currentpost.body}
+  function filterToCurrentCategoryNbody() {
+    const currentpost = findCurrentPost();
+    console.log("currentpost is", currentpost);
+    return {
+      postId: currentpost.postId,
+      category: currentpost.category,
+      body: currentpost.body,
+    };
   }
   console.log("current post in editor is", cateNBody);
 
@@ -83,13 +92,20 @@ export const Editor = (props) => {
     }
 
     event.preventDefault();
+   
+    createPost(cateNBody.category, cateNBody.body, cateNBody.postId);
+    setContentMark(true);
+
     if(cateNBody.postId){
-      updatePost(cateNBody.postId, cateNBody.category, cateNBody.body)
-      // updatePost=(postid, newCategory, newBody
+      setEditAction(true)
+      setCreateAction(false);
+      setDeleteAction(false);
+      
     }else{
-      createPost(cateNBody.category, cateNBody.body);
-    }
-      setContentMark(true);
+      setEditAction(false);
+      setCreateAction(true);
+      setDeleteAction(false);
+    } 
   }
 
   const checkCategory = (event) => {
@@ -111,7 +127,9 @@ export const Editor = (props) => {
           <select name="category" onChange={checkCategory}>
             <option name="category">---choose one---</option>
             {categoryList.map((category) => (
-              <option name="category" key={`${category}`}>{category}</option>
+              <option name="category" key={`${category}`}>
+                {category}
+              </option>
             ))}
             <option name="category">+ new category</option>
           </select>

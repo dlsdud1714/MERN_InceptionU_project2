@@ -2,7 +2,9 @@ var express = require("express");
 const {
   createPosts,
   findBusinessPosts,
-  updataBusinessPosts,
+  addBusinessPost,
+  updateBusinessPosts,
+  deleteBusinessPost
 } = require("../db/models/businessPostsModel");
 const uploadImg = require("../controller/dataController");
 
@@ -11,6 +13,7 @@ const {
   findAllLocalBusiness,
   localBusinesses,
 } = require("../db/models/localBusinessModel");
+const { route } = require("express/lib/application");
 
 router.get("/", async (req, res) => {
   try {
@@ -30,21 +33,31 @@ router.post("/img", uploadImg.single("img"), (req, res) => {
   }
 });
 
-router.post("/businessPosts", async (req, res) => {
+//delete and create posts 
+router.post("/businessPosts/:id", async (req, res) => {
   try {
-    console.log("response", req.body);
-    if (await (await findBusinessPosts(req.body.businessId)).length!==0) {
-      console.log("What is ",await findBusinessPosts(req.body.businessId))
-      const update = await updataBusinessPosts(
-        req.body.businessId,
-        req.body.data.postId,
-        req.body.data
-      );
-      console.log("return value", update);
-    } else {
-      await createPosts(req.body);
+    const businessId = req.params.id;
+    //const createAction = req.body.create;
+    const deleteAction = req.body.delete;
+    const dataToCreate = req.body.data;
+    console.log("post response", dataToCreate, deleteAction);
+    let data
+    if(deleteAction===true){
+      console.log("deleteAction is true")
+      const data= await deleteBusinessPost(businessId, dataToCreate.postId, dataToCreate)
+      console.log("data deleted",data)
+    }else{
+      const checkNew = await findBusinessPosts(businessId)
+      if((checkNew).length===0){
+        console.log("data will created")
+        data= await createPosts({businessId:businessId, data: dataToCreate})
+      }else{
+        console.log("data will be added")
+      }
+        data= await addBusinessPost(businessId, dataToCreate)
     }
-    res.json({ status: "success", data: req.body });
+    // console.log("data to send", data)
+    res.json({status: "success", message:"data is"})
   } catch (err) {
     console.log(err);
   }
@@ -59,5 +72,17 @@ router.get("/businessPosts/:id", async (req, res) => {
     console.log(err);
   }
 });
+//update posts
+ router.patch("/businessPosts/:id", async (req,res)=>{
+  try{
+     const id =req.params.id;
+     const dataToUpdate= req.body;
+     console.log("patch response", dataToUpdate, id);
+     const data= await updateBusinessPosts(id, req.body.postId, dataToUpdate)
+     console.log("Updateddata ", data)
+  }catch(err){
+     console.log(err)
+   }
+ })
 
 module.exports = router;
