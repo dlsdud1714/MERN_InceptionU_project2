@@ -8,7 +8,7 @@ const BusinessCard = (props) => {
   console.log(filterData)
   
   return (
-    <div>
+    <div class = "card">
       <CardGroup>
    {filterData&&filterData.map((data) =>
     {
@@ -16,10 +16,9 @@ const BusinessCard = (props) => {
       <Card>
       <Card.Img variant="top" src={data.imgUrl} referrerpolicy="no-referrer" />
       <Card.Body>
-        <Card.Title>{data.title}</Card.Title>
+        <a href={`/business/${data._id}`} class="card-link">{data.title}</a>
         <Card.Text>
-          {data.quadrant
-          }
+          {data.quadrant}
         </Card.Text>
       </Card.Body>
       <Card.Footer>
