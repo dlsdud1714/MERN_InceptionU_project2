@@ -7,6 +7,7 @@ import List from "./components/Pages/List";
 import BusinessDetails from "./components/Pages/BusinessDetails";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Signup from "./components/Signup";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       <Route path="/home" element={<Main businessData={businessData}/>}/>
       <Route path="/categories/:category" element={<List Data={businessData}/>}/>
       <Route path="/business/:businessId" element={<BusinessDetails Data={businessData}/>}/>
+      <Route path="/signup" element={<Signup />}/>
     </Routes>
     <Footer/>
     </BrowserRouter>
