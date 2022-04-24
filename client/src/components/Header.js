@@ -4,13 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from "react-router-dom";
 import SearchBar from './SearchBar'
 
-
-// export const Header = () => {
-//   return (
-//     <div>Header</div>
-//   )
-// }
-
 const Header = (props) => {
   const {businessData} = props; 
   const myStyle = {
