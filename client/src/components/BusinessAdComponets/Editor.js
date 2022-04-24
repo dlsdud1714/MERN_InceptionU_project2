@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useMemo, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import {Button} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const Editor = (props) => {
   const {
@@ -163,7 +165,7 @@ export const Editor = (props) => {
             })
           }
         />
-        <button type="submit">POST</button>
+        <button className="postButton" type="submit">POST</button>
       </form>
     </div>
   );

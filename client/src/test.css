@@ -86,6 +86,7 @@ body #root .App .main{
     margin: 10px auto;
     border: 0.5px solid lightgrey;
     border-radius: 10px;
+    
 }
 .split{
     display:flex;
@@ -95,6 +96,7 @@ body #root .App .main{
     height: 100%;
     display: flex;
     flex-direction: column;
+    background-color: #f5f5f5
   }
   .gutter {
     background-color: #eee;
@@ -111,12 +113,16 @@ body #root .App .main{
   .editor{
       height: 100%;
       width: 100%;
+      background-color: #f5f5f5;
+      overflow: hidden;
   }
   .editor form{
     height: 100% ;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
+
 
   .editor--title{
         border: none;
@@ -136,15 +142,26 @@ body #root .App .main{
   .editor .quill .ql-container{
       border:none
   }
-  form button{
-      
+  form .postButton{
       width: 5rem;
       height: 2rem;
       margin: 0 auto;
-      
+      border-radius: 4px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+      border: none;
+      background-color: #DC3545D9;
+      color: white;
+      position: absolute;
+      right: 10px;
+      top: 5px;
+  }
+  form button:active{
+    box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
   }
   
   /*editor*/
+  
   .businessAdNote .sideBar--header{
       background-color: #DC3545D9;
       height: 15%;
@@ -152,18 +169,24 @@ body #root .App .main{
       display: flex;
       justify-content: center;
      align-items: center;
-     overflow: hidden;
-    white-space: nowrap;
-     text-overflow: ellipsis;
+  box-shadow: 0 4px 6px -6px #222;
+  color: white;
+  font-weight: bold;
+  font-size: large;
+ 
   }
 
  .businessAdNote .sideBar--category{
      display: flex;
      flex-direction: column;
      padding-top: 10px;
+    
  }
-
- .businessAdNote .sideBar--category p{
+ .businessAdNote .sideBar--category .category--title{
+    border-bottom: 1px solid lightgray;
+    box-shadow: 0px 2px 2px rgba(236, 236, 236, 0.489);
+ }
+ .sideBar--category div{
     height: 40px;
     margin:0;
     display: flex;
@@ -172,6 +195,20 @@ body #root .App .main{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+ }
+ .businessAdNote .sideBar--category p {
+    height: 40px;
+    margin:0;
+    display: flex;
+    align-items: center;
+    padding-left: 25px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+ }
+ .businessAdNote .sideBar--category p :hover{
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
  }
 
  .businessAdNote .sideBar--category .category--list.selected{
@@ -184,9 +221,23 @@ body #root .App .main{
      border:0;
      overflow: scroll;
      position: relative;
+     background-color: #f5f5f5
      /* display: flex;
      flex-direction: column; */
      
+ }
+ .businessAdNote .posts button{
+    width: 6rem;
+    border-radius: 4px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+      border: none;
+      background-color: #DC3545D9;
+      color: white
+    
+ }
+ .businessAdNote .posts button:active{
+    box-shadow: inset 5px 5px 10px -3px rgba(165, 60, 60, 0.967);
  }
 .businessAdNote .post--lists{
     width: 100%;
@@ -198,7 +249,7 @@ body #root .App .main{
     flex-wrap: wrap;
     justify-content: center;
 }
-.businessAdNote .post--lists div{
+.businessAdNote .post--lists .postsContainer{
     border: 1px solid lightgrey;
     max-height: 60rem;
     min-height: 20rem;
@@ -206,13 +257,25 @@ body #root .App .main{
     overflow: scroll;
     align-self: center; 
     border-radius: 15px;
-    
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    position: relative;
 }
-.businessAdNote .post--lists div>div{
-    height:100%;
+.businessAdNote .post--lists .postsContainer div{
+    max-height: 60rem;
+    min-height: 20rem;
     width: 100%;
     padding:15px 20px;
     border: none;
+    overflow: hidden;
+}
+.businessAdNote .post--lists .editButton{
+    margin: 10px;
+    float: right
+}
+.businessAdNote .post--lists .deleteButton{
+    float: right;
+    margin: 10px;
 }
 .businessAdNote div>h1{
     border-bottom: 0.5px solid lightgray;

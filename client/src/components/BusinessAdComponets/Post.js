@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import DeleteModal from './DeleteModal';
 import PostModal from './PostModal';
 
 const Post = (props) => {
   const{selectedCategory, contents, setContentMark, setCurrentPostId, findCurrentPost,setDeleteAction, setCreateAction, setEditAction} = props
 
   const [modalOpen, setModalOpen]= useState(false);
-  const [deleteModalOpen, setdeleteModalOpen]= useState(false);
+
   const dataInCategory = contents.filter((content)=>content.category===selectedCategory);
 
 const postClickHandler=(data)=>{
@@ -48,7 +47,7 @@ const newPostHandler=()=>{
         <div className='post--lists'>
       {dataInCategory.map((data)=>{
       return(
-      <div key={`${data.postId}Div`}>
+      <div className="postsContainer" key={`${data.postId}Div`}>
         <div id={data.postId} key={data.postId} onClick={()=>postClickHandler(data)} dangerouslySetInnerHTML={{__html: data.body}} ></div>
         <button key={`${data.postId}Edit`} className='editButton' onClick={()=>{editHandler(data)}}>Edit</button>
         <button className='deleteButton' onClick={()=>{deleteHandler(data)}} key={`${data.postId}Delete`}>Delete</button>
@@ -56,7 +55,6 @@ const newPostHandler=()=>{
       })}
         </div>
       <button className="newPost" onClick={()=>{newPostHandler()}}>New</button>
-        {/* {deleteModalOpen&&<DeleteModal/>} */}
         {modalOpen&&<PostModal content={findCurrentDataHTML} closeModal={closeModal}/>}
     </div>
   )

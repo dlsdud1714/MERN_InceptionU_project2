@@ -16,7 +16,7 @@ const BusinessSidebar = (props) => {
             {business && business.title}
         </div>
         <div className='sideBar--category'>
-          <p className='category--title'>Categories</p>
+          <div className='category--title'>Categories</div>
             {categoryList.map((content)=>{return <p className={`category--list ${content===selectedCategory&&"selected"}`} key={content} onClick={()=>categoryClickHandler(content)}>{content}</p>})}
         </div>
     </div>
