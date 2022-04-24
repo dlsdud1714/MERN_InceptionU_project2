@@ -13,7 +13,7 @@ const {
   findAllLocalBusiness,
   localBusinesses,
 } = require("../db/models/localBusinessModel");
-const { route } = require("express/lib/application");
+
 
 router.get("/", async (req, res) => {
   try {
@@ -57,7 +57,7 @@ router.post("/businessPosts/:id", async (req, res) => {
         data= await addBusinessPost(businessId, dataToCreate)
     }
     // console.log("data to send", data)
-    res.json({status: "success", message:"data is"})
+    res.json({status: "success", message:"data is up-to-date"})
   } catch (err) {
     console.log(err);
   }
@@ -80,6 +80,7 @@ router.get("/businessPosts/:id", async (req, res) => {
      console.log("patch response", dataToUpdate, id);
      const data= await updateBusinessPosts(id, req.body.postId, dataToUpdate)
      console.log("Updateddata ", data)
+     res.json({ status: "success", message:"data is up-to-date" });
   }catch(err){
      console.log(err)
    }

@@ -4,8 +4,7 @@ import BusinessSidebar from "./BusinessAdComponets/BusinessSidebar";
 import Editor from "./BusinessAdComponets/Editor";
 import Post from "./BusinessAdComponets/Post";
 import { nanoid } from "nanoid";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
 const BusinessAd = (props) => {
   const { businessData } = props;
@@ -19,7 +18,7 @@ const BusinessAd = (props) => {
   const [editAction, setEditAction] = useState(false);
   const [deleteAction, setDeleteAction] = useState(false);
   const [currentPost, setCurrentPost] = useState();
-  const navigate = useNavigate();
+ 
 
   const createPost = (category, body, postId) => {
     const newInputs = {
@@ -55,7 +54,7 @@ const BusinessAd = (props) => {
 
     if (res.data.data[0]) {
       const savedBusinessData = await res.data.data[0].data;
-      console.log("savedBusiness", savedBusinessData);
+      console.log("Getting data from server...", savedBusinessData);
       return setUserInputs(savedBusinessData);
     }
   }
@@ -70,16 +69,19 @@ const BusinessAd = (props) => {
       const presentPost = findCurrentPost();
       console.log("create and delete", createAction, deleteAction);
       const sendToServer = async () => {
-        await axios.post(`/data/businessPosts/${businessData._id}`, {
+        const first= await axios.post(`/data/businessPosts/${businessData._id}`, {
           create: createAction,
           delete: deleteAction,
           data: deleteAction ? presentPost : currentPost,
         });
+        return console.log('first', first);
       };
       await sendToServer();
       getFromServer();
     };
     createAction === true && createdPostToServer();
+    setDeleteAction(false);
+    setCreateAction(false);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [createAction, deleteAction]);
   //----------update----------
@@ -87,21 +89,27 @@ const BusinessAd = (props) => {
     const editedPostToServer = async () => {
       console.log("currentpost to send(edit)", currentPost);
       const sendToServer = async () => {
-        await axios.patch(
+        const second = await axios.patch(
           `/data/businessPosts/${businessData._id}`,
           currentPost
-        );
+          );
+          console.log("waiting update from server")
+        return console.log("second", second)
       };
       await sendToServer();
       getFromServer();
+      console.log("got new inputs from server")
     };
     editAction === true && editedPostToServer();
+    setEditAction(false);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editAction]);
 
+useEffect(()=>{
   console.log(
     `editAction is${editAction}, createAction is${createAction}, deleteAtion is${deleteAction}`
   );
+},[editAction, createAction, deleteAction])
 
   return (
     <div className="businessAdNote">

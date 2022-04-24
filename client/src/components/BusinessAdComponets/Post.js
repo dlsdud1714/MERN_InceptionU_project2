@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import DeleteModal from './DeleteModal';
 import PostModal from './PostModal';
 
 const Post = (props) => {
   const{selectedCategory, contents, setContentMark, setCurrentPostId, findCurrentPost,setDeleteAction, setCreateAction, setEditAction} = props
 
   const [modalOpen, setModalOpen]= useState(false);
+  const [deleteModalOpen, setdeleteModalOpen]= useState(false);
   const dataInCategory = contents.filter((content)=>content.category===selectedCategory);
 
 const postClickHandler=(data)=>{
@@ -33,6 +35,13 @@ const deleteHandler=(data)=>{
   setCreateAction(true);
   setEditAction(false);
 }
+const newPostHandler=()=>{
+  setContentMark(false);
+  setCurrentPostId(undefined);
+  setDeleteAction(false);
+  setCreateAction(false);
+  setEditAction(false);
+}
 
   return (
     <div className='posts'>
@@ -46,7 +55,8 @@ const deleteHandler=(data)=>{
         </div>)
       })}
         </div>
-      <button className="newPost" onClick={()=>{setContentMark(false);setCurrentPostId(undefined)}}>New</button>
+      <button className="newPost" onClick={()=>{newPostHandler()}}>New</button>
+        {/* {deleteModalOpen&&<DeleteModal/>} */}
         {modalOpen&&<PostModal content={findCurrentDataHTML} closeModal={closeModal}/>}
     </div>
   )
