@@ -97,14 +97,14 @@ export const Editor = (props) => {
     setContentMark(true);
 
     if(cateNBody.postId){
-      setEditAction(true)
-      setCreateAction(false);
-      setDeleteAction(false);
+      setEditAction(()=>true)
+      setCreateAction(()=>false);
+      setDeleteAction(()=>false);
       
     }else{
-      setEditAction(false);
-      setCreateAction(true);
-      setDeleteAction(false);
+      setEditAction(()=>false);
+      setCreateAction(()=>true);
+      setDeleteAction(()=>false);
     } 
   }
 

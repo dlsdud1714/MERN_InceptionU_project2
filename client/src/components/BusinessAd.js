@@ -5,6 +5,7 @@ import Editor from "./BusinessAdComponets/Editor";
 import Post from "./BusinessAdComponets/Post";
 import { nanoid } from "nanoid";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BusinessAd = (props) => {
   const { businessData } = props;
@@ -17,83 +18,90 @@ const BusinessAd = (props) => {
   const [createAction, setCreateAction] = useState(false);
   const [editAction, setEditAction] = useState(false);
   const [deleteAction, setDeleteAction] = useState(false);
-  const [currentPost, setCurrentPost] =useState();
+  const [currentPost, setCurrentPost] = useState();
+  const navigate = useNavigate();
 
   const createPost = (category, body, postId) => {
     const newInputs = {
       title: businessData.title,
       business_id: businessData._id,
-      postId: postId||nanoid(),
+      postId: postId || nanoid(),
       category: category,
       body: body,
     };
     setCurrentPost(newInputs);
   };
-  
+
   function findCurrentPost() {
     return userinputs.find((userinput) => userinput.postId === currentPostId);
   }
-   //setCategory - no duplicated values
-   useEffect(() => {
+  //setCategory - no duplicated values
+  useEffect(() => {
     setCategoryList((pre) => {
+      console.log("userinputs", userinputs);
       let list = [];
-      userinputs &&
-        userinputs.map((userinput) => list.push(userinput.category));
+      userinputs.map((userinput) => list.push(userinput.category));
       const deduped = Array.from(new Set(list));
       return deduped;
     });
   }, [userinputs]);
 
-  useEffect(() => {
-    async function getFromServer() {
-      if (!businessData) {
-        return;
-      }
-      const res = await axios.get(`/data/businessPosts/${businessData._id}`);
-
-      if (res.data.data[0]) {
-        const savedBusinessData = await res.data.data[0].data;
-        return setUserInputs(savedBusinessData || []);
-      }
+  
+  async function getFromServer() {
+    if (!businessData) {
+      return;
     }
+    const res = await axios.get(`/data/businessPosts/${businessData._id}`);
+
+    if (res.data.data[0]) {
+      const savedBusinessData = await res.data.data[0].data;
+      console.log("savedBusiness", savedBusinessData);
+      return setUserInputs(savedBusinessData);
+    }
+  }
+  useEffect(() => {
     getFromServer();
   }, [businessData]);
 
   //CRUD
-//-----create N delete-------
+  //-----create N delete-------
   useEffect(() => {
-    const createdPostToServer = () => {
-       const presentPost = findCurrentPost();
-       console.log("create and delete", createAction, deleteAction);
+    const createdPostToServer = async () => {
+      const presentPost = findCurrentPost();
+      console.log("create and delete", createAction, deleteAction);
       const sendToServer = async () => {
-        await axios.post(
-          `/data/businessPosts/${businessData._id}`,
-          {create: createAction, delete: deleteAction, data: deleteAction?presentPost:currentPost}
-        );
-      
+        await axios.post(`/data/businessPosts/${businessData._id}`, {
+          create: createAction,
+          delete: deleteAction,
+          data: deleteAction ? presentPost : currentPost,
+        });
       };
-      sendToServer();
+      await sendToServer();
+      getFromServer();
     };
     createAction === true && createdPostToServer();
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [createAction, deleteAction]);
-//----------update----------
+  //----------update----------
   useEffect(() => {
-    const editedPostToServer = () => {
-      console.log("currentpost to send(edit)",currentPost)
+    const editedPostToServer = async () => {
+      console.log("currentpost to send(edit)", currentPost);
       const sendToServer = async () => {
         await axios.patch(
           `/data/businessPosts/${businessData._id}`,
           currentPost
         );
       };
-      sendToServer()
+      await sendToServer();
+      getFromServer();
     };
     editAction === true && editedPostToServer();
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editAction]);
 
-  console.log(`editAction is${editAction}, createAction is${createAction}, deleteAtion is${deleteAction}`);
+  console.log(
+    `editAction is${editAction}, createAction is${createAction}, deleteAtion is${deleteAction}`
+  );
 
   return (
     <div className="businessAdNote">
