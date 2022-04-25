@@ -45,28 +45,36 @@ router.post("/businessPosts/:id", async (req, res) => {
     const dataToCreate = req.body.data;
     console.log("post response", req.body);
     //console.log("userId & commentAction", userId, commentAction)
-    let data
-    if(commentAction){
-      console.log("commentAction is true");
-      data= await addCommentBusinessPost(businessId, dataToCreate.postId, dataToCreate)
-    }else if(!commentAction&&type==="client"&&license==="aaaa"){
-    if(deleteAction===true){
-      console.log("deleteAction is true")
-     data= await deleteBusinessPost(businessId, dataToCreate.postId, dataToCreate)
-      
-    }else{
-      const checkNew = await findBusinessPosts(businessId)
-      if((checkNew).length===0){
-        console.log("data will created")
-        data= await createPosts({businessId:businessId, data: dataToCreate})
-      }else{
-        console.log("data will be added")
+    // let data
+    const createNdeletePostNComment =async()=>{
+
+      if(commentAction){
+        console.log("commentAction is true");
+        const data= await addCommentBusinessPost(businessId, dataToCreate.postId, dataToCreate)
+        return data;
+      }else if(!commentAction&&type==="client"&&license==="aaaa"){
+        if(deleteAction===true){
+          console.log("deleteAction is true")
+          const data= await deleteBusinessPost(businessId, dataToCreate.postId, dataToCreate)
+          return data
+        }else{
+          const checkNew = await findBusinessPosts(businessId)
+          if((checkNew).length===0){
+            console.log("data will created")
+            const data= await createPosts({businessId:businessId, data: dataToCreate})
+            
+            return data
+          }else{
+            console.log("data will be added")
+            const data= await addBusinessPost(businessId, dataToCreate)
+            
+            return data
+          }
+        }
       }
-        data= await addBusinessPost(businessId, dataToCreate)
     }
-  }
-    // console.log("data to send", data)
-    res.json({status: "success", message:"data is up-to-date"})
+    
+    res.json({status: "success", data:await createNdeletePostNComment()})
   } catch (err) {
     console.log(err);
   }

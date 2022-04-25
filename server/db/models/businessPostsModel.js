@@ -7,7 +7,7 @@ const businessPostSchema = new Schema({
     {
       title: String,
       business_id: String,
-      postId: String,
+      postId: {type: String, unique:true},
       category: String,
       body: String,
       comment: {type:Array, default:null}
@@ -19,6 +19,7 @@ const businessPosts = model("BusinessPost", businessPostSchema);
 
 const createPosts = async (data) => {
   const posts = await businessPosts.create(data);
+  
   return posts;
 };
 const findBusinessPosts = async (id) => {
