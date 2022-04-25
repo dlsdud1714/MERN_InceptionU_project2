@@ -39,9 +39,15 @@ router.post("/businessPosts/:id", async (req, res) => {
     const businessId = req.params.id;
     //const createAction = req.body.create;
     const deleteAction = req.body.delete;
+    const commentAction = req.body.comment;
+    const {userId, password, type, license}= req.body.userInfo
     const dataToCreate = req.body.data;
-    console.log("post response", dataToCreate, deleteAction);
+    console.log("post response", req.body);
+    //console.log("userId & commentAction", userId, commentAction)
     let data
+    if(commentAction){
+
+    }else if(!commentAction&&type==="client"&&license==="aaaa"){
     if(deleteAction===true){
       console.log("deleteAction is true")
       const data= await deleteBusinessPost(businessId, dataToCreate.postId, dataToCreate)
@@ -56,6 +62,7 @@ router.post("/businessPosts/:id", async (req, res) => {
       }
         data= await addBusinessPost(businessId, dataToCreate)
     }
+  }
     // console.log("data to send", data)
     res.json({status: "success", message:"data is up-to-date"})
   } catch (err) {

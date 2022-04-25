@@ -8,6 +8,8 @@ import axios from "axios"
 
 const BusinessAd = (props) => {
   const { businessData } = props;
+  //This userinfo will be passed in props
+  const userInfo = {userId: "inyoung@yyc.com", password: 1111, type: "client", license:"aaaa"}
 
   const [contentMark, setContentMark] = useState(false);
   const [userinputs, setUserInputs] = useState([]);
@@ -18,7 +20,7 @@ const BusinessAd = (props) => {
   const [editAction, setEditAction] = useState(false);
   const [deleteAction, setDeleteAction] = useState(false);
   const [currentPost, setCurrentPost] = useState();
- 
+ const [commentAction, setCommentAction] = useState(false);
 
   const createPost = (category, body, postId) => {
     const newInputs = {
@@ -72,6 +74,8 @@ const BusinessAd = (props) => {
         const first= await axios.post(`/data/businessPosts/${businessData._id}`, {
           create: createAction,
           delete: deleteAction,
+          userInfo: userInfo,
+          comment: commentAction,
           data: deleteAction ? presentPost : currentPost,
         });
         return console.log('first', first);
@@ -82,6 +86,7 @@ const BusinessAd = (props) => {
     createAction === true && createdPostToServer();
     setDeleteAction(false);
     setCreateAction(false);
+    setCommentAction(false);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [createAction, deleteAction]);
   //----------update----------
