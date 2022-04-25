@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
-import { useAuth } from "../components/contexts/AuthContext";
+//import { useAuth } from "../components/contexts/AuthContext";
 
 
 export default function Signup() {
