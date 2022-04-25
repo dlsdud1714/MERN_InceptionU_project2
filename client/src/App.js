@@ -8,6 +8,7 @@ import BusinessDetails from "./components/Pages/BusinessDetails";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Signup from "./components/Signup";
+import { AuthProvider } from "./components/contexts/AuthContext";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
   //console.log(businessData)
   return (
     <BrowserRouter>
+    <AuthProvider>
     <Header businessData={businessData}/>
     <Routes>
       <Route path="/" element={<Main businessData={businessData}/>}/>
@@ -35,6 +37,7 @@ function App() {
       <Route path="/signup" element={<Signup />}/>
     </Routes>
     <Footer/>
+    </AuthProvider>
     </BrowserRouter>
   );
 }
