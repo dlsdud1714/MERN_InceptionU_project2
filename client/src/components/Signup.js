@@ -1,5 +1,7 @@
 import React, { useRef } from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
+import { useAuth } from "../components/contexts/AuthContext";
+
 
 export default function Signup() {
     const emailRef = useRef()
@@ -10,8 +12,8 @@ export default function Signup() {
     <div>
         <Card>
             <Card.Body>
-                <h2 className = "text-center mb-4"> Sign Up </h2>
-                <Form>
+                <h2 className = "mb-5"> Sign Up </h2>
+                <Form className= " mb-3 w-50">
                     <Form.Group id="email">
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="email" ref={emailRef} required/>        
@@ -22,9 +24,10 @@ export default function Signup() {
                     </Form.Group>
                     <Form.Group id="email">
                         <Form.Label>Password Confirm</Form.Label>
-                        <Form.Control type="passwordConfirm" ref={passwordConfirmRef} required/>        
+                        <Form.Control type="password" ref={passwordConfirmRef} required/>        
                     </Form.Group>
                 </Form>
+                    <Button className="w-20" type="submit"> Submit </Button>
             </Card.Body>
         </Card>
         <div>
