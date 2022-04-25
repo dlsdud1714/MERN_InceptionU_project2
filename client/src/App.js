@@ -28,7 +28,7 @@ function App() {
     <BrowserRouter>
     <Header businessData={businessData}/>
     <Routes>
-      <Route path="/home" element={<Main businessData={businessData}/>}/>
+      <Route path="/" element={<Main businessData={businessData}/>}/>
       <Route path="/categories/:category" element={<List Data={businessData}/>}/>
       <Route path="/business/:businessId" element={<BusinessDetails Data={businessData}/>}/>
     </Routes>
