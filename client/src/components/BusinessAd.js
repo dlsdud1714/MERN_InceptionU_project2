@@ -21,7 +21,7 @@ const BusinessAd = (props) => {
   const [deleteAction, setDeleteAction] = useState(false);
   const [currentPost, setCurrentPost] = useState();
  const [commentAction, setCommentAction] = useState(false);
-
+//useEffect(()=>console.log("current post in ad.js", currentPost),[currentPost]);
   const createPost = (category, body, postId) => {
     const newInputs = {
       title: businessData.title,
@@ -74,8 +74,8 @@ const BusinessAd = (props) => {
         const first= await axios.post(`/data/businessPosts/${businessData._id}`, {
           create: createAction,
           delete: deleteAction,
-          userInfo: userInfo,
           comment: commentAction,
+          userInfo: userInfo,
           data: deleteAction ? presentPost : currentPost,
         });
         return console.log('first', first);
@@ -87,8 +87,9 @@ const BusinessAd = (props) => {
     setDeleteAction(false);
     setCreateAction(false);
     setCommentAction(false);
+    
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [createAction, deleteAction]);
+  }, [createAction, deleteAction, commentAction]);
   //----------update----------
   useEffect(() => {
     const editedPostToServer = async () => {
@@ -136,6 +137,9 @@ useEffect(()=>{
             setCreateAction={setCreateAction}
             setEditAction={setEditAction}
             setDeleteAction={setDeleteAction}
+            setCommentAction={setCommentAction}
+            setCurrentPost={setCurrentPost}
+            userId={userInfo.userId}
           />
         ) : (
           <Editor

@@ -10,6 +10,7 @@ const businessPostSchema = new Schema({
       postId: String,
       category: String,
       body: String,
+      comment: {type:Array, default:null}
     },
   ],
 });
@@ -50,10 +51,19 @@ const deleteBusinessPost = async (id, postId, data) => {
   return deleted;
 };
 
+const addCommentBusinessPost= async(id, postId, data)=>{
+  const updated= await businessPosts.findOneAndUpdate( 
+    {businessId: id, "data.postId": postId},
+    {$set: {"data.$": data}}
+  );
+  return updated
+}
+
 module.exports = {
   createPosts,
   findBusinessPosts,
   addBusinessPost,
   updateBusinessPosts,
   deleteBusinessPost,
+  addCommentBusinessPost
 };

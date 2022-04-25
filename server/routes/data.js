@@ -4,7 +4,8 @@ const {
   findBusinessPosts,
   addBusinessPost,
   updateBusinessPosts,
-  deleteBusinessPost
+  deleteBusinessPost,
+  addCommentBusinessPost
 } = require("../db/models/businessPostsModel");
 const uploadImg = require("../controller/dataController");
 
@@ -46,12 +47,13 @@ router.post("/businessPosts/:id", async (req, res) => {
     //console.log("userId & commentAction", userId, commentAction)
     let data
     if(commentAction){
-
+      console.log("commentAction is true");
+      data= await addCommentBusinessPost(businessId, dataToCreate.postId, dataToCreate)
     }else if(!commentAction&&type==="client"&&license==="aaaa"){
     if(deleteAction===true){
       console.log("deleteAction is true")
-      const data= await deleteBusinessPost(businessId, dataToCreate.postId, dataToCreate)
-      console.log("data deleted",data)
+     data= await deleteBusinessPost(businessId, dataToCreate.postId, dataToCreate)
+      
     }else{
       const checkNew = await findBusinessPosts(businessId)
       if((checkNew).length===0){
