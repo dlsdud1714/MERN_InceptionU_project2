@@ -33,14 +33,14 @@ const Header = (props) => {
               <Nav.Link href="#" disabled> Link </Nav.Link>
               <NavDropdown title="Categories" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="/categories/auto"> Auto Service </NavDropdown.Item>
-                <NavDropdown.Item href="#action4"> Beauty </NavDropdown.Item>
-                <NavDropdown.Item href="#action5"> Cafe </NavDropdown.Item>
-                <NavDropdown.Item href="#action5"> Clothing </NavDropdown.Item>
-                <NavDropdown.Item href="#action5"> Fastfood </NavDropdown.Item>
-                <NavDropdown.Item href="#action5"> Groceries </NavDropdown.Item>
-                <NavDropdown.Item href="#action5"> Pets </NavDropdown.Item>
-                <NavDropdown.Item href="#action5"> Recreation </NavDropdown.Item>
-                <NavDropdown.Item href="#action5"> Restaraunts </NavDropdown.Item>
+                <NavDropdown.Item href="/categories/beauty"> Beauty </NavDropdown.Item>
+                <NavDropdown.Item href="/categories/cafe"> Cafe </NavDropdown.Item>
+                <NavDropdown.Item href="/categories/clothing"> Clothing </NavDropdown.Item>
+                <NavDropdown.Item href="/categories/fastfood"> Fastfood </NavDropdown.Item>
+                <NavDropdown.Item href="/categories/groceries"> Groceries </NavDropdown.Item>
+                <NavDropdown.Item href="/categories/pets"> Pets </NavDropdown.Item>
+                <NavDropdown.Item href="/categories/recreation"> Recreation </NavDropdown.Item>
+                <NavDropdown.Item href="/categories/restaurants"> Restaurants </NavDropdown.Item>
               </NavDropdown>
             </Nav>
               <SearchBar businessData={businessData}/>
