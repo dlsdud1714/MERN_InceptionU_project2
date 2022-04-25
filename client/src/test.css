@@ -173,6 +173,11 @@ body #root .App .main{
   color: white;
   font-weight: bold;
   font-size: large;
+  padding:5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
  
   }
 
@@ -185,13 +190,14 @@ body #root .App .main{
  .businessAdNote .sideBar--category .category--title{
     border-bottom: 1px solid lightgray;
     box-shadow: 0px 2px 2px rgba(236, 236, 236, 0.489);
+    
  }
  .sideBar--category div{
     height: 40px;
     margin:0;
     display: flex;
     align-items: center;
-    padding-left: 10px;
+    margin: 0 15px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -201,11 +207,12 @@ body #root .App .main{
     margin:0;
     display: flex;
     align-items: center;
-    padding-left: 25px;
+    padding-left: 20px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     cursor: pointer;
+    margin:5px 10px 0 10px;
  }
  .businessAdNote .sideBar--category p :hover{
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -213,6 +220,10 @@ body #root .App .main{
 
  .businessAdNote .sideBar--category .category--list.selected{
      font-weight: bold;
+     background-color: rgba(234, 122, 122, 0.965);
+     border-radius: 10px;
+     color:rgb(249, 249, 249);
+     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
  }
 
 /* post */
@@ -227,13 +238,10 @@ body #root .App .main{
      
  }
  .businessAdNote .posts button{
-    width: 6rem;
-    border-radius: 4px;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+    
     cursor: pointer;
       border: none;
-      background-color: #DC3545D9;
-      color: white
+      
     
  }
  .businessAdNote .posts button:active{
@@ -269,13 +277,21 @@ body #root .App .main{
     border: none;
     overflow: hidden;
 }
+.businessAdNote .post--lists button{
+    color:#DC3545D9;
+    background-color: transparent;
+}
 .businessAdNote .post--lists .editButton{
-    margin: 10px;
+    margin: 8px 0px;
     float: right
 }
 .businessAdNote .post--lists .deleteButton{
     float: right;
-    margin: 10px;
+    margin: 8px 20px;
+}
+.businessAdNote .post--lists .commentButton{
+    margin: 8px 20px;
+    float: left;
 }
 .businessAdNote div>h1{
     border-bottom: 0.5px solid lightgray;
@@ -291,6 +307,11 @@ body #root .App .main{
     position:absolute;
     right: 10px;
     top: 10px;
+    width: 6rem;
+    border-radius: 4px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+    background-color: #DC3545D9;
+      color: white
 }
 /*postModal*/
 .postModal{

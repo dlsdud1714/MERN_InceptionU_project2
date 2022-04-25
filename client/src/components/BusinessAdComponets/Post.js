@@ -49,8 +49,9 @@ const newPostHandler=()=>{
       return(
       <div className="postsContainer" key={`${data.postId}Div`}>
         <div id={data.postId} key={data.postId} onClick={()=>postClickHandler(data)} dangerouslySetInnerHTML={{__html: data.body}} ></div>
-        <button key={`${data.postId}Edit`} className='editButton' onClick={()=>{editHandler(data)}}>Edit</button>
-        <button className='deleteButton' onClick={()=>{deleteHandler(data)}} key={`${data.postId}Delete`}>Delete</button>
+        <button className='deleteButton' onClick={()=>{deleteHandler(data)}} key={`${data.postId}Delete`}><i class="fa-solid fa-trash-can"></i></button>
+        <button key={`${data.postId}Edit`} className='editButton' onClick={()=>{editHandler(data)}}><i class="fa-regular fa-pen-to-square"></i></button>
+        <button className='commentButton' key={`${data.postId}Comment`}><i class="fa-regular fa-comment"></i></button>
         </div>)
       })}
         </div>
