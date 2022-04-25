@@ -4,8 +4,12 @@
     padding: 0;
     
 }
-body #root .App .main{
+/* body #root .App .main{
     height: 100vh;
+} */
+#root{
+    display: flex;
+    flex-direction: column;
 }
 
 .main{
@@ -43,17 +47,20 @@ body #root .App .main{
 
 /*footer*/
 .footer{
-    position: relative;
+    /* position: relative; */
     width: 100%;
     height: 240px;
-    bottom: 0;
+    justify-self: flex-end;
+    align-self: flex-end;
+    position: relative;
    
 }
 
 .footer--container{
     position: absolute;
-    bottom:0;
     display: flex;
+    top:7rem;
+    left:5rem;
 }
 /* footer backgroud */
 .custom-shape-divider-bottom-1650331665 {
