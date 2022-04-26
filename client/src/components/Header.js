@@ -20,7 +20,7 @@ const Header = (props) => {
     <div>
       <Navbar bg="danger" expand="lg">
         <Container fluid>
-          <Navbar.Brand href="#">YYCWhatsNearMe?</Navbar.Brand>
+          <Navbar.Brand>YYCWhatsNearMe?</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -52,3 +52,5 @@ const Header = (props) => {
 };
 
 export default Header;
+
+// <Navbar.Brand href="#">YYCWhatsNearMe?</Navbar.Brand> can be used in header if wanting the name of brand to have a link
