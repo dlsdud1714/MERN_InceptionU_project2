@@ -72,8 +72,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 TO-DO
 ------
-Styling (Searchbar, Navbar, footer) -> having trouble styling (its not changing when I style it ) also need to figure out how to limit the number of matches so it doesnt show too many
-Link dropdown categories to category pages -> also having trouble with linking inside bootstrap -> (returns undefined when clicking in the link)
-Link specific business that show after click on categories to the business details [x]
-Search Page 
-
+Searchbar list styling
+Signup/login button in navbar
+Create Login Page
