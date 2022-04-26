@@ -7,7 +7,7 @@ import List from "./components/Pages/List";
 import BusinessDetails from "./components/Pages/BusinessDetails";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Signup from "./components/Signup";
+import Signup from "./components/Pages/Signup";
 import { AuthProvider } from "./components/contexts/AuthContext";
 
 
