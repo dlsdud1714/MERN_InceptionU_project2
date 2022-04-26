@@ -6,7 +6,7 @@ import "../../test.css";
 const Main = (props) => {
   const {businessData} = props;
   const [categoryString, setCategoryString] = useState(categoryNames);
-  console.log("Main business data is:", businessData)
+  // console.log("Main business data is:", businessData)
   return (
     <div className="main">
       {/* <Header businessData={businessData}/> */}

@@ -20,7 +20,7 @@ const Header = (props) => {
     <div>
       <Navbar bg="danger" expand="lg">
         <Container fluid>
-          <Navbar.Brand href="#">YCCWhatsNearMe?</Navbar.Brand>
+          <Navbar.Brand>YYCWhatsNearMe?</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -30,17 +30,17 @@ const Header = (props) => {
             >
               <Nav.Link href="/"> Home </Nav.Link>
               <Nav.Link href="/about"> About </Nav.Link>
-              <Nav.Link href="#" disabled> Link </Nav.Link>
+              {/* <Nav.Link href="#" disabled> Link </Nav.Link> */}
               <NavDropdown title="Categories" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="/categories/auto"> Auto Service </NavDropdown.Item>
                 <NavDropdown.Item href="/categories/beauty"> Beauty </NavDropdown.Item>
-                <NavDropdown.Item href="/categories/cafe"> Cafe </NavDropdown.Item>
+                <NavDropdown.Item href="/categories/coffeeshop"> Cafe </NavDropdown.Item>
                 <NavDropdown.Item href="/categories/clothing"> Clothing </NavDropdown.Item>
                 <NavDropdown.Item href="/categories/fastfood"> Fastfood </NavDropdown.Item>
                 <NavDropdown.Item href="/categories/groceries"> Groceries </NavDropdown.Item>
                 <NavDropdown.Item href="/categories/pets"> Pets </NavDropdown.Item>
                 <NavDropdown.Item href="/categories/recreation"> Recreation </NavDropdown.Item>
-                <NavDropdown.Item href="/categories/restaurants"> Restaurants </NavDropdown.Item>
+                <NavDropdown.Item href="/categories/restaurant"> Restaurants </NavDropdown.Item>
               </NavDropdown>
             </Nav>
               <SearchBar businessData={businessData}/>
@@ -52,3 +52,5 @@ const Header = (props) => {
 };
 
 export default Header;
+
+// <Navbar.Brand href="#">YYCWhatsNearMe?</Navbar.Brand> can be used in header if wanting the name of brand to have a link
