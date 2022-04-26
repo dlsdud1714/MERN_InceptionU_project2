@@ -30,7 +30,7 @@ const Header = (props) => {
             >
               <Nav.Link href="/"> Home </Nav.Link>
               <Nav.Link href="/about"> About </Nav.Link>
-              <Nav.Link href="#" disabled> Link </Nav.Link>
+              {/* <Nav.Link href="#" disabled> Link </Nav.Link> */}
               <NavDropdown title="Categories" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="/categories/auto"> Auto Service </NavDropdown.Item>
                 <NavDropdown.Item href="/categories/beauty"> Beauty </NavDropdown.Item>
