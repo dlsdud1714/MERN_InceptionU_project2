@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { mockComponent } from "react-dom/test-utils";
 import PostModal from "./PostModal";
 
 const Post = (props) => {
@@ -14,11 +15,15 @@ const Post = (props) => {
     setCommentAction,
     setCurrentPost,
     userId,
+    editComments,
   } = props;
+
+
 
   const [modalOpen, setModalOpen] = useState(false);
   const [commentModalOpen, setCommentModalOpen] = useState(false);
   const [comment, setComment] = useState("");
+  const [CurrentCmtIndex, setCurrentCmtIndex] = useState();
   const dataInCategory = contents.filter(
     (content) => content.category === selectedCategory
   );
@@ -69,9 +74,9 @@ const Post = (props) => {
   const commentHandler = (data) => {
     const currentPost = findCurrentPost();
     const currentPostComment = currentPost.comment
-      ? [...currentPost.comment, { userId: userId, content: comment }]
-      : [{ userId: userId, content: comment }];
-    console.log("leaving comment on ", currentPost);
+      ? [...currentPost.comment, { userId: userId, content: comment, createdAt: new Date() }]
+      : [{ userId: userId, content: comment, createdAt: new Date() }];
+    //console.log("leaving comment on ", currentPost);
     console.log("comments ", currentPostComment);
     setCurrentPost(() => {
       return { ...currentPost, comment: currentPostComment };
@@ -84,6 +89,16 @@ const Post = (props) => {
     () => console.log("commentModal", commentModalOpen),
     [commentModalOpen]
   );
+
+const textBoxOpen=(index)=>{
+  const comments = findCurrentPost().comment;
+  const comment = comments[index].content;
+   console.log("comments in text box",comments);
+  setComment(()=>comment);
+  setCurrentCmtIndex(()=>index)
+  setCommentModalOpen(true);
+}
+console.log("present comment type", comment)
   return (
     <div className="posts">
       <div className="post--lists">
@@ -133,15 +148,14 @@ const Post = (props) => {
 
                 {commentModalOpen && (
                   <div className="commentBox">
-                    <input
+                    <textarea
                       className="commentInput"
-                      type="text"
                       placeholder="Type comment here..."
                       value={comment}
                       onChange={updateComment}
                     />
                     <button className="commentSubmit" onClick={commentHandler}>
-                    <i className="fa-regular fa-paper-plane"></i>
+                      <i className="fa-regular fa-paper-plane"></i>
                     </button>
                   </div>
                 )}
@@ -150,13 +164,26 @@ const Post = (props) => {
                     data.comment.map((cmt, index) => (
                       <li key={`commentLi${data + index}`}>
                         <div className="id" key={`commentId${data + index}`}>
-                          {cmt.userId}
+                          <p className="comment--userId" key={`commentUserId${data + index}`}>{cmt.userId}</p>
+                          <p className="comment--date" key={`commentDate${data + index}`}>{new Date(cmt.createdAt).toLocaleDateString()}</p>
                         </div>
                         <div
                           className="commentBody"
                           key={`commentBody${data + index}`}
                         >
-                          {cmt.content}
+                          <p
+                            className="commentText"
+                            key={`commentText${data + index}`}
+                          >
+                            {cmt.content}
+                          </p>
+                          <button
+                            className="commentEdit"
+                            key={`commentEdit${data + index}`}
+                            onClick={()=>textBoxOpen(index)}
+                          >
+                            edit
+                          </button>
                         </div>
                       </li>
                     ))}

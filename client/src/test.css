@@ -274,7 +274,7 @@
     align-self: center; 
     border-radius: 15px;
     box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
+    
     position: relative;
     display: flex;
     flex-direction: row;
@@ -294,6 +294,7 @@
     min-height: 20rem;
     width: 100%;
     padding:15px 20px;
+    cursor: pointer;
 }
 .businessAdNote .post--lists .postContent>img {
     width: 100%;
@@ -311,9 +312,12 @@
     
     
 }
-.businessAdNote .post--lists input{
+.businessAdNote .post--lists .commentInput{
     border: none;
     margin-right: 10px;
+    font-size: 12px;
+    width: 70%;
+    height: 3rem;
 }
 
 .businessAdNote .post--lists .commentArea ul{
@@ -333,10 +337,38 @@
 .businessAdNote .post--lists .commentArea .id{
     font-size: 8.5pt;
     color: rgb(242, 190, 190);
+    display: flex;
+}
+.commentArea .id p{
+    margin:0
+}
+.commentArea .id .comment--date{
+ font-size: 8px;
+ margin-left: auto;
+ align-self: center;
 }
 .businessAdNote .post--lists .commentArea .commentBody{
     font-size: 10pt;
-    color:rgb(74, 67, 65)
+    color:rgb(74, 67, 65);
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.commentArea .commentBody .commentText{
+    min-width: 80%;
+    margin: 3px;
+}
+.commentArea .commentBody .commentEdit{
+    margin-left: auto;
+    min-width: 30px;
+    visibility: hidden;
+    /* overflow: hidden; */
+}
+.commentBody:hover .commentEdit{
+    
+    cursor: pointer;
+    visibility: visible;
 }
 .businessAdNote .post--lists button{
     color:white;

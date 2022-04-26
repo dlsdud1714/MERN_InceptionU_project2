@@ -37,6 +37,12 @@ const BusinessAd = (props) => {
   function findCurrentPost() {
     return userinputs.find((userinput) => userinput.postId === currentPostId);
   }
+
+  function editComments(newCommentArray){
+    return setCurrentPost((pre)=>{
+      return{...pre, comment:newCommentArray}
+    })
+  }
   //setCategory - no duplicated values
   useEffect(() => {
     setCategoryList((pre) => {
@@ -141,6 +147,7 @@ useEffect(()=>{
             setCommentAction={setCommentAction}
             setCurrentPost={setCurrentPost}
             userId={userInfo.userId}
+            editComments={editComments}
           />
         ) : (
           <Editor
