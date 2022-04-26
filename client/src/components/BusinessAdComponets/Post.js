@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { mockComponent } from "react-dom/test-utils";
 import PostModal from "./PostModal";
 
 const Post = (props) => {
@@ -15,10 +14,7 @@ const Post = (props) => {
     setCommentAction,
     setCurrentPost,
     userId,
-    editComments,
   } = props;
-
-
 
   const [modalOpen, setModalOpen] = useState(false);
   const [commentModalOpen, setCommentModalOpen] = useState(false);
@@ -27,7 +23,7 @@ const Post = (props) => {
   const dataInCategory = contents.filter(
     (content) => content.category === selectedCategory
   );
-
+  const [IsNewPost, setIsNewPost] = useState(true);
   const postClickHandler = (data) => {
     setCurrentPostId(data.postId);
     openModal();
@@ -40,7 +36,7 @@ const Post = (props) => {
   };
   const findCurrentDataHTML = () => {
     const currentpost = findCurrentPost();
-    console.log("currentpost", currentpost);
+
     return (
       <div
         className={`post--modal ${currentpost.postId}`}
@@ -50,7 +46,7 @@ const Post = (props) => {
   };
   const editHandler = (data) => {
     setCurrentPostId(data.postId);
-    console.log("CurrentPost id is set to ", data.postId);
+
     setContentMark(false);
   };
   const deleteHandler = (data) => {
@@ -69,36 +65,58 @@ const Post = (props) => {
   const updateComment = (event) => {
     let cmt = event.target.value;
     setComment(() => cmt);
-    console.log("commnet", comment);
   };
+
   const commentHandler = (data) => {
     const currentPost = findCurrentPost();
-    const currentPostComment = currentPost.comment
-      ? [...currentPost.comment, { userId: userId, content: comment, createdAt: new Date() }]
-      : [{ userId: userId, content: comment, createdAt: new Date() }];
-    //console.log("leaving comment on ", currentPost);
-    console.log("comments ", currentPostComment);
+    let currentPostComment = [];
+    if (!IsNewPost) {
+      currentPost.comment.map((ele, index) => {
+        if (index === CurrentCmtIndex) {
+          return currentPostComment.push({
+            userId: userId,
+            content: comment,
+            createdAt: new Date(),
+          });
+        } else {
+          return currentPostComment.push(ele);
+        }
+      });
+    } else {
+      currentPostComment = currentPost.comment
+        ? [
+            ...currentPost.comment,
+            { userId: userId, content: comment, createdAt: new Date() },
+          ]
+        : [{ userId: userId, content: comment, createdAt: new Date() }];
+    }
+
     setCurrentPost(() => {
       return { ...currentPost, comment: currentPostComment };
     });
     setCommentAction(true);
     setCreateAction(true);
+    setIsNewPost(true);
     setComment("");
+    setCommentModalOpen(false);
   };
-  useEffect(
-    () => console.log("commentModal", commentModalOpen),
-    [commentModalOpen]
-  );
+  useEffect(() => {
+    if (!commentModalOpen) {
+      setComment("");
+      setCurrentCmtIndex();
+    }
+  }, [commentModalOpen]);
 
-const textBoxOpen=(index)=>{
-  const comments = findCurrentPost().comment;
-  const comment = comments[index].content;
-   console.log("comments in text box",comments);
-  setComment(()=>comment);
-  setCurrentCmtIndex(()=>index)
-  setCommentModalOpen(true);
-}
-console.log("present comment type", comment)
+  useEffect(() => setCommentModalOpen(false), [modalOpen]);
+  const textBoxOpen = (index, currentPostData) => {
+    const comments = currentPostData.comment;
+    const comment = comments[index].content;
+    setComment(() => comment);
+    setCurrentCmtIndex(() => index);
+    setCommentModalOpen(true);
+    setIsNewPost(false);
+  };
+
   return (
     <div className="posts">
       <div className="post--lists">
@@ -146,7 +164,7 @@ console.log("present comment type", comment)
                   </button>
                 </div>
 
-                {commentModalOpen && (
+                {commentModalOpen && data.postId === findCurrentPost().postId && (
                   <div className="commentBox">
                     <textarea
                       className="commentInput"
@@ -164,8 +182,18 @@ console.log("present comment type", comment)
                     data.comment.map((cmt, index) => (
                       <li key={`commentLi${data + index}`}>
                         <div className="id" key={`commentId${data + index}`}>
-                          <p className="comment--userId" key={`commentUserId${data + index}`}>{cmt.userId}</p>
-                          <p className="comment--date" key={`commentDate${data + index}`}>{new Date(cmt.createdAt).toLocaleDateString()}</p>
+                          <p
+                            className="comment--userId"
+                            key={`commentUserId${data + index}`}
+                          >
+                            {cmt.userId}
+                          </p>
+                          <p
+                            className="comment--date"
+                            key={`commentDate${data + index}`}
+                          >
+                            {new Date(cmt.createdAt).toLocaleDateString()}
+                          </p>
                         </div>
                         <div
                           className="commentBody"
@@ -178,9 +206,13 @@ console.log("present comment type", comment)
                             {cmt.content}
                           </p>
                           <button
-                            className="commentEdit"
+                            className={`${data.postId}`}
                             key={`commentEdit${data + index}`}
-                            onClick={()=>textBoxOpen(index)}
+                            onClick={(event) => {
+                              const currentPostData = data;
+                              setCurrentPostId(() => event.target.className);
+                              textBoxOpen(index, currentPostData);
+                            }}
                           >
                             edit
                           </button>

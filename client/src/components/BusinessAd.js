@@ -21,7 +21,7 @@ const BusinessAd = (props) => {
   const [deleteAction, setDeleteAction] = useState(false);
   const [currentPost, setCurrentPost] = useState();
  const [commentAction, setCommentAction] = useState(false);
-//useEffect(()=>console.log("current post in ad.js", currentPost),[currentPost]);
+// useEffect(()=>console.log("current post in in ad.js", currentPostId, findCurrentPost()),[currentPostId]);
   const createPost = (category, body, postId, comment) => {
     const newInputs = {
       title: businessData.title,
@@ -38,15 +38,10 @@ const BusinessAd = (props) => {
     return userinputs.find((userinput) => userinput.postId === currentPostId);
   }
 
-  function editComments(newCommentArray){
-    return setCurrentPost((pre)=>{
-      return{...pre, comment:newCommentArray}
-    })
-  }
   //setCategory - no duplicated values
   useEffect(() => {
     setCategoryList((pre) => {
-      console.log("userinputs", userinputs);
+      // console.log("userinputs", userinputs);
       let list = [];
       userinputs.map((userinput) => list.push(userinput.category));
       const deduped = Array.from(new Set(list));
@@ -63,7 +58,7 @@ const BusinessAd = (props) => {
 
     if (res.data.data[0]) {
       const savedBusinessData = await res.data.data[0].data;
-      console.log("Getting data from server...", savedBusinessData);
+      // console.log("Getting data from server...", savedBusinessData);
       return setUserInputs(savedBusinessData);
     }
   }
@@ -76,7 +71,7 @@ const BusinessAd = (props) => {
   useEffect(() => {
     const createdPostToServer = async () => {
       const presentPost = findCurrentPost();
-      console.log("create and delete", createAction, deleteAction);
+      // console.log("create and delete", createAction, deleteAction);
       const sendToServer = async () => {
         const first= await axios.post(`/data/businessPosts/${businessData._id}`, {
           create: createAction,
@@ -100,29 +95,29 @@ const BusinessAd = (props) => {
   //----------update----------
   useEffect(() => {
     const editedPostToServer = async () => {
-      console.log("currentpost to send(edit)", currentPost);
+      // console.log("currentpost to send(edit)", currentPost);
       const sendToServer = async () => {
         const second = await axios.patch(
           `/data/businessPosts/${businessData._id}`,
           currentPost
           );
-          console.log("waiting update from server")
+          // console.log("waiting update from server")
         return console.log("second", second)
       };
       await sendToServer();
       getFromServer();
-      console.log("got new inputs from server")
+      // console.log("got new inputs from server")
     };
     editAction === true && editedPostToServer();
     setEditAction(false);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editAction]);
 
-useEffect(()=>{
-  console.log(
-    `editAction is${editAction}, createAction is${createAction}, deleteAtion is${deleteAction}`
-  );
-},[editAction, createAction, deleteAction])
+// useEffect(()=>{
+//   console.log(
+//     `editAction is${editAction}, createAction is${createAction}, deleteAtion is${deleteAction}`
+//   );
+// },[editAction, createAction, deleteAction])
 
   return (
     <div className="businessAdNote">
@@ -147,7 +142,7 @@ useEffect(()=>{
             setCommentAction={setCommentAction}
             setCurrentPost={setCurrentPost}
             userId={userInfo.userId}
-            editComments={editComments}
+            // currentPostId={currentPostId}
           />
         ) : (
           <Editor
