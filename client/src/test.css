@@ -4,8 +4,12 @@
     padding: 0;
     
 }
-body #root .App .main{
+/* body #root .App .main{
     height: 100vh;
+} */
+#root{
+    display: flex;
+    flex-direction: column;
 }
 
 .main{
@@ -43,17 +47,20 @@ body #root .App .main{
 
 /*footer*/
 .footer{
-    position: relative;
+    /* position: relative; */
     width: 100%;
     height: 240px;
-    bottom: 0;
+    justify-self: flex-end;
+    align-self: flex-end;
+    position: relative;
    
 }
 
 .footer--container{
     position: absolute;
-    bottom:0;
     display: flex;
+    top:7rem;
+    left:5rem;
 }
 /* footer backgroud */
 .custom-shape-divider-bottom-1650331665 {
@@ -261,25 +268,70 @@ body #root .App .main{
     border: 1px solid lightgrey;
     max-height: 60rem;
     min-height: 20rem;
-    width: 70%;
     overflow: scroll;
     align-self: center; 
     border-radius: 15px;
     box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.15);
     cursor: pointer;
     position: relative;
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 80%;
+    
+
 }
+
 .businessAdNote .post--lists .postsContainer div{
-    max-height: 60rem;
-    min-height: 20rem;
+    
     width: 100%;
     padding:15px 20px;
     border: none;
     overflow: hidden;
 }
+.businessAdNote .post--lists .postsContainer .postContent{
+    max-height: 60rem;
+    min-height: 20rem;
+}
+.businessAdNote .post--lists .commentArea{
+    width:30%;
+    background-color: #DC3545D9;
+    flex: 0 2 auto;
+   
+    
+    /* position: relative; */
+}
+.businessAdNote .post--lists .commentArea .commentBox{
+    /* position: absolute; */
+    right: 0px;
+    top:0px;
+    margin-top: 3rem;
+    padding-left: 2rem;
+    
+}
+.businessAdNote .post--lists input{
+    border: none;
+}
+
+.businessAdNote .post--lists .commentArea ul{
+    list-style: none;
+    display:flex;
+    flex-direction: column;
+    
+}
+.businessAdNote .post--lists .commentArea li{
+    display:flex;
+    flex-direction: column;
+    
+}
+.businessAdNote .post--lists .commentArea .id{
+    font-size: 10pt;
+}
 .businessAdNote .post--lists button{
-    color:#DC3545D9;
+    color:white;
     background-color: transparent;
+}
+.businessAdNote .post--lists .buttons{
+    position: absolute;
 }
 .businessAdNote .post--lists .editButton{
     margin: 8px 0px;
@@ -290,7 +342,7 @@ body #root .App .main{
     margin: 8px 20px;
 }
 .businessAdNote .post--lists .commentButton{
-    margin: 8px 20px;
+    margin: 8px 0 0 70%;
     float: left;
 }
 .businessAdNote div>h1{

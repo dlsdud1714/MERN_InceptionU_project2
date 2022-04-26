@@ -7,9 +7,10 @@ const businessPostSchema = new Schema({
     {
       title: String,
       business_id: String,
-      postId: String,
+      postId: {type: String, unique:true},
       category: String,
       body: String,
+      comment: {type:Array, default:null}
     },
   ],
 });
@@ -18,6 +19,7 @@ const businessPosts = model("BusinessPost", businessPostSchema);
 
 const createPosts = async (data) => {
   const posts = await businessPosts.create(data);
+  
   return posts;
 };
 const findBusinessPosts = async (id) => {
@@ -50,10 +52,19 @@ const deleteBusinessPost = async (id, postId, data) => {
   return deleted;
 };
 
+const addCommentBusinessPost= async(id, postId, data)=>{
+  const updated= await businessPosts.findOneAndUpdate( 
+    {businessId: id, "data.postId": postId},
+    {$set: {"data.$": data}}
+  );
+  return updated
+}
+
 module.exports = {
   createPosts,
   findBusinessPosts,
   addBusinessPost,
   updateBusinessPosts,
   deleteBusinessPost,
+  addCommentBusinessPost
 };
