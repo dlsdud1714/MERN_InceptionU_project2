@@ -12,7 +12,7 @@ router.get("/home", function (req, res, next) {
 
 router.get("/categories/:name", function (req, res, next) {
   const name = req.params.name;
-  if (name == "food") {
+  if (name == "fastFood") {
     res.send("For food");
   }
   if (name == "clothing") {
@@ -23,6 +23,21 @@ router.get("/categories/:name", function (req, res, next) {
   }
   if (name == "autoService") {
     res.send("For auto service");
+  }
+  if (name == "restaurant") {
+    res.send("For restaurants")
+  }
+  if (name =="pets") {
+    res.send("For pets")
+  }
+  if (name == "cafe"){
+    res.send("For cafe")
+  }
+  if (name == "clothing"){
+    res.send("For clothing")
+  }
+  if (name == "groceries"){
+    res.send("For groceries")
   }
 });
 
