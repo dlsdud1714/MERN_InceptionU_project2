@@ -20,7 +20,7 @@ const Header = (props) => {
     <div>
       <Navbar bg="danger" expand="lg">
         <Container fluid>
-          <Navbar.Brand href="#">YCCWhatsNearMe?</Navbar.Brand>
+          <Navbar.Brand href="#">YYCWhatsNearMe?</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
