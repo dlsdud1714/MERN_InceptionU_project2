@@ -22,13 +22,14 @@ const BusinessAd = (props) => {
   const [currentPost, setCurrentPost] = useState();
  const [commentAction, setCommentAction] = useState(false);
 //useEffect(()=>console.log("current post in ad.js", currentPost),[currentPost]);
-  const createPost = (category, body, postId) => {
+  const createPost = (category, body, postId, comment) => {
     const newInputs = {
       title: businessData.title,
       business_id: businessData._id,
       postId: postId || nanoid(),
       category: category,
       body: body,
+      comment: comment
     };
     setCurrentPost(newInputs);
   };

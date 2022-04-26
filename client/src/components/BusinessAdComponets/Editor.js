@@ -82,6 +82,7 @@ export const Editor = (props) => {
       postId: currentpost.postId,
       category: currentpost.category,
       body: currentpost.body,
+      comment: currentpost.comment
     };
   }
   console.log("current post in editor is", cateNBody);
@@ -94,7 +95,7 @@ export const Editor = (props) => {
 
     event.preventDefault();
    
-    createPost(cateNBody.category, cateNBody.body, cateNBody.postId);
+    createPost(cateNBody.category, cateNBody.body, cateNBody.postId, cateNBody.comment);
     setContentMark(true);
 
     if(cateNBody.postId){
