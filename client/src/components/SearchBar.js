@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
@@ -11,22 +11,25 @@ import ListItemText from '@mui/material/ListItemText';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 
 const SearchBarDropDown = (props) => {
-  const val = props.val;
+  const mappedData = props.mappedData;
   let navigate = useNavigate()
+
   return (
-    <Box sx={{ width: '100%', height: 50, maxWidth: 360, bgcolor: 'background.paper', border: '1px solid grey' }}>
+    <Box sx={{ width: '100%', height: 50, maxWidth: 360, bgcolor: 'danger', mt: 1 }}>
       <FixedSizeList
-        height={400}
+        height={50}
         width={360}
-        itemSize={46}
-        itemCount={200}
+        itemSize={2}
+        itemCount={2}
         overscanCount={5}
       >
-    {() => <ListItem component="div" disablePadding>
-      <ListItemButton onClick={() => navigate(`/business/${val._id}`) }>
-        <ListItemText primary={val.title}/>
+    {() =>mappedData.map((item)=>{
+      return <ListItem component="div" disablePadding>
+      <ListItemButton onClick={() => navigate(`/business/${item._id}`) }>
+        <ListItemText primary={item.title}/>
       </ListItemButton>
     </ListItem>}
+    )}
     </FixedSizeList>
     </Box>
   );
@@ -44,28 +47,36 @@ const SearchBar = (props) => {
   // console.log("props is:", props)
   // console.log("businessData is:", businessData)
   const [searchTerm, setSearchTerm] = useState("");
+  const [mappedData, setMappedData] = useState()
   const businessData = props.businessData;
-  let mappedData = {}
+
+  useEffect(()=>{
+    console.log('running')
+    if (businessData){
+    const newMapData = businessData.filter((value) => {
+      if (searchTerm === "") return false;
+      else if (
+        value?.title?.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        return true;
+      })
+      setMappedData(newMapData)}
+  }, [searchTerm, businessData])
+
+  console.log(mappedData)
   return (
     <div className="search-bar-dropdown">
-      <input type="text" className="form-control" placeholder="Search" onChange={(event) => setSearchTerm(event.target.value)} />
-      {businessData&&businessData.filter((value) => {
-          if (searchTerm === "") return false;
-          else if (
-            value?.title?.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-            return true;
-          }).map((val) => {
-            return (  
-              <SearchBarDropDown val={val}/>
-              );
-            })}
-          
+      <input type="text" className="form-control" placeholder="Search" onChange={(event) => setSearchTerm(event.target.value)} /> 
+          {mappedData&&<SearchBarDropDown mappedData={mappedData}/>} 
     </div>
   );
 };
 
-            
+// .map((val) => {
+//   return (  
+//     <SearchBarDropDown val={val}/>
+//     );
+//   })
 
 // remove the .map and send back only the filtered array
 
