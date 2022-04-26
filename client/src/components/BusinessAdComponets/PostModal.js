@@ -1,4 +1,7 @@
 import React from 'react'
+import { CloseButton } from 'react-bootstrap';
+import "bootstrap/dist/css/bootstrap.min.css";
+
 
 const PostModal = (props) => {
 
@@ -7,7 +10,8 @@ const PostModal = (props) => {
   return (
     <div className='postModal'>
       {content()}
-      <button className='close' onClick={closeModal}>Close</button>
+      <CloseButton onClick={closeModal}/>
+      {/* <button className='close' onClick={closeModal}>X</button> */}
     </div>
   )
 }

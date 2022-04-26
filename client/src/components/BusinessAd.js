@@ -11,7 +11,7 @@ const BusinessAd = (props) => {
   //This userinfo will be passed in props
   const userInfo = {userId: "inyoung@yyc.com", password: 1111, type: "client", license:"aaaa"}
 
-  const [contentMark, setContentMark] = useState(false);
+  const [contentMark, setContentMark] = useState(true);
   const [userinputs, setUserInputs] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categoryList, setCategoryList] = useState([]);

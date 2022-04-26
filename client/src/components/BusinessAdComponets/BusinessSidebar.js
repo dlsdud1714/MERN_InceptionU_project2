@@ -13,7 +13,7 @@ const BusinessSidebar = (props) => {
     <div className='sideBar'>
         
         <div className='sideBar--header'>
-            {business && business.title}
+            <p>{business && business.title}</p>
         </div>
         <div className='sideBar--category'>
           <div className='category--title'>Categories</div>
