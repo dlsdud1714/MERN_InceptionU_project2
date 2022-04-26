@@ -15,9 +15,9 @@ const SearchBarDropDown = (props) => {
   let navigate = useNavigate()
 
   return (
-    <Box sx={{ width: '100%', height: 50, maxWidth: 360, bgcolor: 'danger', mt: 1 }}>
+    <Box sx={{ width: '100%', height: 150, maxWidth: 360, bgcolor: 'danger', mt: 1 }}>
       <FixedSizeList
-        height={50}
+        height={150}
         width={360}
         itemSize={2}
         itemCount={2}
