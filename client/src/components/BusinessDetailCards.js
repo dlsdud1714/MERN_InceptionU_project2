@@ -1,4 +1,14 @@
-import React from 'react'
+import React  from 'react'
+// class BusinessImage extends Component {
+//     render() {
+//         return (
+//             <div>
+                
+//             </div>
+//         );
+//     }
+// }
+
 
 export const BusinessDetailCards = (props) => {
  console.log("props",props)
@@ -7,7 +17,8 @@ export const BusinessDetailCards = (props) => {
   
   return (
     <div>
-      <div>{data&&data.imgUrl}</div>
+      {/* <div>{data&&data.imgUrl}</div> */}
+      <img src= {data&&data.imgUrl} alt="" />
       <div> Customer Saticfaction Rating: {data&&data.rating}</div>
       <div>Business Address: {data&&data.address}</div>
       <div>Phone Number: {data&&data.phoneNumber}</div>
@@ -18,3 +29,5 @@ export const BusinessDetailCards = (props) => {
     </div>
   )
 }
+
+// export default BusinessImage;
