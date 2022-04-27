@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -27,36 +28,34 @@ const Footer = () => {
         </svg>
       </div>
       <div className="footer--container">
-        <div className="footer--nav">
-          <div className="Services">
-            <div className="Home">Home</div>
-            <div className="About">About</div>
-            <div className="allLists">Calgary local business lists</div>
+        <div className="Services">
+          <Link to="/" className="Home">Home</Link>
+          <Link to="#" className="About">About</Link>
+          <Link to="#" className="allLists">Calgary local business lists</Link>
+        </div>
+        <div className="teamInfo">
+          <div className="teamName">Team Code-commandos</div>
+          <div className="derick">
+            <i className="fa-brands fa-linkedin"></i>
+            <a href="https://www.linkedin.com/in/derick-young/">Derick Young</a>
           </div>
-          <div className="teamInfo">
-            <div className="teamName">Our team members</div>
-            <div className="derick">
-              <i className="fa-brands fa-linkedin"></i>
-              <a href="https://www.linkedin.com/in/derick-young/">
-                Derick Young
-              </a>
-            </div>
-            <div className="inyoung">
-              <i className="fa-brands fa-linkedin"></i>
-              <a href="https://www.linkedin.com/in/inyoung-park/">
-                Inyoung Park
-              </a>
-            </div>
-            <div className="nicole">
-              <i className="fa-brands fa-linkedin"></i>
-              <p>Nicole Amdubois</p>
-            </div>
+          <div className="inyoung">
+            <i className="fa-brands fa-linkedin"></i>
+            <a href="https://www.linkedin.com/in/inyoung-park/">Inyoung Park</a>
+          </div>
+          <div className="nicole">
+            <i className="fa-brands fa-linkedin"></i>
+            <a href="#">Nicole Amdubois</a>
           </div>
         </div>
-        <div className="prject">
-          <svg src="../data/inceptionU_logo.png" alt="" className="inceptionU logo" />
-          Inception U Cohort8 Project2 <br />
-          contributors:
+        <div className="project">
+          <img
+            src={require("../data/inceptionU_logo.png")}
+            alt=""
+            className="inceptionU logo"
+          />
+          <div className="text">InceptionU Cohort8</div>
+          <div className="team">Project2</div>
         </div>
       </div>
     </div>
