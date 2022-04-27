@@ -27,14 +27,37 @@ const Footer = () => {
         </svg>
       </div>
       <div className="footer--container">
-          <div className="footer--nav">
-              Home<br/>categories<br/>What's in my neighborhood
+        <div className="footer--nav">
+          <div className="Services">
+            <div className="Home">Home</div>
+            <div className="About">About</div>
+            <div className="allLists">Calgary local business lists</div>
           </div>
-          <div className="prject">
-              Inception U Cohort8 Project2 <br/>
-              contributors: 
+          <div className="teamInfo">
+            <div className="teamName">Our team members</div>
+            <div className="derick">
+              <i className="fa-brands fa-linkedin"></i>
+              <a href="https://www.linkedin.com/in/derick-young/">
+                Derick Young
+              </a>
+            </div>
+            <div className="inyoung">
+              <i className="fa-brands fa-linkedin"></i>
+              <a href="https://www.linkedin.com/in/inyoung-park/">
+                Inyoung Park
+              </a>
+            </div>
+            <div className="nicole">
+              <i className="fa-brands fa-linkedin"></i>
+              <p>Nicole Amdubois</p>
+            </div>
           </div>
-          
+        </div>
+        <div className="prject">
+          <svg src="../data/inceptionU_logo.png" alt="" className="inceptionU logo" />
+          Inception U Cohort8 Project2 <br />
+          contributors:
+        </div>
       </div>
     </div>
   );
