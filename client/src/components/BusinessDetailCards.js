@@ -7,7 +7,6 @@ export const BusinessDetailCards = (props) => {
   
   return (
     <div>
-      {/* <div>{data&&data.imgUrl}</div> */}
       <img src= {data&&data.imgUrl} alt="" />
       <div> Customer Saticfaction Rating: {data&&data.rating}</div>
       <div>Business Address: {data&&data.address}</div>
