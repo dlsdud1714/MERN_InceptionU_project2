@@ -602,3 +602,33 @@ z-index: 999;
     height: 300px;
     margin: auto;
 }
+.Mapbox .mapboxgl-canvas-container i{
+    font-size: 18px;
+}
+.Mapbox .mapboxgl-canvas-container .auto{
+    color: #3a65c3
+}
+.Mapbox .mapboxgl-canvas-container .coffeeshop{
+    color: #533535
+}
+.Mapbox .mapboxgl-canvas-container .recreation{
+    color: #142F43
+}
+.Mapbox .mapboxgl-canvas-container .fastfood{
+    color: #a2416b
+}
+.Mapbox .mapboxgl-canvas-container .restaurant{
+    color: #cf6e00
+}
+.Mapbox .mapboxgl-canvas-container .beauty{
+    color: #718e20
+}
+.Mapbox .mapboxgl-canvas-container .clothing{
+    color: #179da7
+}
+.Mapbox .mapboxgl-canvas-container .groceries{
+    color: #4B3869
+}
+.Mapbox .mapboxgl-canvas-container .pets{
+    color: #910000
+}

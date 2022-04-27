@@ -51,7 +51,7 @@ const SearchBar = (props) => {
   const businessData = props.businessData;
 
   useEffect(()=>{
-    console.log('running')
+    // console.log('running')
     if (businessData){
     const newMapData = businessData.filter((value) => {
       if (searchTerm === "") return false;
@@ -63,7 +63,7 @@ const SearchBar = (props) => {
       setMappedData(newMapData)}
   }, [searchTerm, businessData])
 
-  console.log(mappedData)
+  // console.log(mappedData)
   return (
     <div className="search-bar-dropdown">
       <input type="text" className="form-control" placeholder="Search" onChange={(event) => setSearchTerm(event.target.value)} /> 
