@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import categoryNames from "../../data/categoryNames.json";
 import Category from "../Category";
 import "../../test.css";
+import Background from "../Background";
 
 const Main = (props) => {
   const {businessData} = props;
@@ -9,6 +10,7 @@ const Main = (props) => {
   // console.log("Main business data is:", businessData)
   return (
     <div className="main">
+      <Background/>
       {/* <Header businessData={businessData}/> */}
       {/* <NavBar/> */}
       {/* <SearchBar businessData={businessData}/> */}
