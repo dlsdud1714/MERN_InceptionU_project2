@@ -19,7 +19,7 @@ const Category = (props) => {
 
   return (
     <div className="categories">
-      <div>Category</div>
+      <div></div>
       <div className="categoryContainer">
       {listGenerator()}
       </div>
