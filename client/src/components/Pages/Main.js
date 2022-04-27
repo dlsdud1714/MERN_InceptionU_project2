@@ -3,6 +3,7 @@ import categoryNames from "../../data/categoryNames.json";
 import Category from "../Category";
 import "../../test.css";
 import Background from "../Background";
+import Gps from "../Gps"
 
 const Main = (props) => {
   const {businessData} = props;
@@ -15,7 +16,7 @@ const Main = (props) => {
       {/* <NavBar/> */}
       {/* <SearchBar businessData={businessData}/> */}
       <Category categories={categoryString}/>
-    
+    <Gps businessData={businessData} categoryString={categoryString}/>
   </div>
   )
 };
