@@ -12,20 +12,29 @@ import { FixedSizeList, ListChildComponentProps } from 'react-window';
 
 const SearchBarDropDown = (props) => {
   const mappedData = props.mappedData;
-  let navigate = useNavigate()
+  const searchTerm = props.searchTerm;
+  const setSearchTerm = props.setSearchTerm;
+  const navigate = useNavigate()
 
+  
   return (
-    <Box sx={{ width: '100%', height: 150, maxWidth: 360, bgcolor: 'danger', mt: 1 }}>
+    <Box sx={{ width: '100%', height: 150, maxWidth: 360, bgcolor: 'danger', mt: 1}}>
       <FixedSizeList
         height={150}
         width={360}
         itemSize={2}
         itemCount={2}
         overscanCount={5}
-      >
-    {() =>mappedData.map((item)=>{
+        >
+    {() =>mappedData.map((item)=> {
+        function onClick() {
+            navigate(`/business/${item._id}`)
+            console.log('clicked')
+            console.log(item._id)
+            setSearchTerm('')
+        }
       return <ListItem component="div" disablePadding>
-      <ListItemButton onClick={() => navigate(`/business/${item._id}`) }>
+      <ListItemButton onClick={onClick}>
         <ListItemText primary={item.title}/>
       </ListItemButton>
     </ListItem>}
@@ -35,13 +44,6 @@ const SearchBarDropDown = (props) => {
   );
 };
 
-    // <div className="search-bar-dropdown">
-    //   <div class="list-group">
-    //     <a href={`/business/${val._id}`} className="list-group-item list-group-item-action">
-    //         {val.title}
-    //     </a>
-    //   </div>
-    // </div>
 
 const SearchBar = (props) => {
   // console.log("props is:", props)
@@ -54,7 +56,7 @@ const SearchBar = (props) => {
     // console.log('running')
     if (businessData){
     const newMapData = businessData.filter((value) => {
-      if (searchTerm === "") return false;
+      if (searchTerm === "") return (false);
       else if (
         value?.title?.toLowerCase().includes(searchTerm.toLowerCase())
         )
@@ -63,28 +65,18 @@ const SearchBar = (props) => {
       setMappedData(newMapData)}
   }, [searchTerm, businessData])
 
+function onChange(event) {
+    console.log("onChange", event.target.value)
+    setSearchTerm(event.target.value)
+  }
   // console.log(mappedData)
   return (
     <div className="search-bar-dropdown">
-      <input type="text" className="form-control" placeholder="Search" onChange={(event) => setSearchTerm(event.target.value)} /> 
-          {mappedData&&<SearchBarDropDown mappedData={mappedData}/>} 
+      <input type="text" className="form-control" placeholder="Search" onChange={onChange} /> 
+          {mappedData&&<SearchBarDropDown mappedData={mappedData} searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>} 
     </div>
   );
 };
-
-// .map((val) => {
-//   return (  
-//     <SearchBarDropDown val={val}/>
-//     );
-//   })
-
-// remove the .map and send back only the filtered array
-
-// or
-
-// push each val from .map into a new array
-
-//<SearchBarDropDown val={val}/> 
 
 
 
