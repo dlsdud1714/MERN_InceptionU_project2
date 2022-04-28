@@ -17,7 +17,7 @@ const BusinessSidebar = (props) => {
         </div>
         <div className='sideBar--category'>
           <div className='category--title'>Categories</div>
-            {categoryList.map((content)=>{return <p className={`category--list ${content===selectedCategory&&"selected"}`} key={content} onClick={()=>categoryClickHandler(content)}>{content}</p>})}
+            {categoryList.map((content, key)=>{return <p className={`category--list ${content===selectedCategory&&"selected"}`} key={content} onClick={()=>categoryClickHandler(content)}>{content}</p>})}
         </div>
     </div>
   )

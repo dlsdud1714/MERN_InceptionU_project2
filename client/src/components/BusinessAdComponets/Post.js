@@ -21,7 +21,7 @@ const Post = (props) => {
   const [comment, setComment] = useState("");
   const [CurrentCmtIndex, setCurrentCmtIndex] = useState();
   const dataInCategory = contents.filter(
-    (content) => content.category === selectedCategory
+    (content, key) => content.category === selectedCategory
   );
   const [IsNewPost, setIsNewPost] = useState(true);
   const postClickHandler = (data) => {

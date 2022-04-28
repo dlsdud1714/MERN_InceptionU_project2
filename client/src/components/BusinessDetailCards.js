@@ -15,7 +15,7 @@ export const BusinessDetailCards = (props) => {
 
 
   return (
-    <div class="center" >
+    <div className="center" >
       <img src={data && data.imgUrl} alt="" height={350}
           width={500}/>
       <div> Customer Saticfaction Rating: {data && data.rating}</div>

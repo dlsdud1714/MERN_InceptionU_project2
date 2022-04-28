@@ -12,7 +12,7 @@ const BusinessDetails = (props) => {
   // console.log("selectedBusiness", selectedBusiness)
 
   const filterBusinesses = () => {
-    const filtered = businessData.filter((data) => data._id === businessId);
+    const filtered = businessData.filter((data, key) => data._id === businessId);
     console.log("filtered:", filtered);
     setSelectedBusiness(() => filtered[0]);
   };

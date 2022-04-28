@@ -43,7 +43,7 @@ const BusinessAd = (props) => {
     setCategoryList((pre) => {
       // console.log("userinputs", userinputs);
       let list = [];
-      userinputs.map((userinput) => list.push(userinput.category));
+      userinputs.map((userinput, key) => list.push(userinput.category));
       const deduped = Array.from(new Set(list));
       return deduped;
     });

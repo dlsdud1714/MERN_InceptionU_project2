@@ -10,7 +10,7 @@ const ControlPanel = (props) => {
         businessData &&
         categoryString.map((cate, index) => {
           const categoriedArray = businessData.filter(
-            (bus) => bus.headCategory === cate.headCategory
+            (bus, key) => bus.headCategory === cate.headCategory
           );
         //   console.log("categorixed", categoriedArray);
           return (

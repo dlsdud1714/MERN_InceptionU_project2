@@ -29,7 +29,7 @@ const BusinessCard = (props) => {
         <Row xs={1} md={2} lg={4} className="g-4">
           <Col>
             {filterData &&
-              filterData.map((data) => {
+              filterData.map((data, key) => {
                 return (
                   <Card>
                     <Card.Img

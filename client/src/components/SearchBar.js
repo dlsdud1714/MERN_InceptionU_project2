@@ -26,7 +26,7 @@ const SearchBarDropDown = (props) => {
         itemCount={2}
         overscanCount={5}
         >
-    {() =>mappedData.map((item)=> {
+    {() =>mappedData.map((item, key)=> {
         function onClick() {
             navigate(`/business/${item._id}`)
             console.log('clicked')
@@ -55,7 +55,7 @@ const SearchBar = (props) => {
   useEffect(()=>{
     // console.log('running')
     if (businessData){
-    const newMapData = businessData.filter((value) => {
+    const newMapData = businessData.filter((value, key) => {
       if (searchTerm === "") return (false);
       else if (
         value?.title?.toLowerCase().includes(searchTerm.toLowerCase())

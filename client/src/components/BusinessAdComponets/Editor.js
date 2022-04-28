@@ -128,7 +128,7 @@ export const Editor = (props) => {
           <label htmlFor="title--input">Category</label>
           <select name="category" onChange={checkCategory}>
             <option name="category">---choose one---</option>
-            {categoryList.map((category) => (
+            {categoryList.map((category, key) => (
               <option name="category" key={`${category}`}>
                 {category}
               </option>

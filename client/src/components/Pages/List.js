@@ -12,7 +12,7 @@ const List = (props) => {
   const filterData = () => {
   if (businessData == null)
     return 
-  const categoryData = businessData.filter((Data)=>Data.headCategory === category)
+  const categoryData = businessData.filter((Data, key)=>Data.headCategory === category)
   setFilteredData(categoryData)
 }
 useEffect(()=>{filterData()}, [businessData]) // eslint-disable-line react-hooks/exhaustive-deps
