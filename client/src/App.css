@@ -37,9 +37,9 @@
   }
 }
 .center{
-  text-align: center;
+  text-align: right;
   display: block;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   margin: auto;
   width: 40%;
