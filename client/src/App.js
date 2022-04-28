@@ -8,6 +8,7 @@ import BusinessDetails from "./components/Pages/BusinessDetails";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Signup from "./components/Pages/Signup";
+import Login from "./components/Pages/Login";
 import { AuthProvider } from "./components/contexts/AuthContext";
 
 
@@ -35,6 +36,7 @@ function App() {
       <Route path="/categories/:category" element={<List Data={businessData}/>}/>
       <Route path="/business/:businessId" element={<BusinessDetails Data={businessData}/>}/>
       <Route path="/signup" element={<Signup />}/>
+      <Route path="/Login" element={<Login />}/>
     </Routes>
     <Footer/>
     </AuthProvider>

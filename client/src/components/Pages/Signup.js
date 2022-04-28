@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form, Button, Card} from 'react-bootstrap'
 import { useAuth } from "../contexts/AuthContext";
+import { Link } from "react-router-dom"
 
 
 export default function Signup() {
@@ -32,8 +34,7 @@ export default function Signup() {
             <Card.Body>
                 <h2 className = "mb-5"> Sign Up </h2>
                     {currentUser && currentUser.email} 
-                    {error}
-                <Form className= " mb-3 w-50" onSubmit={handleSubmit}>
+                <Form className= "mb-3 w-50" onSubmit={handleSubmit}>
                     <Form.Group id="email">
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="email" ref={emailRef} required/>        
@@ -50,8 +51,8 @@ export default function Signup() {
                 </Form>
             </Card.Body>
         </Card>
-        <div>
-
+        <div className='mt-2 ml-2'>
+        Already have an Account? <Link to="/login"> Log in</Link>
         </div>
     </div>
   )
