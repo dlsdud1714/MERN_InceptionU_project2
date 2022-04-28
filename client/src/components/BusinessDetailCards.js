@@ -19,7 +19,7 @@ export const BusinessDetailCards = (props) => {
       <img src={data && data.imgUrl} alt="" height={350}
           width={500}/>
       <div> Customer Saticfaction Rating: {data && data.rating}</div>
-      <div>Business Address: {data && data.address}</div>
+      <div>Business Address: <button onclick= {data && data.address}>Click Me</button></div>
       <div>Phone Number: {data && data.phoneNumber}</div>
       <div>City Quadrant: {data && data.quadrant}</div>
       <div>Website: {data && data.website}</div>
