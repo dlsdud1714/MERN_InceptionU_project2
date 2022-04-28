@@ -605,6 +605,9 @@ z-index: 999;
     display: flex;
     flex-direction: row;
 }
+.Mapbox .mapboxgl-canvas{
+    width: 100%;
+}
 .Mapbox .mapboxgl-marker .isNew{
     font-size: 11px;
     font-weight:800;
@@ -618,7 +621,7 @@ z-index: 999;
 }
 .Mapbox .mapboxgl-canvas-container i{
     font-size: 18px;
-    
+    cursor: pointer;
 }
 .Mapbox .mapboxgl-canvas-container .auto{
     color: #3a65c3
@@ -654,4 +657,16 @@ z-index: 999;
 .Mapbox .mapboxgl-popup .place--img{
     width: 100%;
     height: 130px;
+}
+
+.Mapbox .control-panel{
+    overflow: scroll;
+    list-style: none;
+}
+.Mapbox .control-panel ul{
+    font-size: 15pt;
+}
+
+.Mapbox .control-panel li{
+ cursor: pointer;
 }
