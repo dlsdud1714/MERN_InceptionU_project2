@@ -59,7 +59,7 @@ z-index: 999;
     width: 100%;
     background: url(./data/wave.png);
     background-size: 100% 50px;
-    animation: animate1 30s linear infinite;
+    animation: animate1 10s linear infinite;
     opacity: 0.7;
     
     animation-delay: 0s;
@@ -126,16 +126,18 @@ z-index: 999;
     flex-direction: column;
     height: 160px;
     z-index: 999;
+   
 }
 .categories .categoryContainer{
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 2rem;
-    margin: 2rem auto;
+    /* flex-wrap: nowrap; */
+    /* gap: 2rem; */
+    justify-content: space-between;
+    /* margin: 2rem auto; */
 }
 .categories button{
-    width: 6rem;
+    width: 100%;
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -149,7 +151,7 @@ z-index: 999;
 }
 .categories .categoryContainer span{
     display: block;
-    width: 6rem;
+    /* width: 6rem; */
 }
 
 /*footer*/

@@ -45,7 +45,7 @@ const Footer = () => {
           </div>
           <div className="nicole">
             <i className="fa-brands fa-linkedin"></i>
-            <a href="#">Nicole Amdubois</a>
+            <a href="#">Nicole Dubois</a>
           </div>
         </div>
         <div className="project">

@@ -77,7 +77,7 @@ export const Editor = (props) => {
 
   function filterToCurrentCategoryNbody() {
     const currentpost = findCurrentPost();
-    console.log("currentpost is", currentpost);
+    // console.log("currentpost is", currentpost);
     return {
       postId: currentpost.postId,
       category: currentpost.category,
@@ -85,7 +85,7 @@ export const Editor = (props) => {
       comment: currentpost.comment
     };
   }
-  console.log("current post in editor is", cateNBody);
+  // console.log("current post in editor is", cateNBody);
 
   function post(event) {
     if (!cateNBody.category) {
@@ -170,22 +170,22 @@ export const Editor = (props) => {
     </div>
   );
 };
+  Editor.formats = [
+    //'font',
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "align",
+    "color",
+    "background",
+  ];
 
-Editor.formats = [
-  //'font',
-  "header",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "align",
-  "color",
-  "background",
-];
 export default Editor;
