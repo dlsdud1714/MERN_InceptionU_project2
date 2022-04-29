@@ -12,11 +12,11 @@ const ControlPanel = (props) => {
           const categoriedArray = businessData.filter(
             (bus, key) => bus.headCategory === cate.headCategory
           );
-        //   console.log("categorixed", categoriedArray);
+      
           return (
             <div className={`${cate.headCategory}--container`} key={`category${index}`}>
               <ul className={cate.headCategory} key={`category${index}`}>
-                {cate.headCategory}
+                {cate.name}
               </ul>
               {categoriedArray.map((store, index) => {
                 return (

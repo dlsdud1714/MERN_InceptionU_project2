@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PostModal from "./PostModal";
+import TimeAgo from "javascript-time-ago";
+
+import en from "javascript-time-ago/locale/en.json";
+// import ru from "javascript-time-ago/locale/ru.json";
+import ReactTimeAgo from "react-time-ago";
+
+TimeAgo.addLocale(en);
+// TimeAgo.addLocale(ru);
 
 const Post = (props) => {
   const {
@@ -188,12 +196,18 @@ const Post = (props) => {
                           >
                             {cmt.userId}
                           </p>
-                          <p
+                          <ReactTimeAgo
+                            className="comment--date"
+                            key={`commentDate${data + index}`}
+                            date={ new Date(cmt.createdAt)}
+                            locale="en-US"
+                          />
+                          {/* <p
                             className="comment--date"
                             key={`commentDate${data + index}`}
                           >
                             {new Date(cmt.createdAt).toLocaleDateString()}
-                          </p>
+                          </p> */}
                         </div>
                         <div
                           className="commentBody"

@@ -88,12 +88,12 @@ export const Editor = (props) => {
   // console.log("current post in editor is", cateNBody);
 
   function post(event) {
+    event.preventDefault();
     if (!cateNBody.category) {
       alert("type category");
       return;
     }
 
-    event.preventDefault();
    
     createPost(cateNBody.category, cateNBody.body, cateNBody.postId, cateNBody.comment);
     setContentMark(true);

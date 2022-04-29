@@ -1,10 +1,12 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import Map, {
   GeolocateControl,
+  Layer,
   Marker,
   NavigationControl,
   Popup,
   ScaleControl,
+  Source,
 } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import ControlPanel from "./GpsComponents/ControlPanel";
@@ -40,6 +42,8 @@ const Gps = (props) => {
         return "Traditional";
       }
     };
+
+    // setTimeout(GeolocateControl.click(), 2000)
 
     return (
       businessData &&
@@ -80,6 +84,7 @@ const Gps = (props) => {
                 }
               })}
           </Marker>
+         
         );
       })
     );
@@ -97,7 +102,7 @@ const Gps = (props) => {
         mapStyle="mapbox://styles/inyoung1714/cl2i5e91p001n14nxvi27fq83"
         onMove={(evt) => setViewPort(evt.viewState)}
       >
-        <GeolocateControl ref={geolocationRef} showUserLocation={true} />
+        <GeolocateControl ref={geolocationRef} trackUserLocation={true} />
         <NavigationControl />
         <ScaleControl />
 
@@ -135,6 +140,9 @@ const Gps = (props) => {
         categoryString={categoryString}
         setPopupInfo={setPopupInfo}
       />
+       
+          
+        
     </div>
   );
 };

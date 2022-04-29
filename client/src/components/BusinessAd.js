@@ -58,7 +58,6 @@ const BusinessAd = (props) => {
 
     if (res.data.data[0]) {
       const savedBusinessData = await res.data.data[0].data;
-      // console.log("Getting data from server...", savedBusinessData);
       return setUserInputs(savedBusinessData);
     }
   }
@@ -71,7 +70,6 @@ const BusinessAd = (props) => {
   useEffect(() => {
     const createdPostToServer = async () => {
       const presentPost = findCurrentPost();
-      // console.log("create and delete", createAction, deleteAction);
       const sendToServer = async () => {
         const first= await axios.post(`/data/businessPosts/${businessData._id}`, {
           create: createAction,
@@ -95,18 +93,15 @@ const BusinessAd = (props) => {
   //----------update----------
   useEffect(() => {
     const editedPostToServer = async () => {
-      // console.log("currentpost to send(edit)", currentPost);
       const sendToServer = async () => {
         const second = await axios.patch(
           `/data/businessPosts/${businessData._id}`,
           currentPost
           );
-          // console.log("waiting update from server")
         return console.log("second", second)
       };
       await sendToServer();
       getFromServer();
-      // console.log("got new inputs from server")
     };
     editAction === true && editedPostToServer();
     setEditAction(false);
