@@ -1,7 +1,7 @@
 import React from "react";
 
 const ControlPanel = (props) => {
-  const { onSelectedStores, businessData, categoryString, setPopupInfo } =
+  const { onSelectedStore, businessData, categoryString, setPopupInfo,setCatagory } =
     props;
 
   return (
@@ -15,7 +15,8 @@ const ControlPanel = (props) => {
       
           return (
             <div className={`${cate.headCategory}--container`} key={`category${index}`}>
-              <ul className={cate.headCategory} key={`category${index}`}>
+              <ul className={cate.headCategory} key={`category${index}`} 
+              >
                 {cate.name}
               </ul>
               {categoriedArray.map((store, index) => {
@@ -23,7 +24,7 @@ const ControlPanel = (props) => {
                   <li
                     key={`${cate.headCategory} ${index}`}
                     onClick={() => {
-                      onSelectedStores(store);
+                      onSelectedStore(store);
                       setPopupInfo(store);
                     }}
                   >

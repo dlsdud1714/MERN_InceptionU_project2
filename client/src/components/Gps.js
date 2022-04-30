@@ -1,18 +1,17 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Map, {
   GeolocateControl,
-  Layer,
   Marker,
   NavigationControl,
   Popup,
   ScaleControl,
-  Source,
 } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import ControlPanel from "./GpsComponents/ControlPanel";
+import { CateFilterPanel } from "./GpsComponents/CateFilterPanel";
 // import mapboxgl from "mapbox-gl";
-import GeocoderControl from "./GpsComponents/Geocoder";
+// import GeocoderControl from "./GpsComponents/Geocoder";
 // import Geocoder from "@mapbox/mapbox-gl-geocoder";
 const Gps = (props) => {
   const { businessData, categoryString } = props;
@@ -22,18 +21,36 @@ const Gps = (props) => {
     }
   }, []);
   const [popupInfo, setPopupInfo] = useState();
-  // const [searchResultsLayer, setSearchResult]= useState();
   const [viewport, setViewPort] = useState({
     latitude: 51.067625,
     longitude: -114.0926977,
     zoom: 15,
   });
+  const [category, setCategory] = useState(initialCategory);
   const mapRef = useRef();
 
-  const onSelectedStores = useCallback(({ longitude, latitude }) => {
+  function initialCategory (){
+    let categories = {}
+    categoryString.map((cate)=>{
+      categories[cate.headCategory]= true
+    })
+    return categories
+  }
+
+const updateCateSelected = useCallback(
+  (name,value)=>{
+    console.log("name and value", name, value)
+    setCategory((pre)=>({...pre,[name]:value}))
+  }
+  ,[]
+)
+
+useEffect(()=>console.log("category", category),[category])
+
+  const onSelectedStore = useCallback(({ longitude, latitude }) => {
     mapRef.current?.flyTo({ center: [longitude, latitude], duration: 2000 });
   }, []);
-
+  
   const pins = useMemo(() => {
     const checkPlaceIsNew = (business) => {
       const userTimeStamp = new Date();
@@ -48,10 +65,10 @@ const Gps = (props) => {
       }
     };
 
-    // setTimeout(GeolocateControl.click(), 2000)
 
     return (
-      businessData &&
+     
+     businessData &&
       businessData.map((business, index) => {
         return (
           <Marker
@@ -95,27 +112,9 @@ const Gps = (props) => {
     );
   }, [businessData]);
 
-// const handleOnResult = event =>{
-// //   setSearchResult(new mapboxgl.searchResultsLayer({
-// //     id: "search-results",
-// //     data: event.result.geometry,
-// //     getFillColor: [255,0,0,128],
-// //     getRadius: 1000,
-// //     pointRadiusMinPixels: 10,
-// //     pointRadiusMaxPixels: 10
-// //   }) )
-// }
-// const handleGeocoderViewportChange = viewport => {
-//   const geocoderDefaultOverrides = { transitionDuration: 1000 };
-//   console.log("Updating")
-
-//   return setViewPort({
-//     ...viewport,
-//     ...geocoderDefaultOverrides
-//   });
-// }
   return (
     <div className="Mapbox">
+       <p>{category&&category.key}</p>
       <Map
         ref={mapRef}
         {...viewport}
@@ -127,13 +126,9 @@ const Gps = (props) => {
         <GeolocateControl ref={geolocationRef} trackUserLocation={true} />
         <NavigationControl />
         <ScaleControl />
-        <GeocoderControl mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        position="top-left"/> 
-        {/* <Geocoder mapRef={mapRef}
-        onResult={handleOnResult}
-        mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        onViewportChange={handleGeocoderViewportChange}
-        position="top-left"/> */}
+        {/* <GeocoderControl mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        position="top-left" data={businessData}/> 
+        */}
         {pins}
 
         <div className="popup">
@@ -160,13 +155,15 @@ const Gps = (props) => {
             </Popup>
           )}
         </div>
+        <CateFilterPanel settings={category} onChange={updateCateSelected}/>
       </Map>
       <ControlPanel
         data={popupInfo}
-        onSelectedStores={onSelectedStores}
+        onSelectedStore={onSelectedStore}
         businessData={businessData}
         categoryString={categoryString}
         setPopupInfo={setPopupInfo}
+     
       />
        
           

@@ -1,25 +1,16 @@
 import React, { useState } from "react";
-import MapboxGeocoder, { GeocoderOptions } from "@mapbox/mapbox-gl-geocoder";
-import { ControlPosition, Marker, MarkerProps, useControl } from "react-map-gl";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import {  Marker, useControl } from "react-map-gl";
 
-// type GeocoderControlProps = Omit<GeocoderOptions, 'accessToken' | 'mapboxgl' | 'marker'> & {
-//   mapboxAccessToken: string;
-//   marker?: boolean | Omit<MarkerProps, 'longitude' | 'latitude'>;
-
-//   position: ControlPosition;
-
-//   onLoading?: (e: object) => void;
-//   onResults?: (e: object) => void;
-//   onResult?: (e: object) => void;
-//   onError?: (e: object) => void;
-// };
 const GeocoderControl = (props) => {
+
   const [marker, setMarker] = useState(null);
   // console.log("props", GeocoderOptions)
   const geocoder = useControl(
     () => {
       const ctrl = new MapboxGeocoder({
         ...props,
+        filter: props.data,
         marker: false,
         accessToken: props.mapboxAccessToken,
       });
@@ -29,12 +20,8 @@ const GeocoderControl = (props) => {
         props.onResult(evt);
 
         const { result } = evt;
-        // console.log("result", result)
-        // const location =
-        // result&&(
-        //     result.center || (result.lo)
-        // )
-        console.log("props", props.onResult)
+        
+        console.log("props", result)
         const location =
           result &&
           (result.center || (result.geometry?.type === 'Point' && result.geometry.coordinates));

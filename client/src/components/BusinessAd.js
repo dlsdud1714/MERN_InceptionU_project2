@@ -5,10 +5,13 @@ import Editor from "./BusinessAdComponets/Editor";
 import Post from "./BusinessAdComponets/Post";
 import { nanoid } from "nanoid";
 import axios from "axios"
+// import { useAuth } from "./contexts/AuthContext";
 
 const BusinessAd = (props) => {
   const { businessData } = props;
   //This userinfo will be passed in props
+  // const { login } = useAuth()
+  // console.log("user", login)
   const userInfo = {userId: "inyoung@yyc.com", password: 1111, type: "client", license:"aaaa"}
 
   const [contentMark, setContentMark] = useState(true);
