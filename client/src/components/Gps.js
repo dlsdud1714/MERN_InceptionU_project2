@@ -9,8 +9,11 @@ import Map, {
   Source,
 } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import ControlPanel from "./GpsComponents/ControlPanel";
 
+import ControlPanel from "./GpsComponents/ControlPanel";
+// import mapboxgl from "mapbox-gl";
+import GeocoderControl from "./GpsComponents/Geocoder";
+// import Geocoder from "@mapbox/mapbox-gl-geocoder";
 const Gps = (props) => {
   const { businessData, categoryString } = props;
   const geolocationRef = useCallback((ref) => {
@@ -19,6 +22,7 @@ const Gps = (props) => {
     }
   }, []);
   const [popupInfo, setPopupInfo] = useState();
+  // const [searchResultsLayer, setSearchResult]= useState();
   const [viewport, setViewPort] = useState({
     latitude: 51.067625,
     longitude: -114.0926977,
@@ -29,6 +33,7 @@ const Gps = (props) => {
   const onSelectedStores = useCallback(({ longitude, latitude }) => {
     mapRef.current?.flyTo({ center: [longitude, latitude], duration: 2000 });
   }, []);
+
   const pins = useMemo(() => {
     const checkPlaceIsNew = (business) => {
       const userTimeStamp = new Date();
@@ -90,8 +95,25 @@ const Gps = (props) => {
     );
   }, [businessData]);
 
+// const handleOnResult = event =>{
+// //   setSearchResult(new mapboxgl.searchResultsLayer({
+// //     id: "search-results",
+// //     data: event.result.geometry,
+// //     getFillColor: [255,0,0,128],
+// //     getRadius: 1000,
+// //     pointRadiusMinPixels: 10,
+// //     pointRadiusMaxPixels: 10
+// //   }) )
+// }
+// const handleGeocoderViewportChange = viewport => {
+//   const geocoderDefaultOverrides = { transitionDuration: 1000 };
+//   console.log("Updating")
 
-
+//   return setViewPort({
+//     ...viewport,
+//     ...geocoderDefaultOverrides
+//   });
+// }
   return (
     <div className="Mapbox">
       <Map
@@ -105,7 +127,13 @@ const Gps = (props) => {
         <GeolocateControl ref={geolocationRef} trackUserLocation={true} />
         <NavigationControl />
         <ScaleControl />
-
+        <GeocoderControl mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        position="top-left"/> 
+        {/* <Geocoder mapRef={mapRef}
+        onResult={handleOnResult}
+        mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        onViewportChange={handleGeocoderViewportChange}
+        position="top-left"/> */}
         {pins}
 
         <div className="popup">
