@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Map, {
   GeolocateControl,
   Marker,
@@ -29,28 +35,25 @@ const Gps = (props) => {
   const [category, setCategory] = useState(initialCategory);
   const mapRef = useRef();
 
-  function initialCategory (){
-    let categories = {}
-    categoryString.map((cate)=>{
-      categories[cate.headCategory]= true
-    })
-    return categories
+  function initialCategory() {
+    let categories = {};
+    categoryString.map((cate) => {
+      categories[cate.headCategory] = true;
+    });
+    return categories;
   }
 
-const updateCateSelected = useCallback(
-  (name,value)=>{
-    console.log("name and value", name, value)
-    setCategory((pre)=>({...pre,[name]:value}))
-  }
-  ,[]
-)
+  const updateCateSelected = useCallback((name, value) => {
+    console.log("name and value", name, value);
+    setCategory((pre) => ({ ...pre, [name]: value }));
+  }, []);
 
-useEffect(()=>console.log("category", category),[category])
+  useEffect(() => console.log("category", category), [category]);
 
   const onSelectedStore = useCallback(({ longitude, latitude }) => {
     mapRef.current?.flyTo({ center: [longitude, latitude], duration: 2000 });
   }, []);
-  
+
   const pins = useMemo(() => {
     const checkPlaceIsNew = (business) => {
       const userTimeStamp = new Date();
@@ -65,56 +68,59 @@ useEffect(()=>console.log("category", category),[category])
       }
     };
 
-
     return (
-     
-     businessData &&
+      businessData &&
       businessData.map((business, index) => {
-        return (
-          <Marker
-            key={`marker-${index}`}
-            longitude={business.longitude}
-            latitude={business.latitude}
-            anchor="bottom"
-            onClick={(e) => {
-              e.originalEvent.stopPropagation();
-              setPopupInfo(business);
-            }}
-          >
-            {categoryString &&
-              categoryString.map((cate, index) => {
-                if (business.headCategory === cate.headCategory) {
-                  return (
-                    <div
-                      className="pin--container"
-                      key={`pin--container${cate}${index}`}
-                    >
-                      <i className={`${cate.headCategory} ${cate.icon}`}
-                    key={`${cate.headCategory} ${cate.icon}`}></i>
-                      {checkPlaceIsNew(business) && (
-                        <div
-                          key={`isNew${index}`}
-                          className={`isNew ${
-                            checkPlaceIsNew(business) === "New" && "new"
-                          }`}
-                        >
-                          {checkPlaceIsNew(business)}
-                        </div>
-                      )}
-                    </div>
-                  );
-                }
-              })}
-          </Marker>
-         
-        );
+        if (category[business.headCategory]) {
+          console.log("category", )
+          return (
+            <Marker
+              key={`marker-${index}`}
+              longitude={business.longitude}
+              latitude={business.latitude}
+              anchor="bottom"
+              onClick={(e) => {
+                e.originalEvent.stopPropagation();
+                setPopupInfo(business);
+              }}
+            >
+              {categoryString &&
+                // eslint-disable-next-line array-callback-return
+                categoryString.map((cate, index) => {
+                  if (business.headCategory === cate.headCategory) {
+                    return (
+                      <div
+                        className="pin--container"
+                        key={`pin--container${cate}${index}`}
+                      >
+                        <i
+                          className={`${cate.headCategory} ${cate.icon}`}
+                          key={`${cate.headCategory} ${cate.icon}`}
+                        ></i>
+                        {checkPlaceIsNew(business) && (
+                          <div
+                            key={`isNew${index}`}
+                            className={`isNew ${
+                              checkPlaceIsNew(business) === "New" && "new"
+                            }`}
+                          >
+                            {checkPlaceIsNew(business)}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  }
+                })}
+            </Marker>
+          );
+        }
       })
     );
-  }, [businessData]);
+  }, [businessData, category]);
 
   return (
     <div className="Mapbox">
-       <p>{category&&category.key}</p>
+      <p>{category && category.key}</p>
       <Map
         ref={mapRef}
         {...viewport}
@@ -155,7 +161,7 @@ useEffect(()=>console.log("category", category),[category])
             </Popup>
           )}
         </div>
-        <CateFilterPanel settings={category} onChange={updateCateSelected}/>
+        <CateFilterPanel settings={category} onChange={updateCateSelected} />
       </Map>
       <ControlPanel
         data={popupInfo}
@@ -163,11 +169,7 @@ useEffect(()=>console.log("category", category),[category])
         businessData={businessData}
         categoryString={categoryString}
         setPopupInfo={setPopupInfo}
-     
       />
-       
-          
-        
     </div>
   );
 };
