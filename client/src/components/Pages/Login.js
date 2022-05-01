@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
-import {Form, Button, Card} from 'react-bootstrap'
+import {Form, Button, Card, Alert} from 'react-bootstrap'
 import { useAuth } from "../contexts/AuthContext";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 export default function Login() {
@@ -11,6 +11,7 @@ export default function Login() {
     const { login } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    let navigate = useNavigate();
 
     async function handleSubmit(event) {
         // cannot submit a blank form
@@ -19,6 +20,7 @@ export default function Login() {
             setError('')
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
+            navigate("/Profile");
         } catch {
             setError('Failed to sign in')
         }
@@ -30,6 +32,7 @@ export default function Login() {
         <Card>
             <Card.Body>
                 <h2 className = "mb-5"> Login </h2> 
+                {error && <Alert variant="danger"> {error}</Alert>}
                 <Form className= " mb-3 w-50" onSubmit={handleSubmit}>
                     <Form.Group id="email">
                         <Form.Label>Email</Form.Label>
