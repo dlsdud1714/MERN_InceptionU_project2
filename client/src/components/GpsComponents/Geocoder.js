@@ -5,7 +5,7 @@ import {  Marker, useControl } from "react-map-gl";
 const GeocoderControl = (props) => {
 
   const [marker, setMarker] = useState(null);
-  // console.log("props", GeocoderOptions)
+
   const geocoder = useControl(
     () => {
       const ctrl = new MapboxGeocoder({
@@ -21,7 +21,7 @@ const GeocoderControl = (props) => {
 
         const { result } = evt;
         
-        console.log("props", result)
+        
         const location =
           result &&
           (result.center || (result.geometry?.type === 'Point' && result.geometry.coordinates));
@@ -36,7 +36,7 @@ const GeocoderControl = (props) => {
         } else {
           setMarker(null);
         }
-        // )
+    
       });
       ctrl.on("error", props.onError);
       return ctrl;
@@ -44,7 +44,10 @@ const GeocoderControl = (props) => {
     { position: props.position }
   );
   if (geocoder._map) {
+  
+    geocoder.setLimit(5);
     if (geocoder.getProximity() !== props.proximity && props.proximity !== undefined) {
+      // console.log("here")
       geocoder.setProximity(props.proximity);
     }
     if (geocoder.getRenderFunction() !== props.render && props.render !== undefined) {

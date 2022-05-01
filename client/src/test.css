@@ -15,6 +15,16 @@
     font-family: 'Roboto Condensed', sans-serif;
     
 }
+body{
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #665759d9;
+    border-radius: 5px;
+  }
 /* searchbar */
 .navbar .navbar-brand{
     font-family: 'Righteous', cursive;
@@ -600,15 +610,22 @@ z-index: 999;
 }
 /* mapbox */
 .Mapbox{
-    width: 60vw;
+    width: 80vw;
     height: 500px;
     /* max-height: 50÷0px; */
     margin: auto;
     display: flex;
     flex-direction: row;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    border-radius: 5px;
 }
-.Mapbox .mapboxgl-canvas{
+.Mapbox .mapboxgl-map{
+    width: 75%;
+    border-radius: 5px;
+}
+.Mapbox .mapboxgl-map canvas{
     width: 100%;
+    border-radius: 5px;
 }
 .Mapbox .mapboxgl-marker .isNew{
     font-size: 11px;
@@ -625,53 +642,67 @@ z-index: 999;
     font-size: 18px;
     cursor: pointer;
 }
-.Mapbox .mapboxgl-canvas-container .auto{
+.Mapbox  .auto{
     color: #3a65c3
 }
-.Mapbox .mapboxgl-canvas-container .coffeeshop{
+.Mapbox  .coffeeshop{
     color: #533535
 }
-.Mapbox .mapboxgl-canvas-container .recreation{
+.Mapbox .recreation{
     color: #142F43
 }
-.Mapbox .mapboxgl-canvas-container .fastfood{
+.Mapbox  .fastfood{
     color: #a2416b
 }
-.Mapbox .mapboxgl-canvas-container .restaurant{
+.Mapbox .restaurant{
     color: #cf6e00
 }
-.Mapbox .mapboxgl-canvas-container .beauty{
+.Mapbox  .beauty{
     color: #718e20
 }
-.Mapbox .mapboxgl-canvas-container .clothing{
+.Mapbox .clothing{
     color: #179da7
 }
-.Mapbox .mapboxgl-canvas-container .groceries{
+.Mapbox  .groceries{
     color: #4B3869
 }
-.Mapbox .mapboxgl-canvas-container .pets{
+.Mapbox  .pets{
     color: #910000
 }
-/* .Mapbox .mapboxgl-popup{
-    width: 150px;
-    height: 100px;
-} */
+
 .Mapbox .mapboxgl-popup .place--img{
     width: 100%;
     height: 130px;
 }
-
-.Mapbox .control-panel{
-    overflow: scroll;
-    list-style: none;
+.Mapbox .mapboxgl-popup .place--rate .rate{
+    color:#DC3545D9
 }
+.Mapbox .control-panel{
+    overflow-y: scroll;
+   
+    width: 25%;
+    display:flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 5px;
+}
+
 .Mapbox .control-panel ul{
-    font-size: 15pt;
+    font-size: 12pt;
+    list-style: none;
+    margin:0;
+    padding:0;
 }
 
 .Mapbox .control-panel li{
+    border-radius: 5px;
+    padding-left:5px;
  cursor: pointer;
 }
+.Mapbox .control-panel li:hover{
+    background-color: #d2bfc7;
+   }
+
 .Mapbox .categoryPanel{
     position: absolute;
     top: 0;
@@ -686,4 +717,9 @@ z-index: 999;
     color: #6b6b76;
     text-transform: uppercase;
     outline: none;
+    opacity: 0.7;
+}
+.Mapbox .categoryPanel:hover{
+    opacity: 1;
+    
 }
