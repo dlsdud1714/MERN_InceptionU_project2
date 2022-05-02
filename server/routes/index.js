@@ -10,6 +10,10 @@ router.get("/home", function (req, res, next) {
   res.send({ Home: "Homepage" });
 });
 
+router.get("/about", function (req, res, next){
+  res.send({About: "About Page"});
+});
+
 router.get("/categories/:name", function (req, res, next) {
   const name = req.params.name;
   if (name == "fastFood") {
