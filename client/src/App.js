@@ -11,7 +11,7 @@ import Footer from "./components/Footer";
 import Signup from "./components/Pages/Signup";
 import Login from "./components/Pages/Login";
 import Profile from "./components/Pages/Profile";
-import About from "./components/Pages/About";
+// import About from "./components/Pages/About";
 
 
 function App() {
@@ -41,7 +41,7 @@ function App() {
       <Route path="/signup" element={<Signup />}/>
       <Route path="/login" element={<Login />}/>
       <Route path="/profile" element={<Profile />}/>
-      <Route path="/About" element={<About />}/>
+      {/* <Route path="/About" element={<About />}/> */}
     </Routes>
     <Footer/>
     </AuthProvider>
