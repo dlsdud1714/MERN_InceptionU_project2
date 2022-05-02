@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Form, Button, Card} from 'react-bootstrap'
+import {Form, Button, Card, Alert} from 'react-bootstrap'
 import { useAuth } from "../contexts/AuthContext";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 
 export default function Signup() {
@@ -12,6 +12,7 @@ export default function Signup() {
     const passwordConfirmRef = useRef()
     const { signup, currentUser } = useAuth()
     const [error, setError] = useState('')
+    let navigate = useNavigate();
 
     async function handleSubmit(event) {
         // cannot submit a blank form
@@ -23,6 +24,7 @@ export default function Signup() {
         try {
             setError('')
             signup(emailRef.current.value, passwordRef.current.value)
+            navigate("/");
         } catch {
             setError('Failed to create an account')
         }
@@ -34,6 +36,7 @@ export default function Signup() {
             <Card.Body>
                 <h2 className = "mb-5"> Sign Up </h2>
                     {currentUser && currentUser.email} 
+                    {error && <Alert variant="danger"> {error}</Alert>}
                 <Form className= "mb-3 w-50" onSubmit={handleSubmit}>
                     <Form.Group id="email">
                         <Form.Label>Email</Form.Label>
