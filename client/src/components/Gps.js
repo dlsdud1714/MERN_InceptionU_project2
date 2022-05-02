@@ -21,17 +21,16 @@ import StarRating from "./GpsComponents/StarRating";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-  
-
 const Gps = (props) => {
   const { businessData, categoryString } = props;
   const navigate = useNavigate();
   const geolocationRef = useCallback((ref) => {
     if (ref) {
-      console.log("ref",ref)
+      console.log("ref", ref);
       ref.trigger();
     }
-  }, []);
+  }
+  , []);
   const [popupInfo, setPopupInfo] = useState();
   const [viewport, setViewPort] = useState({
     latitude: 51.067625,
@@ -56,9 +55,8 @@ const Gps = (props) => {
     setCategory((pre) => ({ ...pre, [name]: value }));
   }, []);
 
-
   const onSelectedStore = useCallback(({ longitude, latitude }) => {
-    mapRef.current?.flyTo({ center: [longitude, latitude], duration: 2000 });
+    mapRef.current?.flyTo({ center: [longitude, latitude*1-0.003], zoom:14, duration: 2000 });
   }, []);
 
   const viewArea = mapRef.current?.getBounds();
@@ -69,40 +67,31 @@ const Gps = (props) => {
     const minLong = viewArea._sw.lng;
 
     const filterLists = () => {
-      let stores=[]
+      let stores = [];
       businessData &&
-      // eslint-disable-next-line array-callback-return
+        // eslint-disable-next-line array-callback-return
         businessData.map((store, index) => {
-          if (category[store.headCategory]){
-          if (
-            store.latitude * 1 < maxLat &&
-            store.latitude * 1 > minLat &&
-            store.longitude * 1 < maxLong &&
-            store.longitude * 1 > minLong
-          ) {
-            stores=[...stores, store];
+          if (category[store.headCategory]) {
+            if (
+              store.latitude * 1 < maxLat &&
+              store.latitude * 1 > minLat &&
+              store.longitude * 1 < maxLong &&
+              store.longitude * 1 > minLong
+            ) {
+              stores = [...stores, store];
+            }
+            return setListInArea(stores);
           }
-          return setListInArea(stores)
-        }});
+        });
     };
     filterLists();
   };
-  useEffect(()=>{viewArea && findServiceInArea();},[viewport,category])
+  useEffect(() => {
+    viewArea && findServiceInArea();
+  }, [viewport, category]);
+
 
   const pins = useMemo(() => {
-    const checkPlaceIsNew = (business) => {
-      const userTimeStamp = new Date();
-      const businessCreatedAt = new Date(business.jobCreated);
-      const timeDif = userTimeStamp.getTime() - businessCreatedAt.getTime();
-      const difInMon = timeDif / (1000 * 3600 * 24 * 30);
-      if (difInMon < 12) {
-        return "New";
-      }
-      if (difInMon > 180) {
-        return "Traditional";
-      }
-    };
-
     return (
       businessData &&
       // eslint-disable-next-line array-callback-return
@@ -117,7 +106,7 @@ const Gps = (props) => {
               onClick={(e) => {
                 e.originalEvent.stopPropagation();
                 setPopupInfo(business);
-                onSelectedStore(business)
+                onSelectedStore(business);
               }}
             >
               {categoryString &&
@@ -133,16 +122,6 @@ const Gps = (props) => {
                           className={`${cate.headCategory} ${cate.icon}`}
                           key={`${cate.headCategory} ${cate.icon}`}
                         ></i>
-                        {checkPlaceIsNew(business) && (
-                          <div
-                            key={`isNew${index}`}
-                            className={`isNew ${
-                              checkPlaceIsNew(business) === "New" && "new"
-                            }`}
-                          >
-                            {checkPlaceIsNew(business)}
-                          </div>
-                        )}
                       </div>
                     );
                   }
@@ -155,8 +134,7 @@ const Gps = (props) => {
   }, [businessData, category, categoryString]);
 
   return (
-    <div className="Mapbox" >
-      
+    <div className="Mapbox">
       <Map
         ref={mapRef}
         {...viewport}
@@ -164,7 +142,6 @@ const Gps = (props) => {
         style={{ width: "80%", height: "100%" }}
         mapStyle="mapbox://styles/inyoung1714/cl2i5e91p001n14nxvi27fq83"
         onMove={(evt) => setViewPort(evt.viewState)}
-
       >
         <GeolocateControl ref={geolocationRef} trackUserLocation={true} />
         <NavigationControl />
@@ -193,14 +170,20 @@ const Gps = (props) => {
                   alt=""
                 />
                 <div className="place--title">{popupInfo.title}</div>
-                <div className="plcae--neighborhood">in {popupInfo.neighbourhood}</div>
-                <div className="plcae--address">{popupInfo.address.replace(/['"]+/g,'')}</div>
+                <div className="plcae--neighborhood">
+                  in {popupInfo.neighbourhood}
+                </div>
+                <div className="plcae--address">
+                  {popupInfo.address.replace(/['"]+/g, "")}
+                </div>
                 <div className="place--google">
                   <i className="fa-solid fa-map-location-dot"></i>
                   <a href={`${popupInfo.placeUrl}`}>google map</a>
                 </div>
-                <StarRating popupInfo={popupInfo}/>
-                  <Button onClick={()=>navigate(`/business/${popupInfo._id}`)}>More info</Button>
+                <StarRating popupInfo={popupInfo} />
+                <Button onClick={() => navigate(`/business/${popupInfo._id}`)}>
+                  More info
+                </Button>
               </div>
             </Popup>
           )}
@@ -213,8 +196,6 @@ const Gps = (props) => {
         businessData={listsInArea}
         categoryString={categoryString}
         setPopupInfo={setPopupInfo}
-        // onChange={updateCateSelected}
-        // category={category}
       />
     </div>
   );

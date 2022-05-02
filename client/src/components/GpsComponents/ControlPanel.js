@@ -1,5 +1,4 @@
 import React from "react";
-import { CateFilterPanel } from "./CateFilterPanel";
 
 const ControlPanel = (props) => {
   const {
@@ -7,10 +6,28 @@ const ControlPanel = (props) => {
     businessData,
     categoryString,
     setPopupInfo,
-    onChange,
-    category
   } = props;
 
+  const checkPlaceIsNew = (business, index) => {
+    const userTimeStamp = new Date();
+    const businessCreatedAt = new Date(business.jobCreated);
+    const timeDif = userTimeStamp.getTime() - businessCreatedAt.getTime();
+    const difInMon = timeDif / (1000 * 3600 * 24 * 30);
+    if (difInMon < 12) {
+      return (
+        <div key={`isNew${index}`} className={`isNew new`}>
+          New
+        </div>
+      );
+    }
+    if (difInMon > 180) {
+      return (
+        <div key={`isNew${index}`} className={`isNew old`}>
+          Authentic
+        </div>
+      );
+    }
+  };
   return (
     <div className="control-panel">
       {/* <CateFilterPanel settings={category} onChange={onChange} /> */}
@@ -37,6 +54,7 @@ const ControlPanel = (props) => {
                       }}
                     >
                       {store.title}
+                      {checkPlaceIsNew(store, index)}
                     </li>
                   );
                 })}
