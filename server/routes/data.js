@@ -17,6 +17,7 @@ const {
 
 
 router.get("/", async (req, res) => {
+  console.log(`req.user is ${req.user}`)
   try {
     const businessCategories = await findAllLocalBusiness(localBusinesses);
     res.send(businessCategories);

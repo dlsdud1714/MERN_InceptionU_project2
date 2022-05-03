@@ -11,11 +11,13 @@ const User = model("User", userSchema);
 
 const createUser = async (user) => {
   // hash password with bcrypt
-  const hashedPassword = bcrypt.hash(user.password, 10);
+  const hashedPassword = bcrypt.hashSync(user.password);
+
   const newUser = await User.create({
     username: user.username,
     password: hashedPassword,
   });
+  
   return newUser;
 };
 
@@ -33,9 +35,19 @@ const updateUser = async (id, data) => {
   return updatedUser;
 };
 
+const getUserByUsername = async (username) => {
+    const user = await User.findOne({username: username});
+    return user
+}
 
+const verifyPassword = async (password, hashedPassword) => {
+    const passwordsMatch = await bcrypt.compare(password, hashedPassword)
+    return passwordsMatch
+}
 module.exports = {
   createUser,
   getUserById,
-  updateUser
+  updateUser,
+  getUserByUsername, 
+  verifyPassword,
 };

@@ -1,5 +1,7 @@
 const initialData = require("./data/localbusinesses.json");
 const {createLocalBusiness, localBusinesses} = require("./models/localBusinessModel.js")
+const { createNewUser } = require("./models/createUser");
+const { createUser } = require("./models/userModel");
 
 initialData.map((data) => {
     delete data._id;
@@ -7,3 +9,5 @@ initialData.map((data) => {
 });
 
 initialData.map((data)=>createLocalBusiness(data, localBusinesses));
+
+createNewUser();
