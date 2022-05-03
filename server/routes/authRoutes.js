@@ -47,12 +47,14 @@ passport.deserializeUser(async function (id, done) {
 });
 
 router.post("/login123", passport.authenticate("local"), (req, res) => {
-  res.send("sucess");
+  res.send("success");
+  console.log(`req.user is ${req.user}`)
 });
 
 
 router.get('/logout123', (req,res) => {
     req.logout()
     res.send('Logged out')
+    console.log('Logged out')
 })
 module.exports = router;

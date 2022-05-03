@@ -16,8 +16,28 @@ const {
 } = require("../db/models/localBusinessModel");
 
 
+const mustBeLoggedIn = (req, res, next) => {
+  console.log('reached must be logged in')
+  console.log(req.user)
+  if (req.user) {
+    return next();
+  }
+  res.sendStatus(401)
+  console.log('unauthorized')
+}
+
+const mustBeBusinessOwner = (req, res, next) => {
+  console.log('reached must be logged in')
+  console.log(req.user)
+  if (req.user) {
+    return next();
+  }
+  res.sendStatus(401)
+  console.log('Not a business owner')
+}
+
 router.get("/", async (req, res) => {
-  console.log(`req.user is ${req.user}`)
+  console.log(`/data req.user is ${req.user}`)
   try {
     const businessCategories = await findAllLocalBusiness(localBusinesses);
     res.send(businessCategories);
@@ -36,7 +56,7 @@ router.post("/img", uploadImg.single("img"), (req, res) => {
 });
 
 //delete and create posts 
-router.post("/businessPosts/:id", async (req, res) => {
+router.post("/businessPosts/:id", mustBeLoggedIn, async (req, res) => {
   try {
     const businessId = req.params.id;
     //const createAction = req.body.create;
@@ -90,6 +110,8 @@ router.get("/businessPosts/:id", async (req, res) => {
     console.log(err);
   }
 });
+
+
 //update posts
  router.patch("/businessPosts/:id", async (req,res)=>{
   try{
