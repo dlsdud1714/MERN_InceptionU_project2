@@ -1,6 +1,7 @@
 import React from 'react';
 import { MDBCard, MDBCardBody, MDBCardText, MDBCardImage } from 'mdb-react-ui-kit';
 
+
 export default function App() {
   return (
     <MDBCard style={{ width: '18rem' }}>
