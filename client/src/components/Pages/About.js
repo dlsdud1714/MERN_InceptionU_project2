@@ -1,19 +1,22 @@
-import React from 'react';
-import { MDBCard, MDBCardBody, MDBCardText, MDBCardImage } from 'mdb-react-ui-kit';
+import React from "react";
+// import { MDBCard, MDBCardBody, MDBCardText, MDBCardImage } from 'mdb-react-ui-kit';
 
-
-export default function App() {
-  return (
-    <MDBCard style={{ width: '18rem' }}>
+const About = () => {
+  return
+  <div>
+    <h1>
+      Hello, how are you? I hope you are well. 
+      {/* <MDBCard style={{ width: '18rem' }}>
       <MDBCardImage src='https://cdn.pixabay.com/photo/2020/05/30/04/52/calgary-5237661_960_720.jpg' alt='...' position='top' />
       <MDBCardBody>
         <MDBCardText>
           Some quick example text to build on the card title and make up the bulk of the card's content.
         </MDBCardText>
       </MDBCardBody>
-    </MDBCard>
-  );
-}
+    </MDBCard> */}
+    </h1>
+  </div>
+};
 
 // import React from "react";
 // // import { useParams } from "react-router-dom";
@@ -55,5 +58,4 @@ export default function App() {
 //   );
 // };
 
-// export default About;
-// Aboutcard;
+export default About;
