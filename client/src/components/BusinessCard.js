@@ -7,7 +7,7 @@ const BusinessCard = (props) => {
   console.log(filterData);
 
   return (
-    <div className="card">
+    <div centre className="card">
       <Container className='p-4'>
         <Row xs={1} md={2} lg={4} className="g-4">
             {filterData &&

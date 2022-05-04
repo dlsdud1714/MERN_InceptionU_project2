@@ -15,7 +15,9 @@ export const BusinessDetailCards = (props) => {
       {/* <div>Business Address: <button onClick= {data && data.address}>Click Me</button></div> */}
       <div>Phone Number: {data && data.phoneNumber}</div>
       <div>City Quadrant: {data && data.quadrant}</div>
-      <div>Website: {data && data.website}</div>
+      {data&&data.website&&
+        <div>Website: <a href={"http://"+(data && data.website)}>{data && data.website}</a></div>
+        }
       <div>Neighborhood: {data && data.neighborhood}</div>
       <div>Business Status: {data && data.jobStatus}</div>
     </div>
