@@ -6,7 +6,8 @@ const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   isBusinessOwner: {type: Boolean, default: false},
-  isAdmin: {type: Boolean, default: false}
+  isAdmin: {type: Boolean, default: false},
+  businessId: {type: String, default: ""}
 });
 
 const User = model("User", userSchema);
