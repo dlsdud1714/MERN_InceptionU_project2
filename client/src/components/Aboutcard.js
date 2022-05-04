@@ -5,7 +5,7 @@ const Aboutcard = (props) => {
   const card = props.Aboutcard;
   return (
   <Card>
-    <Card.Img variant="top" src="holder.js/100px180" />
+    <Card.Img variant="top" src="" />
     <Card.Header>About YYCWhatsNearMe?</Card.Header>
     <Card.Body>
       <Card.Text>
