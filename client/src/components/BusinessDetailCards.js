@@ -10,7 +10,7 @@ export const BusinessDetailCards = (props) => {
   return (
     <div className="center" >
       <img src={data && data.imgUrl} alt="" height={350}
-          width={500}/>
+          width={500} />
       <div> Customer Saticfaction Rating: {data && data.rating}</div>
       {/* <div>Business Address: <button onClick= {data && data.address}>Click Me</button></div> */}
       <div>Phone Number: {data && data.phoneNumber}</div>
