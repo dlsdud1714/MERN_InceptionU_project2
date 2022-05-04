@@ -3,7 +3,7 @@ import Split from "react-split";
 import BusinessSidebar from "./BusinessAdComponets/BusinessSidebar";
 import Editor from "./BusinessAdComponets/Editor";
 import Post from "./BusinessAdComponets/Post";
-import { nanoid } from "nanoid";
+
 import axios from "axios"
 // import { useAuth } from "./contexts/AuthContext";
 
@@ -25,17 +25,17 @@ const BusinessAd = (props) => {
   const [currentPost, setCurrentPost] = useState();
  const [commentAction, setCommentAction] = useState(false);
 // useEffect(()=>console.log("current post in in ad.js", currentPostId, findCurrentPost()),[currentPostId]);
-  const createPost = (category, body, postId, comment) => {
-    const newInputs = {
-      title: businessData.title,
-      business_id: businessData._id,
-      postId: postId || nanoid(),
-      category: category,
-      body: body,
-      comment: comment
-    };
-    setCurrentPost(newInputs);
-  };
+  // const createPost = (category, body, postId, comment) => {
+  //   const newInputs = {
+  //     title: businessData.title,
+  //     business_id: businessData._id,
+  //     postId: postId || nanoid(),
+  //     category: category,
+  //     body: body,
+  //     comment: comment
+  //   };
+  //   setCurrentPost(newInputs);
+  // };
 
   function findCurrentPost() {
     return userinputs.find((userinput) => userinput.postId === currentPostId);
@@ -144,7 +144,10 @@ const BusinessAd = (props) => {
           />
         ) : (
           <Editor
-            createPost={createPost}
+            // createPost={createPost}
+            currentPost={currentPost}
+            setCurrentPost={setCurrentPost}
+            businessData={businessData}
             setContentMark={setContentMark}
             categoryList={categoryList}
             currentPostId={currentPostId}

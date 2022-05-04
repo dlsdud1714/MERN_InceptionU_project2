@@ -34,6 +34,18 @@ router.post("/img", uploadImg.single("img"), (req, res) => {
   }
 });
 
+
+//post
+router.post("/business/post/:businessId", async (req,res)=>{
+  try{
+    const businessId = req.params.id;
+    const dataToCreate = req.body.data;
+    const data= await createPosts({businessId:businessId, data: dataToCreate})
+    res.status(200).json(data)
+  }catch(err){
+    console.log("error:",error)
+  }
+})
 //delete and create posts 
 router.post("/businessPosts/:id", async (req, res) => {
   try {

@@ -2,11 +2,14 @@ import axios from "axios";
 import React, { useMemo, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
+import { nanoid } from "nanoid";
 
 export const Editor = (props) => {
   const {
-    createPost,
+    // createPost,
+    currentPost,
+    setCurrentPost,
+    businessData,
     setContentMark,
     categoryList,
     currentPostId,
@@ -20,61 +23,19 @@ export const Editor = (props) => {
   );
   const [newCategoryControl, setNewCategoryControl] = useState(false);
 
-  //---quill-----
-  const quillRef = useRef();
-
-  const imageHandler = () => {
-    //const quillEditor = this.quillRef.getEditor()
-    const input = document.createElement("input");
-    const formData = new FormData();
-
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "image/*");
-    input.click();
-
-    input.onchange = async () => {
-      const file = input.files;
-      if (file !== null) {
-        formData.append("img", file[0]);
-      }
-      try {
-        const result = await axios.post("/data/img", formData);
-        const url = result.data.url;
-        const editor = quillRef.current.getEditor();
-        const range = editor.getSelection();
-        editor.insertEmbed(range.index, "image", url);
-
-        return { ...result, success: true };
-      } catch (err) {
-        console.log(err);
-      }
+  //create
+  const createPost = (category, body, postId, comment) => {
+    const newInputs = {
+      title: businessData.title,
+      business_id: businessData._id,
+      postId: postId || nanoid(),
+      category: category,
+      body: body,
+      comment: comment
     };
+    setCurrentPost(newInputs);
   };
-
-  const modules = useMemo(
-    () => ({
-      toolbar: {
-        container: [
-          [{ header: [1, 2, false] }],
-          ["bold", "italic", "underline", "strike", "blockquote"],
-          [
-            { list: "ordered" },
-            { list: "bullet" },
-            { indent: "-1" },
-            { indent: "+1" },
-          ],
-          ["link", "image"],
-          [{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
-          ["clean"],
-        ],
-        handlers: { image: imageHandler },
-      },
-    }),
-    []
-  );
-
-  //------end quill=------
-
+//edit
   function filterToCurrentCategoryNbody() {
     const currentpost = findCurrentPost();
     // console.log("currentpost is", currentpost);
@@ -87,27 +48,31 @@ export const Editor = (props) => {
   }
   // console.log("current post in editor is", cateNBody);
 
-  function post(event) {
+  async function post (event) {
     event.preventDefault();
     if (!cateNBody.category) {
       alert("type category");
       return;
     }
-
    
     createPost(cateNBody.category, cateNBody.body, cateNBody.postId, cateNBody.comment);
-    setContentMark(true);
-
+    
     if(cateNBody.postId){
-      setEditAction(()=>true)
-      setCreateAction(()=>false);
-      setDeleteAction(()=>false);
+      const editResponse = await axios.patch(`/business/post/${businessData._id}`, currentPost);
+      console.log("Post is edited", editResponse);
+      // setEditAction(()=>true)
+      // setCreateAction(()=>false);
+      // setDeleteAction(()=>false);
       
     }else{
-      setEditAction(()=>false);
-      setCreateAction(()=>true);
-      setDeleteAction(()=>false);
+      const createResponse = await axios.post(`/business/post/${businessData._id}`, currentPost);
+      console.log("Post is created", createResponse)
+      // setEditAction(()=>false);
+      // setCreateAction(()=>true);
+      // setDeleteAction(()=>false);
     } 
+    setContentMark(true);
+
   }
 
   const checkCategory = (event) => {
@@ -120,7 +85,60 @@ export const Editor = (props) => {
       });
     }
   };
+//---quill-----------------
+const quillRef = useRef();
 
+const imageHandler = () => {
+  //const quillEditor = this.quillRef.getEditor()
+  const input = document.createElement("input");
+  const formData = new FormData();
+
+  input.setAttribute("type", "file");
+  input.setAttribute("accept", "image/*");
+  input.click();
+
+  input.onchange = async () => {
+    const file = input.files;
+    if (file !== null) {
+      formData.append("img", file[0]);
+    }
+    try {
+      const result = await axios.post("/data/img", formData);
+      const url = result.data.url;
+      const editor = quillRef.current.getEditor();
+      const range = editor.getSelection();
+      editor.insertEmbed(range.index, "image", url);
+
+      return { ...result, success: true };
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+const modules = useMemo(
+  () => ({
+    toolbar: {
+      container: [
+        [{ header: [1, 2, false] }],
+        ["bold", "italic", "underline", "strike", "blockquote"],
+        [
+          { list: "ordered" },
+          { list: "bullet" },
+          { indent: "-1" },
+          { indent: "+1" },
+        ],
+        ["link", "image"],
+        [{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
+        ["clean"],
+      ],
+      handlers: { image: imageHandler },
+    },
+  }),
+  []
+);
+
+//------end quill=------
   return (
     <div className="editor">
       <form onSubmit={post}>
