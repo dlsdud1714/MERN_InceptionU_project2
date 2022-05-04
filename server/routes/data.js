@@ -16,7 +16,29 @@ const {
   localBusinesses,
 } = require("../db/models/localBusinessModel");
 
+
+const mustBeLoggedIn = (req, res, next) => {
+  console.log('reached must be logged in')
+  console.log(req.user)
+  if (req.user) {
+    return next();
+  }
+  res.sendStatus(401)
+  console.log('unauthorized')
+}
+
+const mustBeBusinessOwner = (req, res, next) => {
+  console.log('reached must be logged in')
+  console.log(req.user)
+  if (req.user) {
+    return next();
+  }
+  res.sendStatus(401)
+  console.log('Not a business owner')
+}
+
 router.get("/", async (req, res) => {
+  console.log(`/data req.user is ${req.user}`)
   try {
     const businessCategories = await findAllLocalBusiness(localBusinesses);
     res.send(businessCategories);
@@ -33,9 +55,10 @@ router.post("/img", uploadImg.single("img"), (req, res) => {
     console.log(err);
   }
 });
+
 //------for Editor(aceess only for business onwer)--------
-//posting- create and add(aceess only for business onwer)
-router.post("/business/post/:businessId", async (req, res) => {
+//posting- create and add
+router.post("/business/post/:businessId", mustBeLoggedIn, async (req, res) => {
   try {
     const businessId = req.params.businessId;
     const dataToCreate = req.body;
@@ -128,5 +151,19 @@ router.get("/businessPosts/:id", async (req, res) => {
   }
 });
 
+
+//update posts
+ router.patch("/businessPosts/:id", async (req,res)=>{
+  try{
+     const id =req.params.id;
+     const dataToUpdate= req.body;
+     console.log("patch response", dataToUpdate, id);
+     const data= await updateBusinessPosts(id, req.body.postId, dataToUpdate)
+     console.log("Updateddata ", data)
+     res.json({ status: "success", message:"data is up-to-date" });
+  }catch(err){
+     console.log(err)
+   }
+ })
 
 module.exports = router;
