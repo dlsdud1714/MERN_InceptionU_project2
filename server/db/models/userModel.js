@@ -5,6 +5,8 @@ const { model, Schema } = mongoose;
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  isBusinessOwner: {type: Boolean, default: false},
+  isAdmin: {type: Boolean, default: false}
 });
 
 const User = model("User", userSchema);
@@ -14,10 +16,10 @@ const createUser = async (user) => {
   const hashedPassword = bcrypt.hashSync(user.password);
 
   const newUser = await User.create({
-    username: user.username,
+   ...user,
     password: hashedPassword,
   });
-  
+
   return newUser;
 };
 

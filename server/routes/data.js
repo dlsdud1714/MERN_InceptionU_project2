@@ -58,7 +58,7 @@ router.post("/img", uploadImg.single("img"), (req, res) => {
 
 //------for Editor(aceess only for business onwer)--------
 //posting- create and add
-router.post("/business/post/:businessId", async (req, res) => {
+router.post("/business/post/:businessId", mustBeLoggedIn, async (req, res) => {
   try {
     const businessId = req.params.businessId;
     const dataToCreate = req.body;

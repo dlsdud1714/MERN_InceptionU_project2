@@ -1,14 +1,27 @@
 const { createUser } = require("./userModel");
 
 const createNewUser = async () => {
+
   const newUser = {
-    username: "businessowner",
+    username: "user",
     password: "password1",
   };
-  const createdUser = await createUser(newUser);
-  //console.log(`created a new user ${(newUser.username, createdUser._id)}`);
-};
+  const newBusinessOwner = {
+    username: "businessowner",
+    password: "businessowner1",
+    isBusinessOwner: true,
+  };
+  const newAdmin = {
+    username: "admin",
+    password: "admin1",
+    isAdmin: true,
+  };
 
+  const createdUser = await createUser(newUser);
+  const createdBusinessOwner = await createUser(newBusinessOwner)
+  const createdAdmin = await createUser(newAdmin)
+
+};
 
 module.exports = {
     createNewUser
