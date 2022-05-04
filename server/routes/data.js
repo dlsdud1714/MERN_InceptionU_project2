@@ -34,7 +34,7 @@ router.post("/img", uploadImg.single("img"), (req, res) => {
   }
 });
 //------for Editor(aceess only for business onwer)--------
-//posting- create and add
+//posting- create and add(aceess only for business onwer)
 router.post("/business/post/:businessId", async (req, res) => {
   try {
     const businessId = req.params.businessId;
@@ -61,8 +61,7 @@ router.post("/business/post/:businessId", async (req, res) => {
   }
 });
 
-//posting--update
-
+//posting--update(aceess only for business onwer)
 router.patch("/business/post/:businessId", async (req, res) => {
   try {
     const id = req.params.businessId;
@@ -76,7 +75,7 @@ router.patch("/business/post/:businessId", async (req, res) => {
   }
 });
 
-//posting--delete
+//posting--delete(aceess only for business onwer)
 router.delete("/business/post/:businessId/:postId", async (req, res) => {
   try {
     const id = req.params.businessId;
@@ -92,6 +91,7 @@ router.delete("/business/post/:businessId/:postId", async (req, res) => {
 });
 
 //======To handle comment query (Access only for all users)========
+//comment create and add(Access only for all users)
 router.post("/business/:businessId/comment/:postId", async(req,res)=>{
     const businessId = req.params.businessId;
     const postId = req.params.postId;
@@ -104,7 +104,7 @@ router.post("/business/:businessId/comment/:postId", async(req,res)=>{
     console.log('Error is', err)
   }
 })
-
+//comment edit(Access only for all users)
 router.put("/business/:businessId/comment/:postId", async(req,res)=>{
   const businessId = req.params.businessId;
     const postId = req.params.postId;
