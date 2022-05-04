@@ -4,6 +4,7 @@ import Category from "../Category";
 import "../../test.css";
 import Background from "../Background";
 import Gps from "../Gps"
+import About from "./About";
 
 const Main = (props) => {
   const {businessData} = props;
@@ -12,6 +13,7 @@ const Main = (props) => {
   return (
     <div className="main">
       <Background/>
+      <About/>
       {/* <Header businessData={businessData}/> */}
       {/* <NavBar/> */}
       {/* <SearchBar businessData={businessData}/> */}
