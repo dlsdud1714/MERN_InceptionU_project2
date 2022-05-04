@@ -15,10 +15,11 @@ const SearchBarDropDown = (props) => {
   const searchTerm = props.searchTerm;
   const setSearchTerm = props.setSearchTerm;
   const navigate = useNavigate()
+  // const [dropboxOpen, ]
 
   
   return (
-    <Box sx={{ width: '100%', height: 150, maxWidth: 360, bgcolor: 'danger', mt: 1}}>
+    <Box sx={{ width: '100%', height: 150, maxWidth: 360, bgcolor: 'white', mt: 1}}>
       <FixedSizeList
         height={150}
         width={360}
@@ -31,7 +32,8 @@ const SearchBarDropDown = (props) => {
             navigate(`/business/${item._id}`)
             console.log('clicked')
             console.log(item._id)
-            setSearchTerm('')
+            setSearchTerm(()=>"")
+            console.log("serchterm",searchTerm)
         }
       return <ListItem component="div" disablePadding>
       <ListItemButton onClick={onClick}>
@@ -56,7 +58,7 @@ const SearchBar = (props) => {
     // console.log('running')
     if (businessData){
     const newMapData = businessData.filter((value, key) => {
-      if (searchTerm === "") return (false);
+      if (searchTerm==="") return (false);
       else if (
         value?.title?.toLowerCase().includes(searchTerm.toLowerCase())
         )
@@ -72,8 +74,8 @@ function onChange(event) {
   // console.log(mappedData)
   return (
     <div className="search-bar-dropdown">
-      <input type="text" className="form-control" placeholder="Search" onChange={onChange} /> 
-          {mappedData&&<SearchBarDropDown mappedData={mappedData} searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>} 
+      <input type="text" className="form-control" value={searchTerm} placeholder="Search" onChange={onChange} /> 
+          {(mappedData&&searchTerm)&&<SearchBarDropDown mappedData={mappedData} searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>} 
     </div>
   );
 };
