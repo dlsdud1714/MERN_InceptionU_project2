@@ -4,6 +4,7 @@ const session = require('express-session')
 const passport = require('passport')
 const path = require('path')
 
+
 var indexRouter = require('./routes/index');
 const dataRouter = require('./routes/data');
 const authRouter = require('./routes/authRoutes');

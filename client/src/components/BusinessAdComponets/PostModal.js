@@ -11,7 +11,7 @@ const PostModal = (props) => {
     <div className='postModal'>
       {content()}
       <CloseButton onClick={closeModal}/>
-      {/* <button className='close' onClick={closeModal}>X</button> */}
+      
     </div>
   )
 }
