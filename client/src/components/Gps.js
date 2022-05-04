@@ -135,6 +135,7 @@ const Gps = (props) => {
 
   return (
     <div className="Mapbox">
+      
       <Map
         ref={mapRef}
         {...viewport}
@@ -146,11 +147,11 @@ const Gps = (props) => {
         <GeolocateControl ref={geolocationRef} trackUserLocation={true} />
         <NavigationControl />
         <ScaleControl />
-        <GeocoderControl
+        {/* <GeocoderControl
           mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
           position="top-right"
           data={businessData}
-        />
+        /> */}
 
         {pins}
 

@@ -8,7 +8,7 @@ import About from "./About";
 
 const Main = (props) => {
   const {businessData} = props;
-  const [categoryString, setCategoryString] = useState(categoryNames);
+  const categoryString = categoryNames;
   // console.log("Main business data is:", businessData)
   return (
     <div className="main">
@@ -18,6 +18,7 @@ const Main = (props) => {
       {/* <NavBar/> */}
       {/* <SearchBar businessData={businessData}/> */}
       <Category categories={categoryString}/>
+      <div className="GPS--header">What's near me?</div>
     <Gps businessData={businessData} categoryString={categoryString}/>
   </div>
   )

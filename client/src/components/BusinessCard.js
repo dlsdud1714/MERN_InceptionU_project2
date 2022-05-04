@@ -34,7 +34,7 @@ const BusinessCard = (props) => {
                   <Card>
                     <Card.Img
                       variant="top"
-                      
+                      height={180}
                       src={data.imgUrl}
                       referrerpolicy="no-referrer"
                     />
