@@ -1,19 +1,25 @@
 import React from "react";
 
-// const Aboutcard = (props) => {
-//     const card = props.Aboutcard;
-//     console.log(about);
-//     return(
-// <>
-//   <Card>
-//     <Card.Img variant="top" src="holder.js/100px180" />
-//     <Card.Body>
-//       <Card.Text>
-//         Some quick example text to build on the card title and make up the bulk
-//         of the card's content.
-//       </Card.Text>
-//     </Card.Body>
-//   </Card>
-// </>)};
+const Aboutcard = (props) => {
+    const card = props.Aboutcard;
+    console.log(about);
+    return(
+    <Card border="primary" style={{ width: '18rem' }}>
+        <Card.Header>About YYCWhatsNearMe?</Card.Header>
+        <Card.Body>
+          <Card.Text>
+            <h6>{}</h6>
+            <h6>{}</h6>
+            <h6>{}</h6>
+            <h6>{}</h6>
+            <h6>{}</h6>
+            <h6>{}</h6>
+            <h6>{}</h6>
+            <h6>{}</h6>
+            <h6>{}</h6>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+    )};
 
-// // export default Aboutcard; 
+export default Aboutcard; 
