@@ -6,73 +6,61 @@ import { nanoid } from "nanoid";
 
 export const Editor = (props) => {
   const {
-    // createPost,
-    currentPost,
-    setCurrentPost,
     businessData,
     setContentMark,
     categoryList,
     currentPostId,
     findCurrentPost,
-    setCreateAction,
-    setEditAction,
-    setDeleteAction,
+    setSubmittingAction,
   } = props;
   const [cateNBody, setCateNBody] = useState(
-    currentPostId ? filterToCurrentCategoryNbody() : { category: "", body: "" }
+    currentPostId ? findCurrentPost() : { category: "", body: "" }
   );
   const [newCategoryControl, setNewCategoryControl] = useState(false);
 
   //create
   const createPost = (category, body, postId, comment) => {
-    const newInputs = {
-      title: businessData.title,
-      business_id: businessData._id,
+    return {
+      // title: businessData.title,
+      // business_id: businessData._id,
       postId: postId || nanoid(),
       category: category,
       body: body,
-      comment: comment
+      comment: comment,
     };
-    setCurrentPost(newInputs);
   };
-//edit
-  function filterToCurrentCategoryNbody() {
-    const currentpost = findCurrentPost();
-    // console.log("currentpost is", currentpost);
-    return {
-      postId: currentpost.postId,
-      category: currentpost.category,
-      body: currentpost.body,
-      comment: currentpost.comment
-    };
-  }
-  // console.log("current post in editor is", cateNBody);
+ 
 
-  async function post (event) {
+  async function post(event) {
     event.preventDefault();
     if (!cateNBody.category) {
       alert("type category");
       return;
     }
-   
-    createPost(cateNBody.category, cateNBody.body, cateNBody.postId, cateNBody.comment);
-    
-    if(cateNBody.postId){
-      const editResponse = await axios.patch(`/business/post/${businessData._id}`, currentPost);
-      console.log("Post is edited", editResponse);
-      // setEditAction(()=>true)
-      // setCreateAction(()=>false);
-      // setDeleteAction(()=>false);
-      
-    }else{
-      const createResponse = await axios.post(`/business/post/${businessData._id}`, currentPost);
-      console.log("Post is created", createResponse)
-      // setEditAction(()=>false);
-      // setCreateAction(()=>true);
-      // setDeleteAction(()=>false);
-    } 
     setContentMark(true);
 
+    const createdPost = createPost(
+      cateNBody.category,
+      cateNBody.body,
+      cateNBody.postId,
+      cateNBody.comment
+    );
+    if (cateNBody.postId) {
+      const editResponse = await axios.patch(
+        `/data/business/post/${businessData._id}`,
+        createdPost
+      );
+      console.log("Post is edited", editResponse);
+      return setSubmittingAction(true);
+    } else {
+     
+      const createResponse = await axios.post(
+        `/data/business/post/${businessData._id}`,
+        createdPost
+      );
+      console.log("Post is created", createResponse);
+      return setSubmittingAction(true);
+    }
   }
 
   const checkCategory = (event) => {
@@ -85,60 +73,60 @@ export const Editor = (props) => {
       });
     }
   };
-//---quill-----------------
-const quillRef = useRef();
+  //---quill-----------------
+  const quillRef = useRef();
 
-const imageHandler = () => {
-  //const quillEditor = this.quillRef.getEditor()
-  const input = document.createElement("input");
-  const formData = new FormData();
+  const imageHandler = () => {
+    //const quillEditor = this.quillRef.getEditor()
+    const input = document.createElement("input");
+    const formData = new FormData();
 
-  input.setAttribute("type", "file");
-  input.setAttribute("accept", "image/*");
-  input.click();
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.click();
 
-  input.onchange = async () => {
-    const file = input.files;
-    if (file !== null) {
-      formData.append("img", file[0]);
-    }
-    try {
-      const result = await axios.post("/data/img", formData);
-      const url = result.data.url;
-      const editor = quillRef.current.getEditor();
-      const range = editor.getSelection();
-      editor.insertEmbed(range.index, "image", url);
+    input.onchange = async () => {
+      const file = input.files;
+      if (file !== null) {
+        formData.append("img", file[0]);
+      }
+      try {
+        const result = await axios.post("/data/img", formData);
+        const url = result.data.url;
+        const editor = quillRef.current.getEditor();
+        const range = editor.getSelection();
+        editor.insertEmbed(range.index, "image", url);
 
-      return { ...result, success: true };
-    } catch (err) {
-      console.log(err);
-    }
+        return { ...result, success: true };
+      } catch (err) {
+        console.log(err);
+      }
+    };
   };
-};
 
-const modules = useMemo(
-  () => ({
-    toolbar: {
-      container: [
-        [{ header: [1, 2, false] }],
-        ["bold", "italic", "underline", "strike", "blockquote"],
-        [
-          { list: "ordered" },
-          { list: "bullet" },
-          { indent: "-1" },
-          { indent: "+1" },
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: [1, 2, false] }],
+          ["bold", "italic", "underline", "strike", "blockquote"],
+          [
+            { list: "ordered" },
+            { list: "bullet" },
+            { indent: "-1" },
+            { indent: "+1" },
+          ],
+          ["link", "image"],
+          [{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
+          ["clean"],
         ],
-        ["link", "image"],
-        [{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
-        ["clean"],
-      ],
-      handlers: { image: imageHandler },
-    },
-  }),
-  []
-);
+        handlers: { image: imageHandler },
+      },
+    }),
+    []
+  );
 
-//------end quill=------
+  //------end quill=------
   return (
     <div className="editor">
       <form onSubmit={post}>
@@ -183,27 +171,29 @@ const modules = useMemo(
             })
           }
         />
-        <button className="postButton" type="submit">POST</button>
+        <button className="postButton" type="submit">
+          POST
+        </button>
       </form>
     </div>
   );
 };
-  Editor.formats = [
-    //'font',
-    "header",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "align",
-    "color",
-    "background",
-  ];
+Editor.formats = [
+  //'font',
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
+  "align",
+  "color",
+  "background",
+];
 
 export default Editor;

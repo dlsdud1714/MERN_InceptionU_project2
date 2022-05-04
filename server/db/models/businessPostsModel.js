@@ -5,9 +5,7 @@ const businessPostSchema = new Schema({
   businessId: { type: String, unique: true },
   data: [
     {
-      title: String,
-      business_id: String,
-      postId: {type: String, unique:true},
+      postId: {type: String, required:true, unique:true},
       category: String,
       body: String,
       comment: {type:Array, default:null}
@@ -44,20 +42,28 @@ const updateBusinessPosts = async (id, postId, data) => {
   };
 
 
-const deleteBusinessPost = async (id, postId, data) => {
+const deleteBusinessPost = async (id, postId) => {
   const deleted = await businessPosts.findOneAndUpdate(
     { businessId: id },
-    { $pull: { "data": data } }
+    { $pull: { data: {postId: postId}  }}
   );
   return deleted;
 };
 
 const addCommentBusinessPost= async(id, postId, data)=>{
-  const updated= await businessPosts.findOneAndUpdate( 
+  const added= await businessPosts.findOneAndUpdate( 
     {businessId: id, "data.postId": postId},
-    {$set: {"data.$": data}}
+    {$push: {"data.$.comment": data}}
   );
-  return updated
+  return added
+}
+const updateCommentBusinessPost=async(id, postId, data )=>{
+  console.log("updating comments")
+  const updated= await businessPosts.findOneAndUpdate(
+    { "businessId": id, "data": {'$elemMatch':{ 'postId': postId , "comment.commentId": data.commentId}  }},
+    {$set:{"data.$[outer].comment.$[inner]": data}},
+    {arrayFilters:[{"outer.postId": postId}, {"inner.commentId": data.commentId}]});
+    return updated
 }
 
 module.exports = {
@@ -66,5 +72,6 @@ module.exports = {
   addBusinessPost,
   updateBusinessPosts,
   deleteBusinessPost,
-  addCommentBusinessPost
+  addCommentBusinessPost,
+  updateCommentBusinessPost
 };
