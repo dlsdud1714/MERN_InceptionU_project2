@@ -18,16 +18,7 @@ const Aboutcard = (props) => {
       </Card.Text>
     </Card.Body>
   </Card>
-    /* <Card border="primary" style={{ width: "86rem" }}>
-      
-      <Card.Body>
-        <Card.Text>
-          <h6>
-            
-          </h6>
-        </Card.Text>
-      </Card.Body>
-    </Card> */
+
   );
 };
 
