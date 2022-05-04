@@ -17,8 +17,8 @@ const {
 } = require("../db/models/localBusinessModel");
 
 
-const mustBeLoggedIn = (req, res, next) => {
-  console.log('reached must be logged in')
+const mustBeUser = (req, res, next) => {
+  console.log('reached mustBeUser')
   console.log(req.user)
   if (req.user) {
     return next();
@@ -28,9 +28,9 @@ const mustBeLoggedIn = (req, res, next) => {
 }
 
 const mustBeBusinessOwner = (req, res, next) => {
-  console.log('reached must be logged in')
+  console.log('reached must be businessowner')
   console.log(req.user)
-  if (req.user) {
+  if (req.user && req.user.isBusinessOwner || req.user.isAdmin) {
     return next();
   }
   res.sendStatus(401)
@@ -58,7 +58,7 @@ router.post("/img", uploadImg.single("img"), (req, res) => {
 
 //------for Editor(aceess only for business onwer)--------
 //posting- create and add
-router.post("/business/post/:businessId", mustBeLoggedIn, async (req, res) => {
+router.post("/business/post/:businessId", mustBeBusinessOwner, async (req, res) => {
   try {
     const businessId = req.params.businessId;
     const dataToCreate = req.body;
@@ -115,7 +115,7 @@ router.delete("/business/post/:businessId/:postId", async (req, res) => {
 
 //======To handle comment query (Access only for all users)========
 //comment create and add(Access only for all users)
-router.post("/business/:businessId/comment/:postId", async(req,res)=>{
+router.post("/business/:businessId/comment/:postId", mustBeUser, async(req,res)=>{
     const businessId = req.params.businessId;
     const postId = req.params.postId;
     const commentToAdd = req.body;
