@@ -10,6 +10,7 @@ const createNewUser = async () => {
     username: "businessowner",
     password: "businessowner1",
     isBusinessOwner: true,
+    businessId: "62605ab85a90a6b8ecb0ed2b" // compucare
   };
   const newAdmin = {
     username: "admin",

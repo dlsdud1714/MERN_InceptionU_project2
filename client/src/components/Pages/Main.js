@@ -13,7 +13,7 @@ const Main = (props) => {
   return (
     <div className="main">
       <Background/>
-      <About/>
+      {/* <About/> */}
       {/* <Header businessData={businessData}/> */}
       {/* <NavBar/> */}
       {/* <SearchBar businessData={businessData}/> */}

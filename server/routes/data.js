@@ -30,11 +30,25 @@ const mustBeUser = (req, res, next) => {
 const mustBeBusinessOwner = (req, res, next) => {
   console.log('reached must be businessowner')
   console.log(req.user)
-  if (req.user && req.user.isBusinessOwner || req.user.isAdmin) {
+  if (req.user && req.user.isBusinessOwner) {
+    console.log('passed mustBeBusinessOwner')
     return next();
   }
   res.sendStatus(401)
   console.log('Not a business owner')
+}
+
+const mustBeUniqueOwner = (req, res, next) => {
+  console.log('reached must be unique owner')
+  console.log(req.user)
+  const id = req.params.businessId;
+  console.log(`id is ${id}`)
+  if (req.user && req.user.isBusinessOwner && (id === req.user.businessId)) {
+    console.log('passed mustBeUniqueOwner')
+    return next();
+  }
+  res.sendStatus(401)
+  console.log('Not a unique owner')
 }
 
 router.get("/", async (req, res) => {
@@ -58,7 +72,7 @@ router.post("/img", uploadImg.single("img"), (req, res) => {
 
 //------for Editor(aceess only for business onwer)--------
 //posting- create and add
-router.post("/business/post/:businessId", mustBeBusinessOwner, async (req, res) => {
+router.post("/business/post/:businessId", mustBeUniqueOwner, async (req, res) => {
   try {
     const businessId = req.params.businessId;
     const dataToCreate = req.body;
@@ -115,7 +129,7 @@ router.delete("/business/post/:businessId/:postId", async (req, res) => {
 
 //======To handle comment query (Access only for all users)========
 //comment create and add(Access only for all users)
-router.post("/business/:businessId/comment/:postId", mustBeUser, async(req,res)=>{
+router.post("/business/:businessId/comment/:postId", async(req,res)=>{
     const businessId = req.params.businessId;
     const postId = req.params.postId;
     const commentToAdd = req.body;

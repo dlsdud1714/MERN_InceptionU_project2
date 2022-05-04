@@ -21,7 +21,7 @@ const localBusinessSchema = new Schema({
   neighbourhood: String,
   jobStatus: String,
   jobCreated: String,
-  headCategory: String
+  headCategory: String,
 });
 
 const localBusinessSchema2 = new Schema({
