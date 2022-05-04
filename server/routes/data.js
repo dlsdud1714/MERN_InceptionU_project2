@@ -5,7 +5,8 @@ const {
   addBusinessPost,
   updateBusinessPosts,
   deleteBusinessPost,
-  addCommentBusinessPost
+  addCommentBusinessPost,
+  updateCommentBusinessPost
 } = require("../db/models/businessPostsModel");
 const uploadImg = require("../controller/dataController");
 
@@ -16,7 +17,28 @@ const {
 } = require("../db/models/localBusinessModel");
 
 
+const mustBeUser = (req, res, next) => {
+  console.log('reached mustBeUser')
+  console.log(req.user)
+  if (req.user) {
+    return next();
+  }
+  res.sendStatus(401)
+  console.log('unauthorized')
+}
+
+const mustBeBusinessOwner = (req, res, next) => {
+  console.log('reached must be businessowner')
+  console.log(req.user)
+  if (req.user && req.user.isBusinessOwner || req.user.isAdmin) {
+    return next();
+  }
+  res.sendStatus(401)
+  console.log('Not a business owner')
+}
+
 router.get("/", async (req, res) => {
+  console.log(`/data req.user is ${req.user}`)
   try {
     const businessCategories = await findAllLocalBusiness(localBusinesses);
     res.send(businessCategories);
@@ -34,51 +56,90 @@ router.post("/img", uploadImg.single("img"), (req, res) => {
   }
 });
 
-//delete and create posts 
-router.post("/businessPosts/:id", async (req, res) => {
+//------for Editor(aceess only for business onwer)--------
+//posting- create and add
+router.post("/business/post/:businessId", mustBeBusinessOwner, async (req, res) => {
   try {
-    const businessId = req.params.id;
-    //const createAction = req.body.create;
-    const deleteAction = req.body.delete;
-    const commentAction = req.body.comment;
-    const {userId, password, type, license}= req.body.userInfo
-    const dataToCreate = req.body.data;
-    console.log("post response", req.body);
-    //console.log("userId & commentAction", userId, commentAction)
-    // let data
-    const createNdeletePostNComment =async()=>{
+    const businessId = req.params.businessId;
+    const dataToCreate = req.body;
+    console.log("id and data", businessId, dataToCreate);
 
-      if(commentAction){
-        console.log("commentAction is true");
-        const data= await addCommentBusinessPost(businessId, dataToCreate.postId, dataToCreate)
-        return data;
-      }else if(!commentAction&&type==="client"&&license==="aaaa"){
-        if(deleteAction===true){
-          console.log("deleteAction is true")
-          const data= await deleteBusinessPost(businessId, dataToCreate.postId, dataToCreate)
-          return data
-        }else{
-          const checkNew = await findBusinessPosts(businessId)
-          if((checkNew).length===0){
-            console.log("data will created")
-            const data= await createPosts({businessId:businessId, data: dataToCreate})
-            
-            return data
-          }else{
-            console.log("data will be added")
-            const data= await addBusinessPost(businessId, dataToCreate)
-            
-            return data
-          }
-        }
-      }
+    const checkNew = await findBusinessPosts(businessId);
+    if (checkNew.length === 0) {
+      console.log("data will created");
+      const data = await createPosts({
+        businessId: businessId,
+        data: dataToCreate,
+      });
+
+      return res.status(200).json(data);
+    } else {
+      console.log("data will be added");
+      const data = await addBusinessPost(businessId, dataToCreate);
+
+      return res.status(200).json(data);
     }
-    
-    res.json({status: "success", data:await createNdeletePostNComment()})
   } catch (err) {
-    console.log(err);
+    console.log("error:", err);
   }
 });
+
+//posting--update(aceess only for business onwer)
+router.patch("/business/post/:businessId", async (req, res) => {
+  try {
+    const id = req.params.businessId;
+    const dataToUpdate = req.body;
+    console.log("datatoupdate and id", dataToUpdate, id);
+    const data = await updateBusinessPosts(id, req.body.postId, dataToUpdate);
+    console.log("Updateddata ", data);
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log("error:", err);
+  }
+});
+
+//posting--delete(aceess only for business onwer)
+router.delete("/business/post/:businessId/:postId", async (req, res) => {
+  try {
+    const id = req.params.businessId;
+    const postId = req.params.postId
+
+    console.log("deleteAction is true", id, postId);
+    const data = await deleteBusinessPost(id, postId);
+    
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log("Error:", error);
+  }
+});
+
+//======To handle comment query (Access only for all users)========
+//comment create and add(Access only for all users)
+router.post("/business/:businessId/comment/:postId", mustBeUser, async(req,res)=>{
+    const businessId = req.params.businessId;
+    const postId = req.params.postId;
+    const commentToAdd = req.body;
+  try{
+    console.log("commentAdd is true",`id: ${businessId},postid: ${postId},commentToUpdate: ${commentToAdd}`);
+        const data = await addCommentBusinessPost(businessId, postId, commentToAdd );
+        return res.status(200).json(data);
+  }catch(err){
+    console.log('Error is', err)
+  }
+})
+//comment edit(Access only for all users)
+router.put("/business/:businessId/comment/:postId", async(req,res)=>{
+  const businessId = req.params.businessId;
+    const postId = req.params.postId;
+    const commentToUpdate = req.body;
+    try{
+      console.log("commentUpdate is true",`id: ${businessId},postid: ${postId},commentToUpdate: ${commentToUpdate}`);
+          const data = await updateCommentBusinessPost(businessId, postId, commentToUpdate );
+          return res.status(200).json(data);
+    }catch(err){
+      console.log('Error is', err)
+    }
+})
 
 router.get("/businessPosts/:id", async (req, res) => {
   try {
@@ -89,6 +150,8 @@ router.get("/businessPosts/:id", async (req, res) => {
     console.log(err);
   }
 });
+
+
 //update posts
  router.patch("/businessPosts/:id", async (req,res)=>{
   try{

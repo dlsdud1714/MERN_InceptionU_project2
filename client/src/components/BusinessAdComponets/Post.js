@@ -1,37 +1,32 @@
 import React, { useEffect, useState } from "react";
 import PostModal from "./PostModal";
 import TimeAgo from "javascript-time-ago";
-
+import axios from "axios";
 import en from "javascript-time-ago/locale/en.json";
-// import ru from "javascript-time-ago/locale/ru.json";
 import ReactTimeAgo from "react-time-ago";
+import { nanoid } from "nanoid";
 
 TimeAgo.addLocale(en);
-// TimeAgo.addLocale(ru);
 
 const Post = (props) => {
   const {
+    businessData,
     selectedCategory,
     contents,
     setContentMark,
     setCurrentPostId,
     findCurrentPost,
-    setDeleteAction,
-    setCreateAction,
-    setEditAction,
-    setCommentAction,
-    setCurrentPost,
     userId,
+    setSubmittingAction,
   } = props;
 
   const [modalOpen, setModalOpen] = useState(false);
   const [commentModalOpen, setCommentModalOpen] = useState(false);
   const [comment, setComment] = useState("");
-  const [CurrentCmtIndex, setCurrentCmtIndex] = useState();
   const dataInCategory = contents.filter(
     (content, key) => content.category === selectedCategory
   );
-  const [IsNewPost, setIsNewPost] = useState(true);
+
   const postClickHandler = (data) => {
     setCurrentPostId(data.postId);
     openModal();
@@ -54,75 +49,60 @@ const Post = (props) => {
   };
   const editHandler = (data) => {
     setCurrentPostId(data.postId);
-
     setContentMark(false);
   };
-  const deleteHandler = (data) => {
-    setCurrentPostId(data.postId);
-    setDeleteAction(true);
-    setCreateAction(true);
-    setEditAction(false);
+  const postDeleteHandler = async (postId) => {
+    console.log("data to delete", postId);
+    const response = await axios.delete(
+      `/data/business/post/${businessData._id}/${postId}`
+    );
+    console.log("post is deleted", response);
+    setSubmittingAction(true);
   };
   const newPostHandler = () => {
     setContentMark(false);
     setCurrentPostId(undefined);
-    setDeleteAction(false);
-    setCreateAction(false);
-    setEditAction(false);
-  };
-  const updateComment = (event) => {
-    let cmt = event.target.value;
-    setComment(() => cmt);
   };
 
-  const commentHandler = (data) => {
-    const currentPost = findCurrentPost();
-    let currentPostComment = [];
-    if (!IsNewPost) {
-      currentPost.comment.map((ele, index) => {
-        if (index === CurrentCmtIndex) {
-          return currentPostComment.push({
-            userId: userId,
-            content: comment,
-            createdAt: new Date(),
-          });
-        } else {
-          return currentPostComment.push(ele);
-        }
-      });
-    } else {
-      currentPostComment = currentPost.comment
-        ? [
-            ...currentPost.comment,
-            { userId: userId, content: comment, createdAt: new Date() },
-          ]
-        : [{ userId: userId, content: comment, createdAt: new Date() }];
-    }
-
-    setCurrentPost(() => {
-      return { ...currentPost, comment: currentPostComment };
-    });
-    setCommentAction(true);
-    setCreateAction(true);
-    setIsNewPost(true);
-    setComment("");
+  const commentHandler = async (postId) => {
+    console.log("comment to send", comment);
     setCommentModalOpen(false);
+    if (comment.createdAt) {
+      const commentToSend = { ...comment, createdAt: new Date() };
+      console.log("editedToSend", commentToSend);
+      const editedResponse = await axios.put(
+        `/data/business/${businessData._id}/comment/${postId}`,
+        commentToSend
+      );
+      console.log("comment is edited", editedResponse);
+      return setSubmittingAction(true);
+    } else {
+      const commentToSend = {
+        commentId: nanoid(),
+        userId: userId,
+        content: comment.content,
+        createdAt: new Date(),
+      };
+      const createResponse = await axios.post(
+        `/data/business/${businessData._id}/comment/${postId}`,
+        commentToSend
+      );
+      console.log("comment is created", createResponse);
+      return setSubmittingAction(true);
+    }
   };
   useEffect(() => {
     if (!commentModalOpen) {
       setComment("");
-      setCurrentCmtIndex();
     }
   }, [commentModalOpen]);
 
   useEffect(() => setCommentModalOpen(false), [modalOpen]);
   const textBoxOpen = (index, currentPostData) => {
     const comments = currentPostData.comment;
-    const comment = comments[index].content;
-    setComment(() => comment);
-    setCurrentCmtIndex(() => index);
+    const comment = comments[index];
+    setComment((pre) => comment);
     setCommentModalOpen(true);
-    setIsNewPost(false);
   };
 
   return (
@@ -139,8 +119,8 @@ const Post = (props) => {
                 dangerouslySetInnerHTML={{ __html: data.body }}
               ></div>
 
-              <div className="commentArea">
-                <div className="buttons">
+              <div className="commentArea" key={`${data.postId}--commentArea`}>
+                <div className="buttons" key={`${data.postId}--buttons`}>
                   <button
                     className="commentButton"
                     key={`${data.postId}Comment`}
@@ -149,16 +129,23 @@ const Post = (props) => {
                       setCurrentPostId(() => data.postId);
                     }}
                   >
-                    <i className="fa-regular fa-comment"></i>
+                    <i
+                      className="fa-regular fa-comment"
+                      key={`${data.postId}--commentIcon`}
+                    ></i>
                   </button>
                   <button
                     className="deleteButton"
                     onClick={() => {
-                      deleteHandler(data);
+                      const dataIdToDelete = data.postId;
+                      postDeleteHandler(dataIdToDelete);
                     }}
                     key={`${data.postId}Delete`}
                   >
-                    <i className="fa-solid fa-trash-can"></i>
+                    <i
+                      className="fa-solid fa-trash-can"
+                      key={`${data.postId}--deleteIcon`}
+                    ></i>
                   </button>
 
                   <button
@@ -168,19 +155,32 @@ const Post = (props) => {
                       editHandler(data);
                     }}
                   >
-                    <i className="fa-regular fa-pen-to-square"></i>
+                    <i
+                      className="fa-regular fa-pen-to-square"
+                      key={`${data.postId}--editIcon`}
+                    ></i>
                   </button>
                 </div>
 
-                {commentModalOpen && data.postId === findCurrentPost().postId && (
+                {commentModalOpen && (
                   <div className="commentBox">
                     <textarea
                       className="commentInput"
                       placeholder="Type comment here..."
-                      value={comment}
-                      onChange={updateComment}
+                      value={comment.content}
+                      onChange={(event) => {
+                        let cmt = event.target.value;
+                        setComment((pre) => {
+                          return { ...pre, content: cmt };
+                        });
+                      }}
                     />
-                    <button className="commentSubmit" onClick={commentHandler}>
+                    <button
+                      className="commentSubmit"
+                      onClick={() => {
+                        commentHandler(data.postId);
+                      }}
+                    >
                       <i className="fa-regular fa-paper-plane"></i>
                     </button>
                   </div>
@@ -199,15 +199,9 @@ const Post = (props) => {
                           <ReactTimeAgo
                             className="comment--date"
                             key={`commentDate${data + index}`}
-                            date={ new Date(cmt.createdAt)}
+                            date={new Date(cmt.createdAt)}
                             locale="en-US"
                           />
-                          {/* <p
-                            className="comment--date"
-                            key={`commentDate${data + index}`}
-                          >
-                            {new Date(cmt.createdAt).toLocaleDateString()}
-                          </p> */}
                         </div>
                         <div
                           className="commentBody"
@@ -224,7 +218,7 @@ const Post = (props) => {
                             key={`commentEdit${data + index}`}
                             onClick={(event) => {
                               const currentPostData = data;
-                              setCurrentPostId(() => event.target.className);
+                              setCurrentPostId(() => data.postId);
                               textBoxOpen(index, currentPostData);
                             }}
                           >
