@@ -2,7 +2,7 @@ import React from "react";
 // import { MDBCard, MDBCardBody, MDBCardText, MDBCardImage } from 'mdb-react-ui-kit';
 
 const About = () => {
-  return
+  return(
   <div>
     <h1>
       Hello, how are you? I hope you are well. 
@@ -15,7 +15,7 @@ const About = () => {
       </MDBCardBody>
     </MDBCard> */}
     </h1>
-  </div>
+  </div>)
 };
 
 // import React from "react";

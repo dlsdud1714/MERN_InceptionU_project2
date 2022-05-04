@@ -27,10 +27,10 @@ const BusinessCard = (props) => {
     <div className="card">
       <Container className='p-4'>
         <Row xs={1} md={2} lg={4} className="g-4">
-          <Col>
             {filterData &&
               filterData.map((data, key) => {
                 return (
+                  <Col>
                   <Card>
                     <Card.Img
                       variant="top"
@@ -45,9 +45,9 @@ const BusinessCard = (props) => {
                       <Card.Text>{data.quadrant}</Card.Text>
                     </Card.Body>
                   </Card>
+                    </Col>
                 );
               })}
-          </Col>
         </Row>
       </Container>
 
