@@ -3,6 +3,7 @@ import { Button, Nav, Navbar, NavbarBrand, NavDropdown, Container, Form, FormCon
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from "react-router-dom";
 import SearchBar from './SearchBar'
+import LogoutButton from './Logout'
 
 const Header = (props) => {
   const {businessData} = props; 
@@ -42,6 +43,8 @@ const Header = (props) => {
                 <NavDropdown.Item href="/categories/recreation"> Recreation </NavDropdown.Item>
                 <NavDropdown.Item href="/categories/restaurant"> Restaurants </NavDropdown.Item>
               </NavDropdown>
+              <Nav.Link href="/login123"> Login </Nav.Link>
+              <Nav.Link href="/logout123"> Logout </Nav.Link>
             </Nav>
               <SearchBar businessData={businessData}/>
           </Navbar.Collapse>
