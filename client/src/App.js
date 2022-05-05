@@ -8,6 +8,7 @@ import Main from "./components/Pages/Main";
 import List from "./components/Pages/List";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Logout from "./components/Logout";
 import Signup from "./components/Pages/Signup";
 import Login from "./components/Pages/Login";
 import Profile from "./components/Pages/Profile";
@@ -47,8 +48,10 @@ function App() {
             element={<BusinessDetails Data={businessData} />}
           />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login123" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/logout123" element={<Logout />} />
+
         </Routes>
         <Footer />
       </AuthProvider>

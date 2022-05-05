@@ -100,7 +100,7 @@ router.post("/business/post/:businessId", mustBeUniqueOwner, async (req, res) =>
 });
 
 //posting--update(aceess only for business onwer)
-router.patch("/business/post/:businessId", async (req, res) => {
+router.patch("/business/post/:businessId", mustBeUniqueOwner, async (req, res) => {
   try {
     const id = req.params.businessId;
     const dataToUpdate = req.body;
@@ -114,7 +114,7 @@ router.patch("/business/post/:businessId", async (req, res) => {
 });
 
 //posting--delete(aceess only for business onwer)
-router.delete("/business/post/:businessId/:postId", async (req, res) => {
+router.delete("/business/post/:businessId/:postId", mustBeUniqueOwner, async (req, res) => {
   try {
     const id = req.params.businessId;
     const postId = req.params.postId
@@ -130,7 +130,7 @@ router.delete("/business/post/:businessId/:postId", async (req, res) => {
 
 //======To handle comment query (Access only for all users)========
 //comment create and add(Access only for all users)
-router.post("/business/:businessId/comment/:postId", async(req,res)=>{
+router.post("/business/:businessId/comment/:postId", mustBeUser, async(req,res)=>{
     const businessId = req.params.businessId;
     const postId = req.params.postId;
     const commentToAdd = req.body;
@@ -143,7 +143,7 @@ router.post("/business/:businessId/comment/:postId", async(req,res)=>{
   }
 })
 //comment edit(Access only for all users)
-router.put("/business/:businessId/comment/:postId", async(req,res)=>{
+router.put("/business/:businessId/comment/:postId", mustBeUser, async(req,res)=>{
   const businessId = req.params.businessId;
     const postId = req.params.postId;
     const commentToUpdate = req.body;
@@ -156,7 +156,7 @@ router.put("/business/:businessId/comment/:postId", async(req,res)=>{
     }
 })
 //comment delete(Access only for all users)
-router.patch("/business/:businessId/comment/:postId", async(req,res)=>{
+router.patch("/business/:businessId/comment/:postId", mustBeUser, async(req,res)=>{
   const businessId = req.params.businessId;
     const postId = req.params.postId;
     const commentTodelete = req.body;
