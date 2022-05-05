@@ -8,9 +8,11 @@ export const BusinessDetailCards = (props) => {
 
 
   return (
-    <div className="center" >
-      <img src={data && data.imgUrl} alt="" height={350}
-          width={500} />
+    <div style={{display:"flex", width: "80%", margin: "5%"}} className="center">
+      <img src={data && data.imgUrl} alt="" height={300}
+          width={350} />
+      <div style={{width: "50%"}} className="textContainer">
+      <div>{data && data.title}</div>
       <div style={{display:"flex",justifyContent:"center",gap:5}}> Customer Saticfaction Rating: {data && data.rating}<StarRating popupInfo={data} /></div>
       {/* <div>Business Address: <button onClick= {data && data.address}>Click Me</button></div> */}
       <div>Phone Number: {data && data.phoneNumber}</div>
@@ -20,7 +22,8 @@ export const BusinessDetailCards = (props) => {
         }
       <div>Neighborhood: {data && data.neighbourhood}</div>
       <div>Business Status: {data && data.jobStatus}</div>
-    </div>
+      </div>
+  </div>
   );
 
 }
