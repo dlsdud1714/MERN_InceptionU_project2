@@ -142,10 +142,7 @@ z-index: 999;
 .categories .categoryContainer{
     display: flex;
     flex-direction: row;
-    /* flex-wrap: nowrap; */
-    /* gap: 2rem; */
     justify-content: space-between;
-    /* margin: 2rem auto; */
 }
 .categories button{
     width: 100%;
@@ -167,7 +164,7 @@ z-index: 999;
 
 /*footer*/
 .footer{
-    /* position: relative; */
+    
     width: 100%;
     height: 240px;
     position: relative;
@@ -216,7 +213,7 @@ z-index: 999;
     text-decoration-line: none;
     color: rgb(255, 214, 214);
     font-size: 13px;
-    /* top:-2px; */
+ 
 
 }
 .footer--container .project{
@@ -446,8 +443,6 @@ z-index: 999;
      overflow: scroll;
      position: relative;
      background-color: #f5f5f5
-     /* display: flex;
-     flex-direction: column; */
      
  }
  .businessAdNote .posts button{
@@ -487,18 +482,15 @@ z-index: 999;
 
 }
 
-.businessAdNote .post--lists .postsContainer div{
-    
-    width: 100%;
-    border: none;
-    overflow: hidden;
-}
+
 .businessAdNote .post--lists .postsContainer .postContent{
     max-height: 60rem;
     min-height: 20rem;
-    width: 100%;
+    flex: 1 1 80%;
+    border: none;
     padding:15px 20px;
     cursor: pointer;
+    overflow: hidden;
 }
 .businessAdNote .post--lists .postContent>img {
     width: 100%;
@@ -506,7 +498,7 @@ z-index: 999;
 .businessAdNote .post--lists .commentArea{
     width:30%;
     background-color: #DC3545D9;
-    flex: 0 2 auto;
+    flex: 1 1 20%;
    display: flex;
     flex-direction: column;
 }
@@ -555,20 +547,23 @@ z-index: 999;
     font-size: 10pt;
     color:rgb(74, 67, 65);
     display: flex;
-    flex-direction: row;
+    flex-direction: row; 
     width: 100%;
 }
 
 .commentArea .commentBody .commentText{
-    min-width: 80%;
+    width: 70%;
+    word-wrap: break-word;
     margin: 3px;
 }
-.commentArea .commentBody .commentEdit{
-    margin-left: auto;
-    min-width: 30px;
-    visibility: hidden;
-    /* overflow: hidden; */
+.commentArea .commentBody button{
+    flex: 1 1 15%;
+    margin-left: 5px;
+    width: 20%;
+   
+   
 }
+
 .commentBody:hover .commentEdit{
     
     cursor: pointer;

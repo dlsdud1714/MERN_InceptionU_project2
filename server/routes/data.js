@@ -6,7 +6,8 @@ const {
   updateBusinessPosts,
   deleteBusinessPost,
   addCommentBusinessPost,
-  updateCommentBusinessPost
+  updateCommentBusinessPost,
+  deleteCommentBusinessPost
 } = require("../db/models/businessPostsModel");
 const uploadImg = require("../controller/dataController");
 
@@ -154,6 +155,20 @@ router.put("/business/:businessId/comment/:postId", async(req,res)=>{
       console.log('Error is', err)
     }
 })
+//comment delete(Access only for all users)
+router.patch("/business/:businessId/comment/:postId", async(req,res)=>{
+  const businessId = req.params.businessId;
+    const postId = req.params.postId;
+    const commentTodelete = req.body;
+    try{
+      console.log("commentUpdate is true",`id: ${businessId},postid: ${postId},commentToUpdate: ${commentTodelete}`);
+          const data = await deleteCommentBusinessPost(businessId, postId, commentTodelete );
+          return res.status(200).json(data);
+    }catch(err){
+      console.log('Error is', err)
+    }
+})
+
 
 router.get("/businessPosts/:id", async (req, res) => {
   try {

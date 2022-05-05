@@ -92,6 +92,16 @@ const Post = (props) => {
       return setSubmittingAction(true);
     }
   };
+  const commentDeleteHander = async (postId, dataTodelete) => {
+    console.log("delete", dataTodelete);
+    const deleteCmtResponse = await axios.patch(
+      `/data/business/${businessData._id}/comment/${postId}`,
+      dataTodelete
+    );
+    console.log("Comment is deleted", deleteCmtResponse);
+    return setSubmittingAction(true);
+  };
+
   useEffect(() => {
     if (!commentModalOpen) {
       setComment("");
@@ -217,12 +227,12 @@ const Post = (props) => {
                           className="commentBody"
                           key={`commentBody${data + index}`}
                         >
-                          <p
+                          <div
                             className="commentText"
                             key={`commentText${data + index}`}
                           >
                             {cmt.content}
-                          </p>
+                          </div>
                           <button
                             className={`${data.postId}`}
                             key={`commentEdit${data + index}`}
@@ -233,6 +243,18 @@ const Post = (props) => {
                             }}
                           >
                             edit
+                          </button>
+                          <button
+                            className={`${data.postId}`}
+                            key={`commentDelete${data + index}`}
+                            onClick={() => {
+                              const currentPostData = cmt;
+                              const postId = data.postId;
+                              // setCurrentPostId(() => data.postId);
+                              commentDeleteHander(postId, currentPostData);
+                            }}
+                          >
+                            delete
                           </button>
                         </div>
                       </li>

@@ -66,6 +66,15 @@ const updateCommentBusinessPost=async(id, postId, data )=>{
     return updated
 }
 
+const deleteCommentBusinessPost = async(id, postId, data)=>{
+  console.log("deleting comment");
+  const deleted = await businessPosts.findOneAndUpdate(
+    { "businessId": id, "data.postId": postId  },
+    {$pull:{"data.$.comment": data}},
+    );
+    return deleted
+}
+
 module.exports = {
   createPosts,
   findBusinessPosts,
@@ -73,5 +82,6 @@ module.exports = {
   updateBusinessPosts,
   deleteBusinessPost,
   addCommentBusinessPost,
-  updateCommentBusinessPost
+  updateCommentBusinessPost,
+  deleteCommentBusinessPost
 };
