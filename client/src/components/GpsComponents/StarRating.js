@@ -26,7 +26,7 @@ const StarRating = (props) => {
     }
   return (
     <div className='place--rate'>
-        {findStar(popupInfo.rating)}
+        {popupInfo&&findStar(popupInfo.rating)}
     </div>
   )
 }

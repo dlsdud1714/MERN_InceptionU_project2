@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { nanoid } from "nanoid";
@@ -29,7 +29,6 @@ export const Editor = (props) => {
       comment: comment,
     };
   };
- 
 
   async function post(event) {
     event.preventDefault();
@@ -53,7 +52,6 @@ export const Editor = (props) => {
       console.log("Post is edited", editResponse);
       return setSubmittingAction(true);
     } else {
-     
       const createResponse = await axios.post(
         `/data/business/post/${businessData._id}`,
         createdPost
@@ -125,7 +123,7 @@ export const Editor = (props) => {
     }),
     []
   );
-
+  
   //------end quill=------
   return (
     <div className="editor">
@@ -157,20 +155,20 @@ export const Editor = (props) => {
             />
           )}
         </div>
-
         <ReactQuill
-          theme="snow"
-          ref={quillRef}
-          placeholder="Write something amazing.."
-          modules={modules}
-          formats={Editor.formats}
-          value={cateNBody.body}
-          onChange={(content, delta, source, editor) =>
-            setCateNBody((pre) => {
-              return { ...pre, body: editor.getHTML() };
-            })
-          }
-        />
+        theme="snow"
+        ref={quillRef}
+        placeholder="Write something amazing.."
+        modules={modules}
+        formats={Editor.formats}
+        value={cateNBody.body}
+        onChange={(content, delta, source, editor) =>
+          setCateNBody((pre) => {
+            return { ...pre, body: editor.getHTML() };
+          })
+        }
+      />
+
         <button className="postButton" type="submit">
           POST
         </button>
