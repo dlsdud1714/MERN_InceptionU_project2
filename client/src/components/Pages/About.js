@@ -1,14 +1,13 @@
 import React from "react";
+import Aboutcard from "../Aboutcard";
 // import { MDBCard, MDBCardBody, MDBCardText, MDBCardImage } from 'mdb-react-ui-kit';
 
 const About = () => {
-  return(
+  return (
   <div>
-    <h1>
-      Hello, how are you? I hope you are well. 
-      
-    </h1>
-  </div>)
+    <Aboutcard/>
+    </div>
+)
 };
 
 // import React from "react";
