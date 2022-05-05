@@ -47,7 +47,7 @@ passport.deserializeUser(async function (id, done) {
 });
 
 router.post("/login123", passport.authenticate("local"), (req, res) => {
-  res.send("success");
+  res.send(req.user);
   console.log(`req.user is ${req.user}`)
 });
 
