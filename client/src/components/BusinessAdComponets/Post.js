@@ -26,6 +26,7 @@ const Post = (props) => {
   const dataInCategory = contents.filter(
     (content, key) => content.category === selectedCategory
   );
+  // const postRef = useRef();
 
   const postClickHandler = (data) => {
     setCurrentPostId(data.postId);
@@ -105,12 +106,21 @@ const Post = (props) => {
     setCommentModalOpen(true);
   };
 
+  // useEffect(() => {
+  //   console.log("ref", postRef);
+  //   postRef.current.focus();
+  // }, [postRef.current]);
+
   return (
     <div className="posts">
       <div className="post--lists">
         {dataInCategory.map((data) => {
           return (
-            <div className="postsContainer" key={`${data.postId}Div`}>
+            <div
+              // ref={postRef}
+              className="postsContainer"
+              key={`${data.postId}Div`}
+            >
               <div
                 className="postContent"
                 id={data.postId}

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Split from "react-split";
 import BusinessSidebar from "./BusinessAdComponets/BusinessSidebar";
 import Editor from "./BusinessAdComponets/Editor";
 import Post from "./BusinessAdComponets/Post";
-
 import axios from "axios";
+import NoContent from "./BusinessAdComponets/NoContent";
+
 
 const BusinessAd = (props) => {
   const { businessData } = props;
@@ -35,6 +36,7 @@ const BusinessAd = (props) => {
       const deduped = Array.from(new Set(list));
       return deduped;
     });
+    userinputs && setSelectedCategory(userinputs[0]?.category);
   }, [userinputs]);
 
   useEffect(() => {
@@ -52,7 +54,7 @@ const BusinessAd = (props) => {
     getFromServer();
     setSubmittingAction(false);
   }, [businessData, submittingAction]);
-
+// console.log("business query", userinputs, "d" ,userinputs.includes(ele=>ele.businessId===businessId))
   return (
     <div className="businessAdNote">
       <Split sizes={[30, 70]} direction="horizontal" className="split">
@@ -64,16 +66,23 @@ const BusinessAd = (props) => {
           setContentMark={setContentMark}
         />
         {contentMark ? (
-          <Post
-            businessData={businessData}
-            contents={userinputs}
-            selectedCategory={selectedCategory}
-            setContentMark={setContentMark}
-            setCurrentPostId={setCurrentPostId}
-            findCurrentPost={findCurrentPost}
-            userId={userInfo.userId}
-            setSubmittingAction={setSubmittingAction}
-          />
+          userinputs.length ===0 ? (
+            <NoContent
+              setContentMark={setContentMark}
+              setCurrentPostId={setCurrentPostId}
+            />
+          ) : (
+            <Post
+              businessData={businessData}
+              contents={userinputs}
+              selectedCategory={selectedCategory}
+              setContentMark={setContentMark}
+              setCurrentPostId={setCurrentPostId}
+              findCurrentPost={findCurrentPost}
+              userId={userInfo.userId}
+              setSubmittingAction={setSubmittingAction}
+            />
+          )
         ) : (
           <Editor
             businessData={businessData}

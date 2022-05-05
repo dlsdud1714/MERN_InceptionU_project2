@@ -23,7 +23,7 @@ const ControlPanel = (props) => {
     if (difInMon > 180) {
       return (
         <div key={`isNew${index}`} className={`isNew old`}>
-          Authentic
+          Established
         </div>
       );
     }

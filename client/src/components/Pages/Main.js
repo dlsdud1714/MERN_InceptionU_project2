@@ -18,7 +18,7 @@ const Main = (props) => {
       {/* <NavBar/> */}
       {/* <SearchBar businessData={businessData}/> */}
       <Category categories={categoryString}/>
-      <div className="GPS--header">What's near me?</div>
+      {/* <div className="GPS--header">What's near me?</div> */}
     <Gps businessData={businessData} categoryString={categoryString}/>
   </div>
   )

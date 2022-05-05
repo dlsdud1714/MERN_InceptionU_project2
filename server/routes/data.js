@@ -166,18 +166,18 @@ router.get("/businessPosts/:id", async (req, res) => {
 });
 
 
-//update posts
- router.patch("/businessPosts/:id", async (req,res)=>{
-  try{
-     const id =req.params.id;
-     const dataToUpdate= req.body;
-     console.log("patch response", dataToUpdate, id);
-     const data= await updateBusinessPosts(id, req.body.postId, dataToUpdate)
-     console.log("Updateddata ", data)
-     res.json({ status: "success", message:"data is up-to-date" });
-  }catch(err){
-     console.log(err)
-   }
- })
+// //update posts
+//  router.patch("/businessPosts/:id", async (req,res)=>{
+//   try{
+//      const id =req.params.id;
+//      const dataToUpdate= req.body;
+//      console.log("patch response", dataToUpdate, id);
+//      const data= await updateBusinessPosts(id, req.body.postId, dataToUpdate)
+//      console.log("Updateddata ", data)
+//      res.json({ status: "success", message:"data is up-to-date" });
+//   }catch(err){
+//      console.log(err)
+//    }
+//  })
 
 module.exports = router;
