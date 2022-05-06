@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import BusinessDetails from "./components/Pages/BusinessDetails";
-import { AuthProvider } from "./components/contexts/AuthContext";
+// import { AuthProvider } from "./components/contexts/AuthContext";
 import Main from "./components/Pages/Main";
 import List from "./components/Pages/List";
 import Header from "./components/Header";
@@ -13,6 +13,7 @@ import Signup from "./components/Pages/Signup";
 import Login from "./components/Pages/Login";
 import Profile from "./components/Pages/Profile";
 import About from "./components/Pages/About";
+import AuthProvider from "./components/contexts/AuthProvider";
 
 function App() {
   const [businessData, setBusinessData] = useState();

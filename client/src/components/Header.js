@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Nav, Navbar, NavbarBrand, NavDropdown, Container, Form, FormControl } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import SearchBar from './SearchBar'
 import LogoutButton from './Logout'
+import AuthContext from "./contexts/AuthContext";
+
 
 const Header = (props) => {
   const {businessData} = props; 
+  const {loggedInUser} = useContext(AuthContext)
   const myStyle = {
     color: "white",
     backgroundColor: "DodgerBlue",
@@ -43,8 +46,8 @@ const Header = (props) => {
                 <NavDropdown.Item href="/categories/recreation"> Recreation </NavDropdown.Item>
                 <NavDropdown.Item href="/categories/restaurant"> Restaurants </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link href="/login123"> Login </Nav.Link>
-              <Nav.Link href="/logout123"> Logout </Nav.Link>
+              {!loggedInUser&&<Nav.Link href="/login123"> Login </Nav.Link>}
+              {loggedInUser&&<Nav.Link as={RouterLink} to="/logout123"> Logout </Nav.Link>}
             </Nav>
               <SearchBar businessData={businessData}/>
           </Navbar.Collapse>

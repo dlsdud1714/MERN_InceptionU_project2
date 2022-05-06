@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PostModal from "./PostModal";
 import TimeAgo from "javascript-time-ago";
 import axios from "axios";
 import en from "javascript-time-ago/locale/en.json";
 import ReactTimeAgo from "react-time-ago";
 import { nanoid } from "nanoid";
+import AuthContext from "../contexts/AuthContext";
+import { useParams } from "react-router-dom";
 
 TimeAgo.addLocale(en);
 
@@ -27,7 +29,11 @@ const Post = (props) => {
     (content, key) => content.category === selectedCategory
   );
   // const postRef = useRef();
-
+const {loggedInUser} = useContext(AuthContext);
+const {businessId} = useParams();
+const isBusinessOwner = ()=>{
+  return loggedInUser&&(loggedInUser.businessId===businessId)
+}
   const postClickHandler = (data) => {
     setCurrentPostId(data.postId);
     openModal();
@@ -141,7 +147,7 @@ const Post = (props) => {
 
               <div className="commentArea" key={`${data.postId}--commentArea`}>
                 <div className="buttons" key={`${data.postId}--buttons`}>
-                  <button
+                  {loggedInUser&&<button
                     className="commentButton"
                     key={`${data.postId}Comment`}
                     onClick={() => {
@@ -153,8 +159,8 @@ const Post = (props) => {
                       className="fa-regular fa-comment"
                       key={`${data.postId}--commentIcon`}
                     ></i>
-                  </button>
-                  <button
+                  </button>}
+                  {isBusinessOwner()&&<button
                     className="deleteButton"
                     onClick={() => {
                       const dataIdToDelete = data.postId;
@@ -166,9 +172,9 @@ const Post = (props) => {
                       className="fa-solid fa-trash-can"
                       key={`${data.postId}--deleteIcon`}
                     ></i>
-                  </button>
+                  </button>}
 
-                  <button
+                  {isBusinessOwner()&&<button
                     key={`${data.postId}Edit`}
                     className="editButton"
                     onClick={() => {
@@ -179,7 +185,7 @@ const Post = (props) => {
                       className="fa-regular fa-pen-to-square"
                       key={`${data.postId}--editIcon`}
                     ></i>
-                  </button>
+                  </button>}
                 </div>
 
                 {commentModalOpen && (
@@ -265,14 +271,14 @@ const Post = (props) => {
           );
         })}
       </div>
-      <button
+      {isBusinessOwner()&&<button
         className="newPost"
         onClick={() => {
           newPostHandler();
         }}
       >
         New
-      </button>
+      </button>}
       {modalOpen && (
         <PostModal content={findCurrentDataHTML} closeModal={closeModal} />
       )}
