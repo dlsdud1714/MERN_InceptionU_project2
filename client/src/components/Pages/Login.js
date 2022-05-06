@@ -36,7 +36,7 @@ export default function Login() {
 }
 
   return (
-    <div>
+    <div style={{height:650}}>
       <Card>
         <Card.Body>
           <h2 className="mb-5"> Login </h2>
