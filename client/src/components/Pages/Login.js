@@ -53,9 +53,9 @@ export default function Login() {
               />
             </Form.Group>
             <Form.Group id="test">
-              <Form.Label>Password</Form.Label>
+              <Form.Label >Password</Form.Label>
               <Form.Control
-                type="text"
+                type="password"
                 onChange={(event) => {
                   setPassword(event.target.value);
                 }}
