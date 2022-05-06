@@ -18,7 +18,7 @@ const Post = (props) => {
     setContentMark,
     setCurrentPostId,
     findCurrentPost,
-    userId,
+    // userId,
     setSubmittingAction,
   } = props;
 
@@ -33,6 +33,9 @@ const {loggedInUser} = useContext(AuthContext);
 const {businessId} = useParams();
 const isBusinessOwner = ()=>{
   return loggedInUser&&(loggedInUser.businessId===businessId)
+}
+const isCommentOwner = (commentowner)=>{
+  return loggedInUser&&(loggedInUser.username===commentowner)
 }
   const postClickHandler = (data) => {
     setCurrentPostId(data.postId);
@@ -86,7 +89,7 @@ const isBusinessOwner = ()=>{
     } else {
       const commentToSend = {
         commentId: nanoid(),
-        userId: userId,
+        userId: loggedInUser.username,
         content: comment.content,
         createdAt: new Date(),
       };
@@ -239,7 +242,7 @@ const isBusinessOwner = ()=>{
                           >
                             {cmt.content}
                           </div>
-                          <button
+                          {isCommentOwner(cmt.userId)&&(<button
                             className={`${data.postId}`}
                             key={`commentEdit${data + index}`}
                             onClick={(event) => {
@@ -249,8 +252,8 @@ const isBusinessOwner = ()=>{
                             }}
                           >
                             edit
-                          </button>
-                          <button
+                          </button>)}
+                          {isCommentOwner(cmt.userId)&&(<button
                             className={`${data.postId}`}
                             key={`commentDelete${data + index}`}
                             onClick={() => {
@@ -261,7 +264,7 @@ const isBusinessOwner = ()=>{
                             }}
                           >
                             delete
-                          </button>
+                          </button>)}
                         </div>
                       </li>
                     ))}
