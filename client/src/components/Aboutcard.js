@@ -11,12 +11,12 @@ const Aboutcard = (props) => {
        
     <Card.Body>
       <Card.Text>
-      Welcome to YYCWhatsNearMe??(project 2)! Our website has been developed with Calgary
+      Welcome to YYCWhatsNearMe?(project 2)! Our website has been developed with Calgary
       local businesses in mind. We created a platform that is
       easily accessable to users and businesses. There are many features
       that help create an easy and positive user and business owner experience. Features
       include: GPS with locations near user, user and business login pages,
-      business catergories, and interective business posting section.
+      business catergories, searchbar and interective business posting section.
       
       </Card.Text>
     <Card.Img variant="bottom"  style={{width: "75%"}} src="https://th.bing.com/th/id/OIP.ukyHlTJj4ZEFZ3b9yr4ZbwHaDk?pid=ImgDet&rs=1" />
