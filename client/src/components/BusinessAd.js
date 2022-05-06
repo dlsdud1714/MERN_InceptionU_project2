@@ -10,12 +10,6 @@ import NoContent from "./BusinessAdComponets/NoContent";
 const BusinessAd = (props) => {
   const { businessData } = props;
   //This userinfo will be passed in props
-  const userInfo = {
-    userId: "inyoung@yyc.com",
-    password: 1111,
-    type: "client",
-    license: "aaaa",
-  };
 
   const [contentMark, setContentMark] = useState(true);
   const [userinputs, setUserInputs] = useState([]);
@@ -79,7 +73,6 @@ const BusinessAd = (props) => {
               setContentMark={setContentMark}
               setCurrentPostId={setCurrentPostId}
               findCurrentPost={findCurrentPost}
-              userId={userInfo.userId}
               setSubmittingAction={setSubmittingAction}
             />
           )

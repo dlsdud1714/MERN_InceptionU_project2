@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useParams } from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
 
 const NoContent = (props) => {
+  const {businessId} = useParams();
+  // console.log("query", businessId)
   const { setContentMark, setCurrentPostId } = props;
+  const {loggedInUser} = useContext(AuthContext);
+  console.log(loggedInUser)
   return (
     <div className="nopost--container">
       <div className="label">No post</div>
-      <div
+      {loggedInUser&&(loggedInUser.businessId===businessId)&&(<div
         className="onlyOwner"
         style={{
           marginTop: 50,
@@ -27,7 +33,7 @@ const NoContent = (props) => {
         >
           New
         </button>
-      </div>
+      </div>)}
     </div>
   );
 };

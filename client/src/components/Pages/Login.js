@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext_derick";
 import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
 
 export default function Login() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const authContext = useContext(AuthContext);
+    const login = authContext.login;
     const navigate = useNavigate();
     
     const handleSubmit = async (e) => {
@@ -16,13 +19,15 @@ export default function Login() {
             password: password 
         };
         const data = JSON.stringify(user);
-        const response = await fetch("/auth/login123", {
+        const response = await fetch("/auth/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: data,
         });
+        const userData = await response.json();
+        login(userData)
     if (response.status === 200) {
        navigate("/");
     } else {
@@ -31,7 +36,7 @@ export default function Login() {
 }
 
   return (
-    <div>
+    <div style={{height:650}}>
       <Card>
         <Card.Body>
           <h2 className="mb-5"> Login </h2>

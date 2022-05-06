@@ -40,21 +40,28 @@ passport.deserializeUser(async function (id, done) {
       done(new Error("User not found or deleted"));
       return;
     }
-    done(null, user);
+    done(null, user)
   } catch (error) {
     done(error);
   }
 });
 
-router.post("/login123", passport.authenticate("local"), (req, res) => {
+router.get('/logout', (req,res) => {
+    req.logout()
+    res.send('Logged out');
+    console.log('Logged out',req.user)
+})
+
+router.post("/login", passport.authenticate("local"), (req, res) => {
   res.send(req.user);
-  console.log(`req.user is ${req.user}`)
+  console.log(`req.user is dd ${req.user}`)
 });
 
 
-router.get('/logout123', (req,res) => {
-    req.logout()
-    res.send('Logged out')
-    console.log('Logged out')
+
+router.get('/loggedInUser', (req, res)=>{
+  res.send(req.user)
 })
+
+
 module.exports = router;

@@ -18,6 +18,8 @@
 body{
     overflow-x: hidden;
 }
+
+
 ::-webkit-scrollbar {
     width: 8px;
   }
@@ -161,7 +163,14 @@ z-index: 999;
     display: block;
     /* width: 6rem; */
 }
-
+/* lists */
+.lists .title{
+    margin: 30px;
+    font-size: 20pt;
+    font-weight: 700;
+    display: flex;
+    gap: 10px;
+}
 /*footer*/
 .footer{
     

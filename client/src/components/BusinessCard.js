@@ -7,25 +7,26 @@ const BusinessCard = (props) => {
   console.log(filterData);
 
   return (
-    <div centre className="card">
+    <div  className="card">
       <Container className='p-4'>
         <Row xs={1} md={2} lg={4} className="g-4">
             {filterData &&
               filterData.map((data, key) => {
                 return (
-                  <Col>
-                  <Card>
+                  <Col key={`col--${key}`}>
+                  <Card key={`card--${key}`}>
                     <Card.Img
                       variant="top"
                       height={180}
                       src={data.imgUrl}
                       referrerpolicy="no-referrer"
+                      key={`img--${key}`}
                     />
-                    <Card.Body>
-                      <a href={`/business/${data._id}`} className="card-link">
+                    <Card.Body key={`CardBody--${key}`}>
+                      <a href={`/business/${data._id}`} className="card-link" key={`a--${key}`}>
                         {data.title}
                       </a>
-                      <Card.Text>{data.quadrant}</Card.Text>
+                      <Card.Text key={`cardText--${key}`}>{data.quadrant}</Card.Text>
                     </Card.Body>
                   </Card>
                     </Col>

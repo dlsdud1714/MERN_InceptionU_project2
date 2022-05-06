@@ -30,8 +30,8 @@ const Footer = () => {
       <div className="footer--container">
         <div className="Services">
           <Link to="/" className="Home">Home</Link>
-          <Link to="#" className="About">About</Link>
-          <Link to="#" className="allLists">Calgary local business lists</Link>
+          <Link to="/about" className="About">About</Link>
+          {/* <Link to="#" className="allLists">Calgary local business lists</Link> */}
         </div>
         <div className="teamInfo">
           <div className="teamName">Team Code-commandos</div>
